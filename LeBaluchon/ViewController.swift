@@ -41,30 +41,34 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        // FONTS
         weatherTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
-        //weatherTitle.font = UIFont(name: "PlaywriteNL-Regular", size: 28)
         nowTemperature.font = UIFont(name: "PlusJakartaSans-Bold", size: 64)
         nowDescriptionWeather.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 18)
         town.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
         todayDate.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
         nowHour.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
         
+        // TODAY WEATHER VIEW SHADOW COLOR
         nowWeatherView.layer.shadowColor = UIColor.black.cgColor
         nowWeatherView.layer.shadowOpacity = 0.25
         nowWeatherView.layer.shadowOffset = .init(width: 0, height: 4)
         nowWeatherView.layer.shadowRadius = 4
         
+        // WEEK WEATHER VIEW SHADOW COLOR
         weekWeatherView.layer.shadowColor = UIColor.black.cgColor
         weekWeatherView.layer.shadowOpacity = 0.25
         weekWeatherView.layer.shadowOffset = .init(width: 0, height: 4)
         weekWeatherView.layer.shadowRadius = 4
         
+        // FORESTACKVIEW SHADOWCOLOR
         forecastStackView.layer.shadowColor = UIColor.black.cgColor
         forecastStackView.layer.shadowOpacity = 0.25
         forecastStackView.layer.shadowOffset = .init(width: 0, height: 4)
         forecastStackView.layer.shadowRadius = 4
         
-        // SET THE COLOR FOR WEEKLYFORECAST
+        // SET THE COLOR FOR WEEKLY FORECAST
         weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
     }
 
