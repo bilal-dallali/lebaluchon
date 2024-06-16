@@ -19,6 +19,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var weekWeatherView: UIView!
     
+    @IBOutlet weak var forecastStackView: UIStackView!
+    @IBOutlet weak var forecastWeek: UIView!
+    @IBOutlet weak var forecastHour: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -39,6 +43,11 @@ class ViewController: UIViewController {
         weekWeatherView.layer.shadowOpacity = 0.25
         weekWeatherView.layer.shadowOffset = .init(width: 0, height: 4)
         weekWeatherView.layer.shadowRadius = 4
+        
+        forecastStackView.layer.shadowColor = UIColor.black.cgColor
+        forecastStackView.layer.shadowOpacity = 0.25
+        forecastStackView.layer.shadowOffset = .init(width: 0, height: 4)
+        forecastStackView.layer.shadowRadius = 4
     }
 
 
