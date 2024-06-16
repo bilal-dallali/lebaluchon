@@ -20,8 +20,23 @@ class ViewController: UIViewController {
     @IBOutlet weak var weekWeatherView: UIView!
     
     @IBOutlet weak var forecastStackView: UIStackView!
-    @IBOutlet weak var forecastWeek: UIView!
-    @IBOutlet weak var forecastHour: UIView!
+    
+    @IBOutlet weak var hourlyForecastOutlet: UIButton!
+    @IBOutlet weak var weeklyForecastOutlet: UIButton!
+    
+    // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
+    @IBAction func hourlyForecast(_ sender: UIButton) {
+        print("Hour")
+        weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
+        hourlyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
+    }
+    
+    // YOU CLICK ON WEEKLY FORECAST TO DISPLAY THE WEATHER OF THE WEEK
+    @IBAction func weeklyForecast(_ sender: Any) {
+        print("week")
+        hourlyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
+        weeklyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +63,9 @@ class ViewController: UIViewController {
         forecastStackView.layer.shadowOpacity = 0.25
         forecastStackView.layer.shadowOffset = .init(width: 0, height: 4)
         forecastStackView.layer.shadowRadius = 4
+        
+        // SET THE COLOR FOR WEEKLYFORECAST
+        weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
     }
 
 

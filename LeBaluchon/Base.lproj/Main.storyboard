@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -13,17 +13,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfe-wu-LzK" userLabel="MainView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="59" width="430" height="873"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9NF-Yp-LzU">
-                                        <rect key="frame" x="24" y="73.5" width="327" height="40"/>
+                                        <rect key="frame" x="24" y="73.666666666666657" width="382" height="40"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPX-Rs-fEy">
-                                                <rect key="frame" x="0.0" y="0.5" width="40" height="39"/>
+                                                <rect key="frame" x="0.0" y="1" width="40" height="38.666666666666671"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="Qh0-an-U38"/>
                                                     <constraint firstAttribute="width" constant="40" id="Uds-Id-1FP"/>
@@ -35,14 +35,14 @@
                                                 </state>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search your town" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="LhV-2E-eBY" userLabel="SearchBar">
-                                                <rect key="frame" x="50" y="0.0" width="227" height="40"/>
+                                                <rect key="frame" x="50" y="0.0" width="282" height="40"/>
                                                 <color key="backgroundColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="textColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ZL-wb-gnP">
-                                                <rect key="frame" x="287" y="0.5" width="40" height="38.5"/>
+                                                <rect key="frame" x="342" y="0.99999999999999645" width="40" height="38.333333333333329"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="7ug-tG-Ot5"/>
                                                     <constraint firstAttribute="width" constant="40" id="mvC-O3-UQS"/>
@@ -57,7 +57,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weather" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dph-ay-Ubg">
-                                        <rect key="frame" x="97.5" y="20" width="180" height="33.5"/>
+                                        <rect key="frame" x="125" y="19.999999999999996" width="180" height="33.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="180" id="dXP-nF-As3"/>
                                         </constraints>
@@ -66,40 +66,40 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EE5-3m-czU" userLabel="nowWeatherView">
-                                        <rect key="frame" x="24" y="133.5" width="327" height="224"/>
+                                        <rect key="frame" x="24" y="133.66666666666666" width="382" height="223.99999999999997"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Partly Cloud" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfQ-Dv-J0O">
-                                                <rect key="frame" x="24" y="96.5" width="105.5" height="21.5"/>
+                                                <rect key="frame" x="23.999999999999993" y="96.333333333333343" width="105.33333333333331" height="21.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                                 <color key="textColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paris" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKn-CF-1sT" userLabel="Town">
-                                                <rect key="frame" x="24" y="138" width="68" height="33.5"/>
+                                                <rect key="frame" x="24" y="138.00000000000003" width="68" height="33.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                                 <color key="textColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, 15 September" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkQ-aP-ixG" userLabel="DateToday">
-                                                <rect key="frame" x="24" y="171.5" width="142.5" height="19"/>
+                                                <rect key="frame" x="24" y="171.66666666666666" width="142.33333333333334" height="18.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                 <color key="textColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ayc-Fz-bgj" userLabel="Temperature">
-                                                <rect key="frame" x="24" y="20" width="144.5" height="76.5"/>
+                                                <rect key="frame" x="24" y="20" width="144.33333333333334" height="76.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="64"/>
                                                 <color key="textColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:59pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqC-1e-YfX" userLabel="nowHour">
-                                                <rect key="frame" x="174.5" y="171.5" width="63.5" height="19"/>
+                                                <rect key="frame" x="174.33333333333334" y="171.66666666666666" width="63.333333333333343" height="18.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                                 <color key="textColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="cloud.sun.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aVY-yC-4e6">
-                                                <rect key="frame" x="203" y="62" width="101" height="100"/>
+                                                <rect key="frame" x="258" y="62.333333333333314" width="100.66666666666669" height="99.666666666666686"/>
                                                 <color key="tintColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="I4n-bN-biF"/>
@@ -134,40 +134,47 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWi-m2-G5t">
-                                        <rect key="frame" x="24" y="377.5" width="327" height="260"/>
+                                        <rect key="frame" x="24" y="377.66666666666669" width="382" height="260.00000000000006"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYj-fY-YG9" userLabel="Forecast">
-                                                <rect key="frame" x="8" y="8" width="311" height="50"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="CYj-fY-YG9" userLabel="Forecast">
+                                                <rect key="frame" x="8" y="8" width="366" height="50"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="53g-45-pib" userLabel="HourlyForecast">
-                                                        <rect key="frame" x="0.0" y="0.0" width="179" height="50"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xI4-of-Afg" userLabel="HourlyForecast">
+                                                        <rect key="frame" x="0.0" y="0.0" width="179.66666666666666" height="50"/>
                                                         <color key="backgroundColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="g7Q-ge-kg6"/>
-                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Hourly Forecast">
+                                                            <color key="baseForegroundColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uJg-Kr-fXv" userLabel="WeeklyForecast">
-                                                        <rect key="frame" x="179" y="0.0" width="132" height="50"/>
+                                                        <connections>
+                                                            <action selector="hourlyForecast:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bfB-i1-zhb"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mze-ah-jET" userLabel="WeeklyForecast">
+                                                        <rect key="frame" x="179.66666666666663" y="0.0" width="186.33333333333337" height="50"/>
                                                         <color key="backgroundColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="rmZ-92-hRY"/>
-                                                        </constraints>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="Weekly Forecast">
+                                                            <color key="baseForegroundColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
-                                                    </view>
+                                                        <connections>
+                                                            <action selector="weeklyForecast:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fEg-2Q-zUp"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.10980392156862745" green="0.12941176470588234" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.10980392156862745" green="0.12941176470588234" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Lqm-58-pi2"/>
-                                                    <constraint firstItem="uJg-Kr-fXv" firstAttribute="leading" secondItem="CYj-fY-YG9" secondAttribute="leading" constant="179" id="jSU-CJ-U8x"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -218,9 +225,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="forecastHour" destination="53g-45-pib" id="tiU-e8-tuB"/>
                         <outlet property="forecastStackView" destination="CYj-fY-YG9" id="oyj-Za-PUs"/>
-                        <outlet property="forecastWeek" destination="uJg-Kr-fXv" id="Hd4-aX-ki0"/>
+                        <outlet property="hourlyForecastOutlet" destination="xI4-of-Afg" id="28P-dw-Fpa"/>
                         <outlet property="nowDescriptionWeather" destination="lfQ-Dv-J0O" id="nSd-8H-0Hk"/>
                         <outlet property="nowHour" destination="cqC-1e-YfX" id="1BF-TH-uXW"/>
                         <outlet property="nowTemperature" destination="ayc-Fz-bgj" id="Par-J3-5ju"/>
@@ -230,6 +236,7 @@
                         <outlet property="weatherIcon" destination="aVY-yC-4e6" id="jCm-tM-BWL"/>
                         <outlet property="weatherTitle" destination="Dph-ay-Ubg" id="KQ0-AC-zqX"/>
                         <outlet property="weekWeatherView" destination="cWi-m2-G5t" id="7th-gn-Stc"/>
+                        <outlet property="weeklyForecastOutlet" destination="Mze-ah-jET" id="aAU-yI-xyZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
