@@ -78,6 +78,21 @@ class ViewController: UIViewController {
         weatherPrevision1.layer.shadowOffset = .init(width: 0, height: 4)
         weatherPrevision1.layer.shadowRadius = 4
         
+        weatherPrevision2.layer.shadowColor = UIColor.black.cgColor
+        weatherPrevision2.layer.shadowOpacity = 0.25
+        weatherPrevision2.layer.shadowOffset = .init(width: 0, height: 4)
+        weatherPrevision2.layer.shadowRadius = 4
+        
+        weatherPrevision3.layer.shadowColor = UIColor.black.cgColor
+        weatherPrevision3.layer.shadowOpacity = 0.25
+        weatherPrevision3.layer.shadowOffset = .init(width: 0, height: 4)
+        weatherPrevision3.layer.shadowRadius = 4
+        
+        weatherPrevision4.layer.shadowColor = UIColor.black.cgColor
+        weatherPrevision4.layer.shadowOpacity = 0.25
+        weatherPrevision4.layer.shadowOffset = .init(width: 0, height: 4)
+        weatherPrevision4.layer.shadowRadius = 4
+        
         // SET THE COLOR FOR WEEKLY FORECAST
         weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
     }

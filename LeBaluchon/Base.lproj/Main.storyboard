@@ -392,6 +392,9 @@
                         <outlet property="town" destination="sKn-CF-1sT" id="aUV-xE-acd"/>
                         <outlet property="weatherIcon" destination="aVY-yC-4e6" id="jCm-tM-BWL"/>
                         <outlet property="weatherPrevision1" destination="5NM-Cd-nLQ" id="tJE-HW-wt6"/>
+                        <outlet property="weatherPrevision2" destination="hK8-02-TQp" id="MYq-oX-Epb"/>
+                        <outlet property="weatherPrevision3" destination="ujA-Tl-PR2" id="USv-0Y-j7a"/>
+                        <outlet property="weatherPrevision4" destination="A2G-Mn-CKf" id="Hee-KH-akg"/>
                         <outlet property="weatherTitle" destination="Dph-ay-Ubg" id="KQ0-AC-zqX"/>
                         <outlet property="weekWeatherView" destination="cWi-m2-G5t" id="7th-gn-Stc"/>
                         <outlet property="weeklyForecastOutlet" destination="Mze-ah-jET" id="aAU-yI-xyZ"/>
