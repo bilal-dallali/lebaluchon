@@ -24,6 +24,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var hourlyForecastOutlet: UIButton!
     @IBOutlet weak var weeklyForecastOutlet: UIButton!
     
+    @IBOutlet weak var weatherPrevision1: UIStackView!
+    @IBOutlet weak var weatherPrevision2: UIStackView!
+    @IBOutlet weak var weatherPrevision3: UIStackView!
+    @IBOutlet weak var weatherPrevision4: UIStackView!
+    
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
         print("Hour")
@@ -67,6 +72,11 @@ class ViewController: UIViewController {
         forecastStackView.layer.shadowOpacity = 0.25
         forecastStackView.layer.shadowOffset = .init(width: 0, height: 4)
         forecastStackView.layer.shadowRadius = 4
+        
+        weatherPrevision1.layer.shadowColor = UIColor.black.cgColor
+        weatherPrevision1.layer.shadowOpacity = 0.25
+        weatherPrevision1.layer.shadowOffset = .init(width: 0, height: 4)
+        weatherPrevision1.layer.shadowRadius = 4
         
         // SET THE COLOR FOR WEEKLY FORECAST
         weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
