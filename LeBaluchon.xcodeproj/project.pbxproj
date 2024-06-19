@@ -30,7 +30,6 @@
 		9AD4E6ED2C1CD07B00A7C400 /* PlusJakartaSans-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6DF2C1CD07B00A7C400 /* PlusJakartaSans-ExtraLightItalic.ttf */; };
 		9AD4E6EE2C1CD07B00A7C400 /* PlusJakartaSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6E02C1CD07B00A7C400 /* PlusJakartaSans-BoldItalic.ttf */; };
 		9AD4E6EF2C1CD07B00A7C400 /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6E12C1CD07B00A7C400 /* PlusJakartaSans-SemiBoldItalic.ttf */; };
-		9AEF35F62C23686200AAC585 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEF35F52C23686200AAC585 /* TabbarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +77,6 @@
 		9AD4E6DF2C1CD07B00A7C400 /* PlusJakartaSans-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PlusJakartaSans-ExtraLightItalic.ttf"; path = "../../../../../Downloads/Plus_Jakarta_Sans/static/PlusJakartaSans-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		9AD4E6E02C1CD07B00A7C400 /* PlusJakartaSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PlusJakartaSans-BoldItalic.ttf"; path = "../../../../../Downloads/Plus_Jakarta_Sans/static/PlusJakartaSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		9AD4E6E12C1CD07B00A7C400 /* PlusJakartaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "PlusJakartaSans-SemiBoldItalic.ttf"; path = "../../../../../Downloads/Plus_Jakarta_Sans/static/PlusJakartaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		9AEF35F52C23686200AAC585 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +131,6 @@
 				9AD4E6A32C1CB3B300A7C400 /* AppDelegate.swift */,
 				9AD4E6A52C1CB3B300A7C400 /* SceneDelegate.swift */,
 				9AD4E6A72C1CB3B300A7C400 /* ViewController.swift */,
-				9AEF35F52C23686200AAC585 /* TabbarController.swift */,
 				9AD4E6A92C1CB3B300A7C400 /* Main.storyboard */,
 				9AD4E6AC2C1CB3B400A7C400 /* Assets.xcassets */,
 				9AD4E6AE2C1CB3B400A7C400 /* LaunchScreen.storyboard */,
@@ -326,7 +323,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AD4E6A82C1CB3B300A7C400 /* ViewController.swift in Sources */,
-				9AEF35F62C23686200AAC585 /* TabbarController.swift in Sources */,
 				9AD4E6A42C1CB3B300A7C400 /* AppDelegate.swift in Sources */,
 				9AD4E6A62C1CB3B300A7C400 /* SceneDelegate.swift in Sources */,
 			);
