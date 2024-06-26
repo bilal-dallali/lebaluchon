@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class WeatherViewController: UIViewController {
     
     @IBOutlet weak var weatherTitle: UILabel!
     @IBOutlet weak var nowWeatherView: UIView!
@@ -28,8 +28,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var weatherPrevision2: UIStackView!
     @IBOutlet weak var weatherPrevision3: UIStackView!
     @IBOutlet weak var weatherPrevision4: UIStackView!
-    
-    @IBOutlet weak var currencyTitle: UILabel!
     
     
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
@@ -57,7 +55,6 @@ class ViewController: UIViewController {
         town.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
         todayDate.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
         nowHour.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
-        //currencyTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
         
         // TODAY WEATHER VIEW SHADOW COLOR
         nowWeatherView.layer.shadowColor = UIColor.black.cgColor
