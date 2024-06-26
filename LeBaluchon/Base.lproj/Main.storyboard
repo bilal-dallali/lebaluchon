@@ -389,15 +389,15 @@
         <!--Currencies-->
         <scene sceneID="XXu-f5-4Vo">
             <objects>
-                <viewController id="m0w-SN-5D8" customClass="CurrencyViewController" sceneMemberID="viewController">
+                <viewController id="m0w-SN-5D8" customClass="CurrencyViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ja4-rs-7h1">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Currency conversion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfp-SV-2dz">
-                                <rect key="frame" x="79" y="449" width="272" height="34"/>
+                                <rect key="frame" x="77" y="449" width="277" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -407,7 +407,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Currencies" id="XBn-2g-Rc0"/>
                     <connections>
-                        <outlet property="currencyTitle" destination="mfp-SV-2dz" id="lXP-bl-Nrq"/>
+                        <outlet property="currencyTitle" destination="mfp-SV-2dz" id="Pkn-Jp-3Ll"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oqZ-PU-oYT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
