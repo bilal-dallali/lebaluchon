@@ -362,7 +362,7 @@
                             <constraint firstItem="cWi-m2-G5t" firstAttribute="top" secondItem="EE5-3m-czU" secondAttribute="bottom" constant="20" id="i42-MV-mV6"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Weather" id="M2s-4J-vsy"/>
+                    <tabBarItem key="tabBarItem" title="Weather" image="cloud" selectedImage="cloud-selected" id="M2s-4J-vsy"/>
                     <connections>
                         <outlet property="forecastStackView" destination="CYj-fY-YG9" id="oyj-Za-PUs"/>
                         <outlet property="hourlyForecastOutlet" destination="xI4-of-Afg" id="28P-dw-Fpa"/>
@@ -394,9 +394,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Currency conversion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfp-SV-2dz">
-                                <rect key="frame" x="77" y="449" width="277" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency conversion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfp-SV-2dz">
+                                <rect key="frame" x="76.666666666666686" y="449" width="277" height="34"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -404,8 +403,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wRH-Io-J48"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mfp-SV-2dz" firstAttribute="centerX" secondItem="Ja4-rs-7h1" secondAttribute="centerX" id="8E1-3W-v0E"/>
+                            <constraint firstItem="mfp-SV-2dz" firstAttribute="centerY" secondItem="Ja4-rs-7h1" secondAttribute="centerY" id="XQ9-g2-ErC"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Currencies" id="XBn-2g-Rc0"/>
+                    <tabBarItem key="tabBarItem" title="Currencies" image="dollar" selectedImage="dollar-selected" id="XBn-2g-Rc0"/>
                     <connections>
                         <outlet property="currencyTitle" destination="mfp-SV-2dz" id="Pkn-Jp-3Ll"/>
                     </connections>
@@ -417,14 +420,16 @@
         <!--Tab Bar Controller-->
         <scene sceneID="mMi-nb-zgO">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="5bv-sf-7N5" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="5bv-sf-7N5" customClass="TabBarController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GUd-Oi-QBI">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.11764705882352941" green="0.14117647058823529" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.96016126871109009" green="0.9777187705039978" blue="0.028575301170349121" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
+                        <outlet property="tab" destination="GUd-Oi-QBI" id="Ty4-U6-0G2"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="BzT-td-czI"/>
                         <segue destination="m0w-SN-5D8" kind="relationship" relationship="viewControllers" id="xdm-fD-61A"/>
                     </connections>
@@ -435,8 +440,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cloud" width="38" height="38"/>
+        <image name="cloud-selected" width="38" height="38"/>
         <image name="cloud.fill" catalog="system" width="128" height="87"/>
         <image name="cloud.sun.fill" catalog="system" width="128" height="101"/>
+        <image name="dollar" width="38" height="38"/>
+        <image name="dollar-selected" width="38" height="38"/>
         <image name="location.circle.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <systemColor name="systemBackgroundColor">

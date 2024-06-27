@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A6E0CFF2C2E0560005D38B4 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E0CFE2C2E0560005D38B4 /* TabBarController.swift */; };
 		9A85E5F92C28296900F44A63 /* PlusJakartaSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A85E5EB2C28296900F44A63 /* PlusJakartaSans-Regular.ttf */; };
 		9A85E5FA2C28296900F44A63 /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A85E5EC2C28296900F44A63 /* PlusJakartaSans-SemiBoldItalic.ttf */; };
 		9A85E5FB2C28296900F44A63 /* PlusJakartaSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A85E5ED2C28296900F44A63 /* PlusJakartaSans-ExtraBold.ttf */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9A6E0CFE2C2E0560005D38B4 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		9A85E5EB2C28296900F44A63 /* PlusJakartaSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-Regular.ttf"; sourceTree = "<group>"; };
 		9A85E5EC2C28296900F44A63 /* PlusJakartaSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		9A85E5ED2C28296900F44A63 /* PlusJakartaSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PlusJakartaSans-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				9AD4E6A52C1CB3B300A7C400 /* SceneDelegate.swift */,
 				9AD4E6A72C1CB3B300A7C400 /* WeatherViewController.swift */,
 				9A99DE862C2CA19C001743EA /* CurrencyViewController.swift */,
+				9A6E0CFE2C2E0560005D38B4 /* TabBarController.swift */,
 				9AD4E6A92C1CB3B300A7C400 /* Main.storyboard */,
 				9AD4E6AC2C1CB3B400A7C400 /* Assets.xcassets */,
 				9AD4E6AE2C1CB3B400A7C400 /* LaunchScreen.storyboard */,
@@ -328,6 +331,7 @@
 				9AD4E6A82C1CB3B300A7C400 /* WeatherViewController.swift in Sources */,
 				9A99DE872C2CA19C001743EA /* CurrencyViewController.swift in Sources */,
 				9AD4E6A42C1CB3B300A7C400 /* AppDelegate.swift in Sources */,
+				9A6E0CFF2C2E0560005D38B4 /* TabBarController.swift in Sources */,
 				9AD4E6A62C1CB3B300A7C400 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

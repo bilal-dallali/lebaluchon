@@ -30,6 +30,9 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherPrevision4: UIStackView!
     
     
+    @IBOutlet var tabbarLabel: UITabBarItem!
+    
+    
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
         print("Hour")
@@ -96,8 +99,33 @@ class WeatherViewController: UIViewController {
         
         // SET THE COLOR FOR WEEKLY FORECAST
         weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
+        
+        // Configuration de la police et de la couleur des labels de la tab bar
+        if let tabBar = self.tabBarController?.tabBar {
+            let tabBarAppearance = UITabBarItem.appearance()
+            let attributesNormal = [
+                NSAttributedString.Key.font: UIFont(name: "PlusJakartaSans-SemiBold", size: 12)!,
+                NSAttributedString.Key.foregroundColor: UIColor.init(red: 206/255, green: 249/255, blue: 242/255, alpha: 1)
+            ]
+            let attributesSelected = [
+                NSAttributedString.Key.font: UIFont(name: "PlusJakartaSans-Bold", size: 14)!,
+                NSAttributedString.Key.foregroundColor: UIColor.init(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
+            ]
+            
+            tabBarAppearance.setTitleTextAttributes(attributesNormal, for: .normal)
+            tabBarAppearance.setTitleTextAttributes(attributesSelected, for: .selected)
+            
+            // Optionnel : customiser la couleur de fond de la tab bar
+            // tabBar.barTintColor = UIColor.purple
+            
+            // Customiser la couleur des icônes de la tab bar lorsqu'elles ne sont pas sélectionnées
+            tabBar.unselectedItemTintColor = UIColor.init(red: 206/255, green: 249/255, blue: 242/255, alpha: 1)
+            
+            // Optionnel : customiser la couleur des icônes de la tab bar
+            tabBar.tintColor = UIColor.init(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
+        }
     }
-
-
+    
+    
 }
 

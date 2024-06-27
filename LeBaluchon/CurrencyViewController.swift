@@ -14,12 +14,6 @@ class CurrencyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if currencyTitle != nil {
-            print("currencyTitle outlet is connected")
-        } else {
-            print("currencyTitle outlet is NOT connected")
-        }
-        
         currencyTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28) ?? UIFont.systemFont(ofSize: 28, weight: .bold)
     }
 }
