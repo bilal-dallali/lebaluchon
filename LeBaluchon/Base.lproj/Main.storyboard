@@ -394,40 +394,141 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convert Currency" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpx-Cc-ag2">
-                                <rect key="frame" x="97" y="59" width="236" height="34"/>
+                                <rect key="frame" x="97.333333333333329" y="59" width="235.66666666666669" height="33.666666666666657"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qn-Lb-IW9">
-                                <rect key="frame" x="24" y="113" width="382" height="240"/>
+                                <rect key="frame" x="24" y="112.66666666666669" width="382" height="240"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="american-flag" translatesAutoresizingMaskIntoConstraints="NO" id="JSD-bO-cHk">
-                                        <rect key="frame" x="43" y="18" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="JrE-v3-Ubl">
+                                        <rect key="frame" x="15" y="49.999999999999986" width="40" height="140"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="american-flag" translatesAutoresizingMaskIntoConstraints="NO" id="JSD-bO-cHk">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="FDr-LL-1sn"/>
+                                                    <constraint firstAttribute="width" constant="40" id="eGC-Ze-pby"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cg5-pp-Nmy">
+                                                <rect key="frame" x="0.0" y="60" width="40" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="33c-eN-6Ld"/>
+                                                    <constraint firstAttribute="width" constant="40" id="s6P-Qk-7TB"/>
+                                                </constraints>
+                                                <buttonConfiguration key="configuration" style="plain" image="reverse"/>
+                                                <connections>
+                                                    <action selector="reverseButton:" destination="m0w-SN-5D8" eventType="touchUpInside" id="ZU9-ej-ncE"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="french-flag" translatesAutoresizingMaskIntoConstraints="NO" id="Ra8-gk-RHk">
+                                                <rect key="frame" x="0.0" y="100.00000000000003" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="AR9-gl-guh"/>
+                                                    <constraint firstAttribute="width" constant="40" id="VsL-WX-Wn4"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="20"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="77" translatesAutoresizingMaskIntoConstraints="NO" id="3FG-uG-NUb">
+                                        <rect key="frame" x="63.000000000000007" y="59.999999999999993" width="78.666666666666686" height="120.33333333333331"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US dollar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fE-IM-Mz4">
+                                                <rect key="frame" x="0.0" y="0.0" width="78.666666666666671" height="21.666666666666668"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                                <color key="textColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Euro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1R-Ic-7i0">
+                                                <rect key="frame" x="0.0" y="98.666666666666657" width="78.666666666666671" height="21.666666666666671"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                                <color key="textColor" red="0.80784313730000001" green="0.97647058819999999" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="52" translatesAutoresizingMaskIntoConstraints="NO" id="Kas-30-Es8">
+                                        <rect key="frame" x="230" y="45.999999999999986" width="128" height="148"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oWe-y8-LOJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="128" height="48"/>
+                                                <color key="backgroundColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="128" id="aQK-3L-Cti"/>
+                                                    <constraint firstAttribute="height" constant="48" id="smE-U9-UNG"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.10980392156862745" green="0.12941176470588234" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Nfq-qK-Qe2">
+                                                <rect key="frame" x="0.0" y="100.00000000000003" width="128" height="48"/>
+                                                <color key="backgroundColor" red="0.36078431370000003" green="0.43921568630000002" blue="0.6705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="128" id="4Ag-te-9rN"/>
+                                                    <constraint firstAttribute="height" constant="48" id="CAp-3c-JGX"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.10980392160000001" green="0.12941176469999999" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kjB-fh-hOV">
+                                        <rect key="frame" x="108.66666666666666" y="216" width="164.99999999999997" height="48"/>
+                                        <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="jJz-31-5wd"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="165" id="urb-Ky-nAM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Convert">
+                                            <color key="titleColor" red="0.76295733451843262" green="0.98274701833724976" blue="0.94932323694229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="20"/>
+                                                <integer key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="french-flag" translatesAutoresizingMaskIntoConstraints="NO" id="Ra8-gk-RHk">
-                                        <rect key="frame" x="43" y="168" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="reverse" translatesAutoresizingMaskIntoConstraints="NO" id="dfS-qS-rAw">
-                                        <rect key="frame" x="40" y="93" width="40" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
+                                        <connections>
+                                            <action selector="convertButton:" destination="m0w-SN-5D8" eventType="touchUpInside" id="xit-C8-Ew7"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.11764705882352941" green="0.14117647058823529" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="3FG-uG-NUb" firstAttribute="centerY" secondItem="9Qn-Lb-IW9" secondAttribute="centerY" id="BBq-S5-HxF"/>
+                                    <constraint firstItem="kjB-fh-hOV" firstAttribute="top" secondItem="9Qn-Lb-IW9" secondAttribute="top" constant="216" id="Gc3-tj-bQy"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kas-30-Es8" secondAttribute="trailing" constant="24" id="Ryg-bD-ogz"/>
+                                    <constraint firstItem="3FG-uG-NUb" firstAttribute="leading" secondItem="JrE-v3-Ubl" secondAttribute="trailing" constant="8" id="S4Y-Xt-deH"/>
+                                    <constraint firstItem="Kas-30-Es8" firstAttribute="centerY" secondItem="9Qn-Lb-IW9" secondAttribute="centerY" id="Skm-Eo-dEN"/>
                                     <constraint firstAttribute="height" constant="240" id="bhX-aS-ZIH"/>
+                                    <constraint firstItem="kjB-fh-hOV" firstAttribute="centerX" secondItem="9Qn-Lb-IW9" secondAttribute="centerX" id="dHY-wu-h2H"/>
+                                    <constraint firstItem="JrE-v3-Ubl" firstAttribute="leading" secondItem="9Qn-Lb-IW9" secondAttribute="leading" constant="15" id="k66-5Z-T0K"/>
+                                    <constraint firstItem="JrE-v3-Ubl" firstAttribute="centerY" secondItem="9Qn-Lb-IW9" secondAttribute="centerY" id="sjI-6t-toe"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -450,11 +551,40 @@
                     <connections>
                         <outlet property="currencyMainView" destination="9Qn-Lb-IW9" id="Stg-Qk-c9y"/>
                         <outlet property="currencyTitle" destination="wpx-Cc-ag2" id="5tj-yi-nks"/>
+                        <outlet property="originCurrency" destination="2fE-IM-Mz4" id="4Ah-2b-GPj"/>
+                        <outlet property="originTextfield" destination="oWe-y8-LOJ" id="re7-f3-c9y"/>
+                        <outlet property="resultCurrency" destination="V1R-Ic-7i0" id="r6X-Rm-UKL"/>
+                        <outlet property="resultTextfield" destination="Nfq-qK-Qe2" id="3XL-os-vTp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oqZ-PU-oYT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="111.62790697674419" y="846.56652360515022"/>
+            <point key="canvasLocation" x="113" y="774"/>
+        </scene>
+        <!--Translation-->
+        <scene sceneID="e0X-9r-ITC">
+            <objects>
+                <viewController id="E5v-h7-fPT" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uDf-lT-iCN">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Translation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFi-fI-l4E">
+                                <rect key="frame" x="147" y="450" width="136" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="EAD-LC-PcQ"/>
+                        <color key="backgroundColor" red="0.10491568595170975" green="0.13017576932907104" blue="0.18905019760131836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Translation" image="translate" selectedImage="translate-selected" id="j6Z-xY-ynU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h10-CP-SVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1034" y="771"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mMi-nb-zgO">
@@ -471,6 +601,7 @@
                         <outlet property="tab" destination="GUd-Oi-QBI" id="Ty4-U6-0G2"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="BzT-td-czI"/>
                         <segue destination="m0w-SN-5D8" kind="relationship" relationship="viewControllers" id="xdm-fD-61A"/>
+                        <segue destination="E5v-h7-fPT" kind="relationship" relationship="viewControllers" id="0bg-1C-SV4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eq4-sv-dcV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -490,5 +621,7 @@
         <image name="location.circle.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="reverse" width="40" height="20"/>
+        <image name="translate" width="38" height="38"/>
+        <image name="translate-selected" width="38" height="38"/>
     </resources>
 </document>
