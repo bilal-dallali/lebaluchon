@@ -9,11 +9,11 @@ import UIKit
 
 class CurrencyViewController: UIViewController {
     
-    @IBOutlet weak var currencyTitle: UILabel!
+    @IBOutlet var currencyTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currencyTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28) ?? UIFont.systemFont(ofSize: 28, weight: .bold)
+        currencyTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
     }
 }

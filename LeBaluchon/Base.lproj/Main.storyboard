@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -394,28 +393,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency conversion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfp-SV-2dz">
-                                <rect key="frame" x="76.666666666666686" y="449" width="277" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convert Currency" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpx-Cc-ag2">
+                                <rect key="frame" x="97" y="59" width="236" height="34"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qn-Lb-IW9">
+                                <rect key="frame" x="24" y="113" width="382" height="240"/>
+                                <color key="backgroundColor" red="0.11764705882352941" green="0.14117647058823529" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="bhX-aS-ZIH"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wRH-Io-J48"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.10980392156862745" green="0.12941176470588234" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="mfp-SV-2dz" firstAttribute="centerX" secondItem="Ja4-rs-7h1" secondAttribute="centerX" id="8E1-3W-v0E"/>
-                            <constraint firstItem="mfp-SV-2dz" firstAttribute="centerY" secondItem="Ja4-rs-7h1" secondAttribute="centerY" id="XQ9-g2-ErC"/>
+                            <constraint firstItem="9Qn-Lb-IW9" firstAttribute="leading" secondItem="wRH-Io-J48" secondAttribute="leading" constant="24" id="IG7-YA-zXw"/>
+                            <constraint firstItem="wpx-Cc-ag2" firstAttribute="top" secondItem="wRH-Io-J48" secondAttribute="top" id="UqP-nj-Qx6"/>
+                            <constraint firstItem="wpx-Cc-ag2" firstAttribute="centerX" secondItem="Ja4-rs-7h1" secondAttribute="centerX" id="X9q-uQ-q5L"/>
+                            <constraint firstItem="wRH-Io-J48" firstAttribute="trailing" secondItem="9Qn-Lb-IW9" secondAttribute="trailing" constant="24" id="eSZ-67-eXt"/>
+                            <constraint firstItem="9Qn-Lb-IW9" firstAttribute="top" secondItem="wpx-Cc-ag2" secondAttribute="bottom" constant="20" id="tWG-pk-PG0"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Currencies" image="dollar" selectedImage="dollar-selected" id="XBn-2g-Rc0"/>
                     <connections>
-                        <outlet property="currencyTitle" destination="mfp-SV-2dz" id="Pkn-Jp-3Ll"/>
+                        <outlet property="currencyTitle" destination="wpx-Cc-ag2" id="5tj-yi-nks"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oqZ-PU-oYT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="113" y="847"/>
+            <point key="canvasLocation" x="111.62790697674419" y="846.56652360515022"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mMi-nb-zgO">
@@ -448,8 +462,5 @@
         <image name="dollar-selected" width="38" height="38"/>
         <image name="location.circle.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
