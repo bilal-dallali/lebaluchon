@@ -564,27 +564,104 @@
         <!--Translation-->
         <scene sceneID="e0X-9r-ITC">
             <objects>
-                <viewController id="E5v-h7-fPT" sceneMemberID="viewController">
+                <viewController id="E5v-h7-fPT" customClass="TranslateViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uDf-lT-iCN">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Translation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFi-fI-l4E">
-                                <rect key="frame" x="147" y="450" width="136" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Translate Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFi-fI-l4E">
+                                <rect key="frame" x="129" y="59" width="172" height="33"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cAe-G3-aLe">
+                                <rect key="frame" x="24" y="112" width="382" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xGg-Uf-rh0">
+                                        <rect key="frame" x="181" y="10" width="20" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="8k0-aP-ZZJ"/>
+                                            <constraint firstAttribute="width" constant="20" id="Gvb-7v-2eN"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="reverse-icon-white"/>
+                                        <connections>
+                                            <action selector="reverseButtonTranslate:" destination="E5v-h7-fPT" eventType="touchUpInside" id="2Z3-sX-FAc"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="French" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MoA-Rb-PFG">
+                                        <rect key="frame" x="76.666666666666671" y="20.666666666666657" width="49.333333333333329" height="19"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" red="0.76295733451843262" green="0.98274701833724976" blue="0.94932323694229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSU-m0-gNT">
+                                        <rect key="frame" x="256" y="20.666666666666657" width="52" height="19"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" red="0.76295733451843262" green="0.98274701833724976" blue="0.94932323694229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="xGg-Uf-rh0" firstAttribute="centerX" secondItem="cAe-G3-aLe" secondAttribute="centerX" id="9Yq-cs-jpo"/>
+                                    <constraint firstItem="nSU-m0-gNT" firstAttribute="centerY" secondItem="cAe-G3-aLe" secondAttribute="centerY" id="A65-AG-Qwp"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nSU-m0-gNT" secondAttribute="trailing" constant="10" id="RAI-uL-uoI"/>
+                                    <constraint firstAttribute="height" constant="60" id="S3E-By-oqZ"/>
+                                    <constraint firstItem="nSU-m0-gNT" firstAttribute="leading" secondItem="xGg-Uf-rh0" secondAttribute="trailing" constant="55" id="V4I-DE-YSU"/>
+                                    <constraint firstItem="xGg-Uf-rh0" firstAttribute="leading" secondItem="MoA-Rb-PFG" secondAttribute="trailing" constant="55" id="czZ-yv-rXK"/>
+                                    <constraint firstItem="MoA-Rb-PFG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cAe-G3-aLe" secondAttribute="leading" constant="10" id="j8O-g1-w8X"/>
+                                    <constraint firstItem="xGg-Uf-rh0" firstAttribute="centerY" secondItem="cAe-G3-aLe" secondAttribute="centerY" id="jtn-oa-wR2"/>
+                                    <constraint firstItem="MoA-Rb-PFG" firstAttribute="centerY" secondItem="cAe-G3-aLe" secondAttribute="centerY" id="zEZ-4m-3nN"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Translate from" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kbv-CS-s1s">
+                                <rect key="frame" x="24.000000000000007" y="197" width="101.66666666666669" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="French" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOB-lt-LEw">
+                                <rect key="frame" x="356.66666666666669" y="197" width="49.333333333333314" height="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EAD-LC-PcQ"/>
                         <color key="backgroundColor" red="0.10491568595170975" green="0.13017576932907104" blue="0.18905019760131836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="cAe-G3-aLe" firstAttribute="centerX" secondItem="uDf-lT-iCN" secondAttribute="centerX" id="71D-hV-fqA"/>
+                            <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="cAe-G3-aLe" secondAttribute="trailing" constant="24" id="Nm3-EY-lxx"/>
+                            <constraint firstItem="kbv-CS-s1s" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="b1U-z0-XYJ"/>
+                            <constraint firstItem="uFi-fI-l4E" firstAttribute="centerX" secondItem="uDf-lT-iCN" secondAttribute="centerX" id="cAr-Mg-N7t"/>
+                            <constraint firstItem="kbv-CS-s1s" firstAttribute="top" secondItem="cAe-G3-aLe" secondAttribute="bottom" constant="25" id="f6L-F4-8db"/>
+                            <constraint firstItem="GOB-lt-LEw" firstAttribute="top" secondItem="cAe-G3-aLe" secondAttribute="bottom" constant="25" id="ggY-WG-cJf"/>
+                            <constraint firstItem="cAe-G3-aLe" firstAttribute="top" secondItem="uFi-fI-l4E" secondAttribute="bottom" constant="20" id="iSw-mJ-8N6"/>
+                            <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="GOB-lt-LEw" secondAttribute="trailing" constant="24" id="jNE-vy-dAf"/>
+                            <constraint firstItem="cAe-G3-aLe" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="wBL-Kc-ZJW"/>
+                            <constraint firstItem="uFi-fI-l4E" firstAttribute="top" secondItem="EAD-LC-PcQ" secondAttribute="top" id="wdY-bi-A1d"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Translation" image="translate" selectedImage="translate-selected" id="j6Z-xY-ynU"/>
+                    <connections>
+                        <outlet property="originLanguage" destination="MoA-Rb-PFG" id="z2P-cp-V2E"/>
+                        <outlet property="resultLanguage" destination="nSU-m0-gNT" id="fjo-2V-KKc"/>
+                        <outlet property="selectLanguageView" destination="cAe-G3-aLe" id="bsa-a5-Bxa"/>
+                        <outlet property="translateFrom" destination="kbv-CS-s1s" id="506-Os-31H"/>
+                        <outlet property="translateFromLanguage" destination="GOB-lt-LEw" id="6uu-9g-b8f"/>
+                        <outlet property="translateTitle" destination="uFi-fI-l4E" id="bIe-7T-kUl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h10-CP-SVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1034" y="771"/>
+            <point key="canvasLocation" x="1033.953488372093" y="770.60085836909877"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mMi-nb-zgO">
@@ -621,6 +698,7 @@
         <image name="location.circle.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="reverse" width="40" height="20"/>
+        <image name="reverse-icon-white" width="20" height="40"/>
         <image name="translate" width="38" height="38"/>
         <image name="translate-selected" width="38" height="38"/>
     </resources>

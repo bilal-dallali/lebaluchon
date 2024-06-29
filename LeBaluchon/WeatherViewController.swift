@@ -29,10 +29,6 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherPrevision3: UIStackView!
     @IBOutlet weak var weatherPrevision4: UIStackView!
     
-    
-    @IBOutlet var tabbarLabel: UITabBarItem!
-    
-    
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
         print("Hour")

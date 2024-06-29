@@ -41,9 +41,5 @@ class CurrencyViewController: UIViewController {
         currencyMainView.layer.shadowOffset = .init(width: -4, height: -4)
         currencyMainView.layer.shadowRadius = 4
         
-//        var frame = originTextfield.frame
-//        frame.size.height = 50 // Définissez la hauteur souhaitée ici
-//        originTextfield.frame = frame
-        
     }
 }
