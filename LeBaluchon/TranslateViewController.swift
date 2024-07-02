@@ -17,6 +17,9 @@ class TranslateViewController: UIViewController {
     @IBOutlet var translateFrom: UILabel!
     @IBOutlet var translateFromLanguage: UILabel!
     
+    @IBOutlet var translateTo: UILabel!
+    @IBOutlet var translateToLanguage: UILabel!
+    
     @IBOutlet var inputLanguageTextview: UITextView!
     
     @IBOutlet var translateButtonOutlet: UIButton!
@@ -38,6 +41,8 @@ class TranslateViewController: UIViewController {
         resultLanguage.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         translateFrom.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         translateFromLanguage.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
+        translateTo.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
+        translateToLanguage.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         inputLanguageTextview.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         
         // SHADOWS

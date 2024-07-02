@@ -668,16 +668,50 @@
                                     <action selector="translateButton:" destination="E5v-h7-fPT" eventType="touchUpInside" id="rRB-39-cIW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Translate to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODV-Js-w9w">
+                                <rect key="frame" x="24" y="450" width="83" height="18.666666666666686"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" red="0.87058818340301514" green="0.87058836221694946" blue="0.87489384412765503" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YtT-OD-fvQ">
+                                <rect key="frame" x="354" y="450" width="52" height="18.666666666666686"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" red="0.87058818340301514" green="0.87058836221694946" blue="0.87489384412765503" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="How are you ?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="k8s-DB-ySH">
+                                <rect key="frame" x="24" y="484.66666666666674" width="382" height="120"/>
+                                <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Ujj-uh-zM0"/>
+                                </constraints>
+                                <color key="textColor" red="0.76295733451843262" green="0.98274701833724976" blue="0.94932323694229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EAD-LC-PcQ"/>
-                        <color key="backgroundColor" red="0.10491568595170975" green="0.13017576932907104" blue="0.18905019760131836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.10980392156862745" green="0.12941176470588234" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="cAe-G3-aLe" firstAttribute="centerX" secondItem="uDf-lT-iCN" secondAttribute="centerX" id="71D-hV-fqA"/>
+                            <constraint firstItem="ODV-Js-w9w" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="8I8-bG-KZN"/>
                             <constraint firstItem="p7x-a7-db2" firstAttribute="top" secondItem="UNM-py-Lbe" secondAttribute="bottom" constant="25" id="Exi-kG-StT"/>
                             <constraint firstItem="UNM-py-Lbe" firstAttribute="top" secondItem="kbv-CS-s1s" secondAttribute="bottom" constant="16" id="FIL-RE-itz"/>
+                            <constraint firstItem="k8s-DB-ySH" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="Kb6-Cy-6bP"/>
                             <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="cAe-G3-aLe" secondAttribute="trailing" constant="24" id="Nm3-EY-lxx"/>
+                            <constraint firstItem="k8s-DB-ySH" firstAttribute="top" secondItem="ODV-Js-w9w" secondAttribute="bottom" constant="16" id="OyO-Ju-RMK"/>
+                            <constraint firstItem="YtT-OD-fvQ" firstAttribute="top" secondItem="p7x-a7-db2" secondAttribute="bottom" constant="25" id="WSL-rg-f45"/>
                             <constraint firstItem="kbv-CS-s1s" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="b1U-z0-XYJ"/>
+                            <constraint firstItem="ODV-Js-w9w" firstAttribute="top" secondItem="p7x-a7-db2" secondAttribute="bottom" constant="25" id="bfC-rX-Jsx"/>
                             <constraint firstItem="uFi-fI-l4E" firstAttribute="centerX" secondItem="uDf-lT-iCN" secondAttribute="centerX" id="cAr-Mg-N7t"/>
+                            <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="k8s-DB-ySH" secondAttribute="trailing" constant="24" id="cHN-ou-WHS"/>
+                            <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="YtT-OD-fvQ" secondAttribute="trailing" constant="24" id="cb6-E8-CDJ"/>
                             <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="UNM-py-Lbe" secondAttribute="trailing" constant="24" id="djq-d6-jPI"/>
                             <constraint firstItem="kbv-CS-s1s" firstAttribute="top" secondItem="cAe-G3-aLe" secondAttribute="bottom" constant="25" id="f6L-F4-8db"/>
                             <constraint firstItem="GOB-lt-LEw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kbv-CS-s1s" secondAttribute="trailing" constant="8" symbolic="YES" id="fMh-HD-0uF"/>
@@ -686,6 +720,7 @@
                             <constraint firstItem="cAe-G3-aLe" firstAttribute="top" secondItem="uFi-fI-l4E" secondAttribute="bottom" constant="20" id="iSw-mJ-8N6"/>
                             <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="GOB-lt-LEw" secondAttribute="trailing" constant="24" id="jNE-vy-dAf"/>
                             <constraint firstItem="UNM-py-Lbe" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="qZ2-ea-M0v"/>
+                            <constraint firstItem="YtT-OD-fvQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ODV-Js-w9w" secondAttribute="trailing" constant="8" symbolic="YES" id="upv-xh-laC"/>
                             <constraint firstItem="cAe-G3-aLe" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="wBL-Kc-ZJW"/>
                             <constraint firstItem="uFi-fI-l4E" firstAttribute="top" secondItem="EAD-LC-PcQ" secondAttribute="top" id="wdY-bi-A1d"/>
                         </constraints>
@@ -700,6 +735,8 @@
                         <outlet property="translateFrom" destination="kbv-CS-s1s" id="506-Os-31H"/>
                         <outlet property="translateFromLanguage" destination="GOB-lt-LEw" id="6uu-9g-b8f"/>
                         <outlet property="translateTitle" destination="uFi-fI-l4E" id="bIe-7T-kUl"/>
+                        <outlet property="translateTo" destination="ODV-Js-w9w" id="TqT-Qm-SnS"/>
+                        <outlet property="translateToLanguage" destination="YtT-OD-fvQ" id="vrF-IA-D0H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h10-CP-SVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
