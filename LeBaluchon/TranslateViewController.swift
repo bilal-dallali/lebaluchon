@@ -17,10 +17,16 @@ class TranslateViewController: UIViewController {
     @IBOutlet var translateFrom: UILabel!
     @IBOutlet var translateFromLanguage: UILabel!
     
+    @IBOutlet var inputLanguageTextview: UITextView!
     
+    @IBOutlet var translateButtonOutlet: UIButton!
     
     @IBAction func reverseButtonTranslate(_ sender: Any) {
         print("Reverse languages translate")
+    }
+    
+    @IBAction func translateButton(_ sender: Any) {
+        print("Translate")
     }
     
     override func viewDidLoad() {
@@ -32,11 +38,17 @@ class TranslateViewController: UIViewController {
         resultLanguage.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         translateFrom.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         translateFromLanguage.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
+        inputLanguageTextview.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         
         // SHADOWS
         selectLanguageView.layer.shadowColor = UIColor.black.cgColor
         selectLanguageView.layer.shadowOpacity = 0.25
         selectLanguageView.layer.shadowOffset = .init(width: 0, height: 4)
         selectLanguageView.layer.shadowRadius = 4
+        
+//        inputLanguageTextview.layer.shadowColor = UIColor.systemGreen.cgColor
+//        inputLanguageTextview.layer.shadowOpacity = 0.25
+//        inputLanguageTextview.layer.shadowOffset = CGSize(width: 20, height: 20)
+//        inputLanguageTextview.layer.shadowRadius = 40
     }
 }

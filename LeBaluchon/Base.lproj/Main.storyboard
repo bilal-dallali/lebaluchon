@@ -496,37 +496,14 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kjB-fh-hOV">
-                                        <rect key="frame" x="108.66666666666666" y="216" width="164.99999999999997" height="48"/>
-                                        <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="jJz-31-5wd"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="165" id="urb-Ky-nAM"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Convert">
-                                            <color key="titleColor" red="0.76295733451843262" green="0.98274701833724976" blue="0.94932323694229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="convertButton:" destination="m0w-SN-5D8" eventType="touchUpInside" id="xit-C8-Ew7"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.11764705882352941" green="0.14117647058823529" blue="0.21176470588235294" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="3FG-uG-NUb" firstAttribute="centerY" secondItem="9Qn-Lb-IW9" secondAttribute="centerY" id="BBq-S5-HxF"/>
-                                    <constraint firstItem="kjB-fh-hOV" firstAttribute="top" secondItem="9Qn-Lb-IW9" secondAttribute="top" constant="216" id="Gc3-tj-bQy"/>
                                     <constraint firstAttribute="trailing" secondItem="Kas-30-Es8" secondAttribute="trailing" constant="24" id="Ryg-bD-ogz"/>
                                     <constraint firstItem="3FG-uG-NUb" firstAttribute="leading" secondItem="JrE-v3-Ubl" secondAttribute="trailing" constant="8" id="S4Y-Xt-deH"/>
                                     <constraint firstItem="Kas-30-Es8" firstAttribute="centerY" secondItem="9Qn-Lb-IW9" secondAttribute="centerY" id="Skm-Eo-dEN"/>
                                     <constraint firstAttribute="height" constant="240" id="bhX-aS-ZIH"/>
-                                    <constraint firstItem="kjB-fh-hOV" firstAttribute="centerX" secondItem="9Qn-Lb-IW9" secondAttribute="centerX" id="dHY-wu-h2H"/>
                                     <constraint firstItem="JrE-v3-Ubl" firstAttribute="leading" secondItem="9Qn-Lb-IW9" secondAttribute="leading" constant="15" id="k66-5Z-T0K"/>
                                     <constraint firstItem="JrE-v3-Ubl" firstAttribute="centerY" secondItem="9Qn-Lb-IW9" secondAttribute="centerY" id="sjI-6t-toe"/>
                                 </constraints>
@@ -536,6 +513,27 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nht-p7-69E">
+                                <rect key="frame" x="132.66666666666666" y="327.66666666666669" width="164.99999999999997" height="48"/>
+                                <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="U0k-0G-qq4"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="165" id="WPA-RG-Jyj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Convert">
+                                    <color key="titleColor" red="0.76295733451843262" green="0.98274701833724976" blue="0.94932323694229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="convertButton:" destination="m0w-SN-5D8" eventType="touchUpInside" id="fHQ-yN-Tnc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wRH-Io-J48"/>
                         <color key="backgroundColor" red="0.10980392156862745" green="0.12941176470588234" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
@@ -543,6 +541,8 @@
                             <constraint firstItem="9Qn-Lb-IW9" firstAttribute="leading" secondItem="wRH-Io-J48" secondAttribute="leading" constant="24" id="IG7-YA-zXw"/>
                             <constraint firstItem="wpx-Cc-ag2" firstAttribute="top" secondItem="wRH-Io-J48" secondAttribute="top" id="UqP-nj-Qx6"/>
                             <constraint firstItem="wpx-Cc-ag2" firstAttribute="centerX" secondItem="Ja4-rs-7h1" secondAttribute="centerX" id="X9q-uQ-q5L"/>
+                            <constraint firstItem="Nht-p7-69E" firstAttribute="centerX" secondItem="Ja4-rs-7h1" secondAttribute="centerX" id="XPW-Ee-prb"/>
+                            <constraint firstItem="Nht-p7-69E" firstAttribute="top" secondItem="wpx-Cc-ag2" secondAttribute="bottom" constant="235" id="ciU-jj-Twi"/>
                             <constraint firstItem="wRH-Io-J48" firstAttribute="trailing" secondItem="9Qn-Lb-IW9" secondAttribute="trailing" constant="24" id="eSZ-67-eXt"/>
                             <constraint firstItem="9Qn-Lb-IW9" firstAttribute="top" secondItem="wpx-Cc-ag2" secondAttribute="bottom" constant="20" id="tWG-pk-PG0"/>
                         </constraints>
@@ -559,7 +559,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oqZ-PU-oYT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="113" y="774"/>
+            <point key="canvasLocation" x="111.62790697674419" y="773.81974248927042"/>
         </scene>
         <!--Translation-->
         <scene sceneID="e0X-9r-ITC">
@@ -633,27 +633,70 @@
                                 <color key="textColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Comment vas-tu ?" translatesAutoresizingMaskIntoConstraints="NO" id="UNM-py-Lbe">
+                                <rect key="frame" x="24" y="232" width="382" height="120"/>
+                                <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="851-iI-bsX"/>
+                                </constraints>
+                                <color key="textColor" red="0.76295733451843262" green="0.98274701833724976" blue="0.94932323694229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7x-a7-db2">
+                                <rect key="frame" x="132.66666666666666" y="377" width="164.99999999999997" height="48"/>
+                                <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="165" id="EFQ-kZ-FRh"/>
+                                    <constraint firstAttribute="height" constant="48" id="iVM-Dt-Pdz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                <color key="tintColor" red="0.76295733451843262" green="0.98274701833724976" blue="0.94932323694229126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Translate"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="translateButton:" destination="E5v-h7-fPT" eventType="touchUpInside" id="rRB-39-cIW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EAD-LC-PcQ"/>
                         <color key="backgroundColor" red="0.10491568595170975" green="0.13017576932907104" blue="0.18905019760131836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="cAe-G3-aLe" firstAttribute="centerX" secondItem="uDf-lT-iCN" secondAttribute="centerX" id="71D-hV-fqA"/>
+                            <constraint firstItem="p7x-a7-db2" firstAttribute="top" secondItem="UNM-py-Lbe" secondAttribute="bottom" constant="25" id="Exi-kG-StT"/>
+                            <constraint firstItem="UNM-py-Lbe" firstAttribute="top" secondItem="kbv-CS-s1s" secondAttribute="bottom" constant="16" id="FIL-RE-itz"/>
                             <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="cAe-G3-aLe" secondAttribute="trailing" constant="24" id="Nm3-EY-lxx"/>
                             <constraint firstItem="kbv-CS-s1s" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="b1U-z0-XYJ"/>
                             <constraint firstItem="uFi-fI-l4E" firstAttribute="centerX" secondItem="uDf-lT-iCN" secondAttribute="centerX" id="cAr-Mg-N7t"/>
+                            <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="UNM-py-Lbe" secondAttribute="trailing" constant="24" id="djq-d6-jPI"/>
                             <constraint firstItem="kbv-CS-s1s" firstAttribute="top" secondItem="cAe-G3-aLe" secondAttribute="bottom" constant="25" id="f6L-F4-8db"/>
+                            <constraint firstItem="GOB-lt-LEw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kbv-CS-s1s" secondAttribute="trailing" constant="8" symbolic="YES" id="fMh-HD-0uF"/>
                             <constraint firstItem="GOB-lt-LEw" firstAttribute="top" secondItem="cAe-G3-aLe" secondAttribute="bottom" constant="25" id="ggY-WG-cJf"/>
+                            <constraint firstItem="p7x-a7-db2" firstAttribute="centerX" secondItem="uDf-lT-iCN" secondAttribute="centerX" id="hNq-k6-kfc"/>
                             <constraint firstItem="cAe-G3-aLe" firstAttribute="top" secondItem="uFi-fI-l4E" secondAttribute="bottom" constant="20" id="iSw-mJ-8N6"/>
                             <constraint firstItem="EAD-LC-PcQ" firstAttribute="trailing" secondItem="GOB-lt-LEw" secondAttribute="trailing" constant="24" id="jNE-vy-dAf"/>
+                            <constraint firstItem="UNM-py-Lbe" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="qZ2-ea-M0v"/>
                             <constraint firstItem="cAe-G3-aLe" firstAttribute="leading" secondItem="EAD-LC-PcQ" secondAttribute="leading" constant="24" id="wBL-Kc-ZJW"/>
                             <constraint firstItem="uFi-fI-l4E" firstAttribute="top" secondItem="EAD-LC-PcQ" secondAttribute="top" id="wdY-bi-A1d"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Translation" image="translate" selectedImage="translate-selected" id="j6Z-xY-ynU"/>
                     <connections>
+                        <outlet property="inputLanguageTextview" destination="UNM-py-Lbe" id="hUp-yf-xp5"/>
                         <outlet property="originLanguage" destination="MoA-Rb-PFG" id="z2P-cp-V2E"/>
                         <outlet property="resultLanguage" destination="nSU-m0-gNT" id="fjo-2V-KKc"/>
                         <outlet property="selectLanguageView" destination="cAe-G3-aLe" id="bsa-a5-Bxa"/>
+                        <outlet property="translateButtonOutlet" destination="p7x-a7-db2" id="Mi5-ff-tgo"/>
                         <outlet property="translateFrom" destination="kbv-CS-s1s" id="506-Os-31H"/>
                         <outlet property="translateFromLanguage" destination="GOB-lt-LEw" id="6uu-9g-b8f"/>
                         <outlet property="translateTitle" destination="uFi-fI-l4E" id="bIe-7T-kUl"/>
