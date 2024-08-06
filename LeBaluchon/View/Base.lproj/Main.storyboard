@@ -42,7 +42,7 @@
                                         <color key="backgroundColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="go"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ZL-wb-gnP">
                                         <rect key="frame" x="342" y="0.99999999999999645" width="40" height="38.333333333333329"/>
@@ -53,6 +53,9 @@
                                         <color key="tintColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="magnifyingglass" catalog="system"/>
+                                        <connections>
+                                            <action selector="searchTownPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cDU-eW-03r"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -365,12 +368,13 @@
                     <connections>
                         <outlet property="forecastStackView" destination="CYj-fY-YG9" id="oyj-Za-PUs"/>
                         <outlet property="hourlyForecastOutlet" destination="xI4-of-Afg" id="28P-dw-Fpa"/>
-                        <outlet property="nowDescriptionWeather" destination="lfQ-Dv-J0O" id="nSd-8H-0Hk"/>
-                        <outlet property="nowHour" destination="cqC-1e-YfX" id="1BF-TH-uXW"/>
-                        <outlet property="nowTemperature" destination="ayc-Fz-bgj" id="Par-J3-5ju"/>
+                        <outlet property="nowDateLabel" destination="kkQ-aP-ixG" id="MJw-tx-ACl"/>
+                        <outlet property="nowDescriptionLabel" destination="lfQ-Dv-J0O" id="z1n-uu-sTr"/>
+                        <outlet property="nowHourLabel" destination="cqC-1e-YfX" id="JB0-qb-kS1"/>
+                        <outlet property="nowTemperatureLabel" destination="ayc-Fz-bgj" id="LiC-sp-SjG"/>
                         <outlet property="nowWeatherView" destination="EE5-3m-czU" id="Q5w-OP-fTy"/>
-                        <outlet property="todayDate" destination="kkQ-aP-ixG" id="Ojh-h6-KTK"/>
-                        <outlet property="town" destination="sKn-CF-1sT" id="aUV-xE-acd"/>
+                        <outlet property="searchTownTextField" destination="LhV-2E-eBY" id="FO4-4e-7nv"/>
+                        <outlet property="townLabel" destination="sKn-CF-1sT" id="mUS-33-Unq"/>
                         <outlet property="weatherIcon" destination="aVY-yC-4e6" id="jCm-tM-BWL"/>
                         <outlet property="weatherPrevision1" destination="IVP-M4-apR" id="ToD-c8-ytu"/>
                         <outlet property="weatherPrevision2" destination="sbD-AJ-705" id="XWt-My-zIx"/>

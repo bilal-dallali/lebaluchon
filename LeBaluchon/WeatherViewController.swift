@@ -7,15 +7,20 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var weatherTitle: UILabel!
+    
+    @IBOutlet var searchTownTextField: UITextField!
+    
     @IBOutlet weak var nowWeatherView: UIView!
-    @IBOutlet weak var nowTemperature: UILabel!
-    @IBOutlet weak var nowDescriptionWeather: UILabel!
-    @IBOutlet weak var town: UILabel!
-    @IBOutlet weak var todayDate: UILabel!
-    @IBOutlet weak var nowHour: UILabel!
+    @IBOutlet weak var nowTemperatureLabel: UILabel!
+    @IBOutlet weak var nowDescriptionLabel: UILabel!
+    
+    @IBOutlet var townLabel: UILabel!
+    
+    @IBOutlet weak var nowDateLabel: UILabel!
+    @IBOutlet weak var nowHourLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var weekWeatherView: UIView!
     
@@ -28,6 +33,38 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherPrevision2: UIStackView!
     @IBOutlet weak var weatherPrevision3: UIStackView!
     @IBOutlet weak var weatherPrevision4: UIStackView!
+    
+    var weatherManager = WeatherManager()
+    
+    // SEARCH TOWN PRESSED
+    @IBAction func searchTownPressed(_ sender: UIButton) {
+        searchTownTextField.endEditing(true)
+        print(searchTownTextField.text!)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTownTextField.endEditing(true)
+        print(searchTownTextField.text!)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if searchTownTextField.text != "" {
+            return true
+        } else {
+            searchTownTextField.placeholder = "Better if you type something"
+            return false
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // USE SEARCHFIELD.TEXT TO GET THE WEATHER FOR THIS CITY
+        //print(searchTownTextField.text!)
+        if let town = searchTownTextField.text {
+            weatherManager.fetchWeather(townName: town)
+        }
+        searchTownTextField.text = ""
+    }
     
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
@@ -43,17 +80,21 @@ class WeatherViewController: UIViewController {
         weeklyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        searchTownTextField.delegate = self
+        
         // FONTS
         weatherTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
-        nowTemperature.font = UIFont(name: "PlusJakartaSans-Bold", size: 64)
-        nowDescriptionWeather.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 18)
-        town.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
-        todayDate.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
-        nowHour.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
+        nowTemperatureLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 64)
+        nowDescriptionLabel.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 18)
+        townLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
+        nowDateLabel.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
+        nowHourLabel.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
         
         // TODAY WEATHER VIEW SHADOW COLOR
         nowWeatherView.layer.shadowColor = UIColor.black.cgColor
