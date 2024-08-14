@@ -12,9 +12,9 @@ struct WeatherManager {
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=07bf46530bf88149822e9ff3fabf4bea&units=metric"
     
     func fetchWeather(townName: String) {
-        let urlString = "\(weatherURL)&q\(townName)"
+        let urlString = "\(weatherURL)&q=\(townName)"
         performRequest(urlString: urlString)
-        print(urlString)
+        //print("Request URL: \(urlString)")
     }
     
     func performRequest(urlString: String) {
@@ -25,7 +25,8 @@ struct WeatherManager {
             // GIVE THE SESSION A TASK
             let task = session.dataTask(with: url) { data, response, error in
                 if error != nil {
-                    print(error!)
+                    //print(error!)
+                    print("Error fetching data: \(error!.localizedDescription)")
                     return
                 }
                 
@@ -34,7 +35,6 @@ struct WeatherManager {
                 }
             }
             // START THE TASK
-            
             task.resume()
         }
     }
@@ -43,7 +43,8 @@ struct WeatherManager {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
-            print(decodedData.name)
+            print(decodedData.weather[0].description)
+            print(decodedData.main.temp)
         } catch {
             print(error)
         }

@@ -146,11 +146,11 @@
 		9AD4E6A22C1CB3B300A7C400 /* LeBaluchon */ = {
 			isa = PBXGroup;
 			children = (
+				9AD4E6A32C1CB3B300A7C400 /* AppDelegate.swift */,
+				9AD4E6A52C1CB3B300A7C400 /* SceneDelegate.swift */,
 				9AD57A2A2C3DA9F300D911C7 /* View */,
 				9A6AF3B92C3747EA00D3F8EF /* Model */,
 				9AD4E6D32C1CD06600A7C400 /* Fonts */,
-				9AD4E6A32C1CB3B300A7C400 /* AppDelegate.swift */,
-				9AD4E6A52C1CB3B300A7C400 /* SceneDelegate.swift */,
 				9AD4E6A72C1CB3B300A7C400 /* WeatherViewController.swift */,
 				9A99DE862C2CA19C001743EA /* CurrencyViewController.swift */,
 				9A6E0CFE2C2E0560005D38B4 /* TabBarController.swift */,
