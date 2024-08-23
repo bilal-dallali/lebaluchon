@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate {
+class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
     
     @IBOutlet weak var weatherTitle: UILabel!
     
@@ -86,6 +86,8 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        weatherManager.delegate = self
+        
         searchTownTextField.delegate = self
         
         // FONTS
@@ -161,6 +163,10 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
             // Optionnel : customiser la couleur des icônes de la tab bar
             tabBar.tintColor = UIColor.init(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
         }
+    }
+    
+    func didUpdateWeather(weather: WeatherModel) {
+        print("It is", weather.temperature)
     }
     
     
