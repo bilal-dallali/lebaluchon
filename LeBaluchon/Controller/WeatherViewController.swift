@@ -42,30 +42,6 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         print(searchTownTextField.text!)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchTownTextField.endEditing(true)
-        print(searchTownTextField.text!)
-        return true
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if searchTownTextField.text != "" {
-            return true
-        } else {
-            searchTownTextField.placeholder = "Better if you type something"
-            return false
-        }
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        // USE SEARCHFIELD.TEXT TO GET THE WEATHER FOR THIS CITY
-        //print(searchTownTextField.text!)
-        if let town = searchTownTextField.text {
-            weatherManager.fetchWeather(townName: town)
-        }
-        searchTownTextField.text = ""
-    }
-    
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
         print("Hour")
@@ -165,10 +141,43 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         }
     }
     
-    func didUpdateWeather(weather: WeatherModel) {
-        print("It is", weather.temperature)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTownTextField.endEditing(true)
+        print(searchTownTextField.text!)
+        return true
     }
     
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if searchTownTextField.text != "" {
+            return true
+        } else {
+            searchTownTextField.placeholder = "Better if you type something"
+            return false
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // USE SEARCHFIELD.TEXT TO GET THE WEATHER FOR THIS CITY
+        //print(searchTownTextField.text!)
+        if let town = searchTownTextField.text {
+            weatherManager.fetchWeather(townName: town)
+        }
+        searchTownTextField.text = ""
+    }
+    
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+        print("It is", weather.temperature)
+        DispatchQueue.main.async {
+            self.nowTemperatureLabel.text = "\(weather.temperatureString)°C"
+            //weather.temperatureString
+            self.weatherIcon.image = UIImage(systemName: weather.conditionName)
+            self.townLabel.text = "\(weather.townName)"
+        }
+    }
+    
+    func didFailWithError(error: any Error) {
+        print(error)
+    }
     
 }
 
