@@ -54,7 +54,7 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="magnifyingglass" catalog="system"/>
                                         <connections>
-                                            <action selector="searchTownPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cDU-eW-03r"/>
+                                            <action selector="searchTownPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wkd-03-jCM"/>
                                         </connections>
                                     </button>
                                 </subviews>

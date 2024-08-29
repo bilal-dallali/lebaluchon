@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
+class WeatherViewController: UIViewController {
     
     @IBOutlet weak var weatherTitle: UILabel!
     
@@ -35,12 +35,6 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
     @IBOutlet weak var weatherPrevision4: UIStackView!
     
     var weatherManager = WeatherManager()
-    
-    // SEARCH TOWN PRESSED
-    @IBAction func searchTownPressed(_ sender: UIButton) {
-        searchTownTextField.endEditing(true)
-        print(searchTownTextField.text!)
-    }
     
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
@@ -140,6 +134,16 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
             tabBar.tintColor = UIColor.init(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
         }
     }
+}
+
+//MARK: - UITextFieldDelegate
+
+extension WeatherViewController: UITextFieldDelegate {
+    // SEARCH TOWN PRESSED
+    @IBAction func searchTownPressed(_ sender: UIButton) {
+        searchTownTextField.endEditing(true)
+        print(searchTownTextField.text!)
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTownTextField.endEditing(true)
@@ -164,7 +168,9 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         }
         searchTownTextField.text = ""
     }
-    
+}
+
+extension WeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         print("It is", weather.temperature)
         DispatchQueue.main.async {
@@ -178,6 +184,4 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
     func didFailWithError(error: any Error) {
         print(error)
     }
-    
 }
-
