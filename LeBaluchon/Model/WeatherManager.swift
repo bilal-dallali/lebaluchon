@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 //07bf46530bf88149822e9ff3fabf4bea
 
 protocol WeatherManagerDelegate {
@@ -24,6 +25,11 @@ struct WeatherManager {
         //print("Request URL: \(urlString)")
     }
     
+    func fetchWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
+        let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
+        performRequest(with: urlString)
+    }
+    
     func performRequest(with urlString: String) {
         // CREATE A URL
         if let url = URL(string: urlString) {
@@ -36,7 +42,6 @@ struct WeatherManager {
                     self.delegate?.didFailWithError(error: error!)
                     return
                 }
-                
                 if let safeData = data {
                     if let weather = self.parseJSON(weatherData: safeData) {
                         self.delegate?.didUpdateWeather(self, weather: weather)

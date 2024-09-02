@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherViewController: UIViewController {
     
@@ -35,29 +36,18 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var weatherPrevision4: UIStackView!
     
     var weatherManager = WeatherManager()
-    
-    // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
-    @IBAction func hourlyForecast(_ sender: UIButton) {
-        print("Hour")
-        weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
-        hourlyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
-    }
-    
-    // YOU CLICK ON WEEKLY FORECAST TO DISPLAY THE WEATHER OF THE WEEK
-    @IBAction func weeklyForecast(_ sender: Any) {
-        print("week")
-        hourlyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
-        weeklyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
-    }
-    
-    
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        weatherManager.delegate = self
+        // Trigger a permission request
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
         
+        weatherManager.delegate = self
         searchTownTextField.delegate = self
         
         // FONTS
@@ -134,6 +124,24 @@ class WeatherViewController: UIViewController {
             tabBar.tintColor = UIColor.init(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
         }
     }
+    
+    // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
+    @IBAction func hourlyForecast(_ sender: UIButton) {
+        print("Hour")
+        weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
+        hourlyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
+    }
+    
+    // YOU CLICK ON WEEKLY FORECAST TO DISPLAY THE WEATHER OF THE WEEK
+    @IBAction func weeklyForecast(_ sender: Any) {
+        print("week")
+        hourlyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
+        weeklyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
+    }
+    
+    @IBAction func locationButton(_ sender: UIButton) {
+        locationManager.requestLocation()
+    }
 }
 
 //MARK: - UITextFieldDelegate
@@ -182,6 +190,24 @@ extension WeatherViewController: WeatherManagerDelegate {
     }
     
     func didFailWithError(error: any Error) {
+        print(error)
+    }
+}
+
+//MARK: - CLLocationManagerDelegate
+extension WeatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            locationManager.stopUpdatingLocation()
+            let lat = location.coordinate.latitude
+            let lon = location.coordinate.longitude
+            //print(lat)
+            //print(lon)
+            weatherManager.fetchWeather(latitude: lat, longitude: lon)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
 }
