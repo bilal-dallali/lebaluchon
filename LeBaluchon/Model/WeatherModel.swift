@@ -36,4 +36,25 @@ struct WeatherModel {
             return "cloud.sun.fill"
         }
     }
+    
+    var description: String {
+        switch conditionId {
+        case 200...232:
+            return "thunderstorm"
+        case 300...321:
+            return "light rain"
+        case 500...531:
+            return "heavy rain"
+        case 600...622:
+            return "snowfall"
+        case 701...781:
+            return "foggy"
+        case 800:
+            return "clear sky"
+        case 801...804:
+            return "thunderstorm"
+        default:
+            return "Partly cloudy"
+        }
+    }
 }

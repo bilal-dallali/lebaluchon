@@ -185,7 +185,8 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.nowTemperatureLabel.text = "\(weather.temperatureString)°C"
             //weather.temperatureString
             self.weatherIcon.image = UIImage(systemName: weather.conditionName)
-            self.townLabel.text = "\(weather.townName)"
+            self.nowDescriptionLabel.text = weather.description
+            self.townLabel.text = weather.townName
         }
     }
     
