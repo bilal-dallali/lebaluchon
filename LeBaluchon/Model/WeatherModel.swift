@@ -13,7 +13,7 @@ struct WeatherModel {
     let temperature: Double
     
     var temperatureString: String {
-        return String(format: "%.1f", temperature)
+        return String(format: "%.0f", temperature)
     }
     
     var conditionName: String {
@@ -31,7 +31,7 @@ struct WeatherModel {
         case 800:
             return "sun.max.fill"
         case 801...804:
-            return "cloud.bolt.fill"
+            return "cloud.sun.fill"
         default:
             return "cloud.sun.fill"
         }
@@ -40,19 +40,19 @@ struct WeatherModel {
     var description: String {
         switch conditionId {
         case 200...232:
-            return "thunderstorm"
+            return "Thunderstorm"
         case 300...321:
-            return "light rain"
+            return "Light rain"
         case 500...531:
-            return "heavy rain"
+            return "Heavy rain"
         case 600...622:
-            return "snowfall"
+            return "Snowfall"
         case 701...781:
-            return "foggy"
+            return "Foggy"
         case 800:
-            return "clear sky"
+            return "Clear sky"
         case 801...804:
-            return "thunderstorm"
+            return "Partly cloudy"
         default:
             return "Partly cloudy"
         }

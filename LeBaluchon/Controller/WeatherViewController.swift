@@ -42,6 +42,9 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        // DATE
+        nowDateLabel.text = getCustomDateString()
+        
         // Trigger a permission request
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -125,6 +128,14 @@ class WeatherViewController: UIViewController {
         }
     }
     
+    func getCustomDateString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, dd MMMM" // Format personnalisé pour la date seulement
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Pour garantir le formatage en anglais
+        let currentDate = Date()
+        return dateFormatter.string(from: currentDate)
+    }
+    
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
         print("Hour")
@@ -140,6 +151,7 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func locationButton(_ sender: UIButton) {
+        nowDateLabel.text = getCustomDateString()
         locationManager.requestLocation()
     }
 }
@@ -149,6 +161,7 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController: UITextFieldDelegate {
     // SEARCH TOWN PRESSED
     @IBAction func searchTownPressed(_ sender: UIButton) {
+        nowDateLabel.text = getCustomDateString()
         searchTownTextField.endEditing(true)
         print(searchTownTextField.text!)
     }
