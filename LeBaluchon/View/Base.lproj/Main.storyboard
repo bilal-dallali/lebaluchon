@@ -92,12 +92,6 @@
                                         <color key="textColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqC-1e-YfX" userLabel="nowHour">
-                                        <rect key="frame" x="174.33333333333334" y="181.00000000000003" width="0.0" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="cloud.sun.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aVY-yC-4e6">
                                         <rect key="frame" x="258" y="62.333333333333314" width="100.66666666666669" height="99.666666666666686"/>
                                         <color key="tintColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
@@ -114,16 +108,14 @@
                                     <constraint firstAttribute="trailing" secondItem="aVY-yC-4e6" secondAttribute="trailing" constant="24" id="BXW-zJ-ovu"/>
                                     <constraint firstItem="aVY-yC-4e6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sKn-CF-1sT" secondAttribute="trailing" constant="8" symbolic="YES" id="EHl-mj-bYW"/>
                                     <constraint firstItem="aVY-yC-4e6" firstAttribute="centerY" secondItem="EE5-3m-czU" secondAttribute="centerY" id="EQ4-cc-uXm"/>
-                                    <constraint firstItem="cqC-1e-YfX" firstAttribute="leading" secondItem="kkQ-aP-ixG" secondAttribute="trailing" constant="8" symbolic="YES" id="Moy-DB-sIj"/>
                                     <constraint firstItem="lfQ-Dv-J0O" firstAttribute="top" secondItem="ayc-Fz-bgj" secondAttribute="bottom" id="WF0-Hz-5pi"/>
                                     <constraint firstItem="sKn-CF-1sT" firstAttribute="top" secondItem="lfQ-Dv-J0O" secondAttribute="bottom" constant="20" id="XHE-6R-lrZ"/>
                                     <constraint firstItem="ayc-Fz-bgj" firstAttribute="top" secondItem="EE5-3m-czU" secondAttribute="top" constant="20" symbolic="YES" id="Yyd-g0-5hc"/>
                                     <constraint firstItem="sKn-CF-1sT" firstAttribute="leading" secondItem="EE5-3m-czU" secondAttribute="leading" constant="24" id="ZNN-Ak-h9J"/>
-                                    <constraint firstItem="cqC-1e-YfX" firstAttribute="centerY" secondItem="kkQ-aP-ixG" secondAttribute="centerY" id="bJI-5q-iDG"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kkQ-aP-ixG" secondAttribute="trailing" constant="100" id="bHY-pc-oK3"/>
                                     <constraint firstItem="aVY-yC-4e6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ayc-Fz-bgj" secondAttribute="trailing" constant="8" symbolic="YES" id="nIt-sw-5Zx"/>
                                     <constraint firstItem="aVY-yC-4e6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lfQ-Dv-J0O" secondAttribute="trailing" constant="8" symbolic="YES" id="r9E-A7-MEJ"/>
                                     <constraint firstItem="kkQ-aP-ixG" firstAttribute="top" secondItem="sKn-CF-1sT" secondAttribute="bottom" id="rP4-SY-ehd"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cqC-1e-YfX" secondAttribute="trailing" constant="20" symbolic="YES" id="tH6-wH-j04"/>
                                     <constraint firstAttribute="height" constant="224" id="uO1-Oq-ejd"/>
                                     <constraint firstItem="lfQ-Dv-J0O" firstAttribute="leading" secondItem="EE5-3m-czU" secondAttribute="leading" constant="24" id="zZd-IH-4Hw"/>
                                 </constraints>
