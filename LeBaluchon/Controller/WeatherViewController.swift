@@ -145,14 +145,29 @@ class WeatherViewController: UIViewController {
 //        return dateFormatter.string(from: currentTime)
 //    }
     
+//    func getLocalDateTimeString(for timezoneOffset: Int) -> String {
+//        let currentDate = Date()
+//        let localTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset))  // Ajoute le décalage du fuseau horaire
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "E, dd MMM yyyy hh:mm a"  // Format pour la date et l'heure
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        return dateFormatter.string(from: localTime)
+//    }
+    
     func getLocalDateTimeString(for timezoneOffset: Int) -> String {
         let currentDate = Date()
-        let localTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset))  // Ajoute le décalage du fuseau horaire
+
+        // Ajout manuel de la gestion de l'heure d'été : soustraction de 2 heures (7200 secondes)
+        let summerTimeAdjustment: TimeInterval = -2 * 3600  // -2 heures en secondes
+        let adjustedTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset) + summerTimeAdjustment)
+
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, dd MMM yyyy hh:mm a"  // Format pour la date et l'heure
+        dateFormatter.dateFormat = "E, dd MMM yyyy hh:mm a"  // Format 12 heures avec AM/PM
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        return dateFormatter.string(from: localTime)
+
+        return dateFormatter.string(from: adjustedTime)
     }
+
     
 //    func getLocalTimeString(for timezoneOffset: Int) -> String {
 //        let currentDate = Date()
