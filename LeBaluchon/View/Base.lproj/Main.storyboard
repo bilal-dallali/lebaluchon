@@ -80,8 +80,11 @@
                                         <color key="textColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, 15 September" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkQ-aP-ixG" userLabel="DateToday">
-                                        <rect key="frame" x="24" y="171.66666666666666" width="142.33333333333334" height="18.666666666666657"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, 15 September 05:59PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkQ-aP-ixG" userLabel="DateToday">
+                                        <rect key="frame" x="24" y="171.66666666666666" width="215" height="18.666666666666657"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="215" id="laF-2V-5py"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -112,7 +115,7 @@
                                     <constraint firstItem="sKn-CF-1sT" firstAttribute="top" secondItem="lfQ-Dv-J0O" secondAttribute="bottom" constant="20" id="XHE-6R-lrZ"/>
                                     <constraint firstItem="ayc-Fz-bgj" firstAttribute="top" secondItem="EE5-3m-czU" secondAttribute="top" constant="20" symbolic="YES" id="Yyd-g0-5hc"/>
                                     <constraint firstItem="sKn-CF-1sT" firstAttribute="leading" secondItem="EE5-3m-czU" secondAttribute="leading" constant="24" id="ZNN-Ak-h9J"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kkQ-aP-ixG" secondAttribute="trailing" constant="100" id="bHY-pc-oK3"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kkQ-aP-ixG" secondAttribute="trailing" constant="75" id="bHY-pc-oK3"/>
                                     <constraint firstItem="aVY-yC-4e6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ayc-Fz-bgj" secondAttribute="trailing" constant="8" symbolic="YES" id="nIt-sw-5Zx"/>
                                     <constraint firstItem="aVY-yC-4e6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lfQ-Dv-J0O" secondAttribute="trailing" constant="8" symbolic="YES" id="r9E-A7-MEJ"/>
                                     <constraint firstItem="kkQ-aP-ixG" firstAttribute="top" secondItem="sKn-CF-1sT" secondAttribute="bottom" id="rP4-SY-ehd"/>
