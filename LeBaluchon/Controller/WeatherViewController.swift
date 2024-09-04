@@ -42,8 +42,9 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // DATE
-        nowDateLabel.text = getCustomDateString()
+        // DATE AND HOUR
+        //nowDateLabel.text = getCustomDateString()
+        //nowHourLabel.text = getCurrentTimeString()
         
         // Trigger a permission request
         locationManager.delegate = self
@@ -128,13 +129,39 @@ class WeatherViewController: UIViewController {
         }
     }
     
-    func getCustomDateString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, dd MMMM" // Format personnalisé pour la date seulement
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Pour garantir le formatage en anglais
+//    func getCustomDateString() -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "E, dd MMMM" // Format personnalisé pour la date seulement
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Pour garantir le formatage en anglais
+//        let currentDate = Date()
+//        return dateFormatter.string(from: currentDate)
+//    }
+//    
+//    func getCurrentTimeString() -> String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "hh:mm a" // Format en 12 heures avec AM/PM
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Pour garantir le formatage correct
+//        let currentTime = Date()
+//        return dateFormatter.string(from: currentTime)
+//    }
+    
+    func getLocalDateTimeString(for timezoneOffset: Int) -> String {
         let currentDate = Date()
-        return dateFormatter.string(from: currentDate)
+        let localTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset))  // Ajoute le décalage du fuseau horaire
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, dd MMM yyyy hh:mm a"  // Format pour la date et l'heure
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        return dateFormatter.string(from: localTime)
     }
+    
+//    func getLocalTimeString(for timezoneOffset: Int) -> String {
+//        let currentDate = Date()
+//        let localTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset))  // Ajoute le décalage du fuseau horaire
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "hh:mm a"  // Format pour l'heure uniquement
+//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+//        return dateFormatter.string(from: localTime)
+//    }
     
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
@@ -151,7 +178,8 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func locationButton(_ sender: UIButton) {
-        nowDateLabel.text = getCustomDateString()
+        //nowDateLabel.text = getCustomDateString()
+        //nowHourLabel.text = getCurrentTimeString()
         locationManager.requestLocation()
     }
 }
@@ -161,7 +189,7 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController: UITextFieldDelegate {
     // SEARCH TOWN PRESSED
     @IBAction func searchTownPressed(_ sender: UIButton) {
-        nowDateLabel.text = getCustomDateString()
+        //nowDateLabel.text = getCustomDateString()
         searchTownTextField.endEditing(true)
         print(searchTownTextField.text!)
     }
@@ -200,6 +228,7 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.weatherIcon.image = UIImage(systemName: weather.conditionName)
             self.nowDescriptionLabel.text = weather.description
             self.townLabel.text = weather.townName
+            self.nowDateLabel.text = self.getLocalDateTimeString(for: weather.timezone)
         }
     }
     
