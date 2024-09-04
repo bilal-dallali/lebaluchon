@@ -92,8 +92,8 @@
                                         <color key="textColor" red="0.36078431372549019" green="0.4392156862745098" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:59pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqC-1e-YfX" userLabel="nowHour">
-                                        <rect key="frame" x="174.33333333333334" y="171.66666666666666" width="63.333333333333343" height="18.666666666666657"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqC-1e-YfX" userLabel="nowHour">
+                                        <rect key="frame" x="174.33333333333334" y="181.00000000000003" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                         <color key="textColor" red="0.87058823529411766" green="0.87058823529411766" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -373,7 +373,6 @@
                         <outlet property="hourlyForecastOutlet" destination="xI4-of-Afg" id="28P-dw-Fpa"/>
                         <outlet property="nowDateLabel" destination="kkQ-aP-ixG" id="MJw-tx-ACl"/>
                         <outlet property="nowDescriptionLabel" destination="lfQ-Dv-J0O" id="z1n-uu-sTr"/>
-                        <outlet property="nowHourLabel" destination="cqC-1e-YfX" id="JB0-qb-kS1"/>
                         <outlet property="nowTemperatureLabel" destination="ayc-Fz-bgj" id="LiC-sp-SjG"/>
                         <outlet property="nowWeatherView" destination="EE5-3m-czU" id="Q5w-OP-fTy"/>
                         <outlet property="searchTownTextField" destination="LhV-2E-eBY" id="FO4-4e-7nv"/>

@@ -21,7 +21,6 @@ class WeatherViewController: UIViewController {
     @IBOutlet var townLabel: UILabel!
     
     @IBOutlet weak var nowDateLabel: UILabel!
-    @IBOutlet weak var nowHourLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var weekWeatherView: UIView!
     
@@ -42,10 +41,6 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // DATE AND HOUR
-        //nowDateLabel.text = getCustomDateString()
-        //nowHourLabel.text = getCurrentTimeString()
-        
         // Trigger a permission request
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -60,7 +55,6 @@ class WeatherViewController: UIViewController {
         nowDescriptionLabel.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 18)
         townLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
         nowDateLabel.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
-        nowHourLabel.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
         
         // TODAY WEATHER VIEW SHADOW COLOR
         nowWeatherView.layer.shadowColor = UIColor.black.cgColor
@@ -129,22 +123,6 @@ class WeatherViewController: UIViewController {
         }
     }
     
-//    func getCustomDateString() -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "E, dd MMMM" // Format personnalisé pour la date seulement
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Pour garantir le formatage en anglais
-//        let currentDate = Date()
-//        return dateFormatter.string(from: currentDate)
-//    }
-//    
-//    func getCurrentTimeString() -> String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "hh:mm a" // Format en 12 heures avec AM/PM
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Pour garantir le formatage correct
-//        let currentTime = Date()
-//        return dateFormatter.string(from: currentTime)
-//    }
-    
 //    func getLocalDateTimeString(for timezoneOffset: Int) -> String {
 //        let currentDate = Date()
 //        let localTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset))  // Ajoute le décalage du fuseau horaire
@@ -162,21 +140,11 @@ class WeatherViewController: UIViewController {
         let adjustedTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset) + summerTimeAdjustment)
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, dd MMM yyyy hh:mm a"  // Format 12 heures avec AM/PM
+        dateFormatter.dateFormat = "E, dd MMM yyyy   hh:mm a"  // Format 12 heures avec AM/PM
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         return dateFormatter.string(from: adjustedTime)
     }
-
-    
-//    func getLocalTimeString(for timezoneOffset: Int) -> String {
-//        let currentDate = Date()
-//        let localTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset))  // Ajoute le décalage du fuseau horaire
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "hh:mm a"  // Format pour l'heure uniquement
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        return dateFormatter.string(from: localTime)
-//    }
     
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
@@ -193,8 +161,6 @@ class WeatherViewController: UIViewController {
     }
     
     @IBAction func locationButton(_ sender: UIButton) {
-        //nowDateLabel.text = getCustomDateString()
-        //nowHourLabel.text = getCurrentTimeString()
         locationManager.requestLocation()
     }
 }
@@ -204,7 +170,6 @@ class WeatherViewController: UIViewController {
 extension WeatherViewController: UITextFieldDelegate {
     // SEARCH TOWN PRESSED
     @IBAction func searchTownPressed(_ sender: UIButton) {
-        //nowDateLabel.text = getCustomDateString()
         searchTownTextField.endEditing(true)
         print(searchTownTextField.text!)
     }
@@ -239,7 +204,6 @@ extension WeatherViewController: WeatherManagerDelegate {
         print("It is", weather.temperature)
         DispatchQueue.main.async {
             self.nowTemperatureLabel.text = "\(weather.temperatureString)°C"
-            //weather.temperatureString
             self.weatherIcon.image = UIImage(systemName: weather.conditionName)
             self.nowDescriptionLabel.text = weather.description
             self.townLabel.text = weather.townName
