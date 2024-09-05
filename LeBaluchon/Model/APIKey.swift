@@ -7,4 +7,5 @@
 
 import Foundation
 
-let apiKey = "07bf46530bf88149822e9ff3fabf4bea"
+let weatherApiKey = ""
+let currencyApiKey = ""
