@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct CurrencyModel {
+    let exchangeRate: Double
+    
+    var exchangeRateString: String {
+        return String(format: "%.2f", exchangeRate)
+    }
+}
