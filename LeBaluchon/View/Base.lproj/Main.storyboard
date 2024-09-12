@@ -406,7 +406,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="JrE-v3-Ubl">
                                         <rect key="frame" x="15" y="49.999999999999986" width="40" height="140"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="american-flag" translatesAutoresizingMaskIntoConstraints="NO" id="JSD-bO-cHk">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="french-flag" translatesAutoresizingMaskIntoConstraints="NO" id="JSD-bO-cHk">
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="FDr-LL-1sn"/>
@@ -429,7 +429,7 @@
                                                     <action selector="reverseButton:" destination="m0w-SN-5D8" eventType="touchUpInside" id="ZU9-ej-ncE"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="french-flag" translatesAutoresizingMaskIntoConstraints="NO" id="Ra8-gk-RHk">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="american-flag" translatesAutoresizingMaskIntoConstraints="NO" id="Ra8-gk-RHk">
                                                 <rect key="frame" x="0.0" y="100.00000000000003" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="AR9-gl-guh"/>
@@ -444,16 +444,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="77" translatesAutoresizingMaskIntoConstraints="NO" id="3FG-uG-NUb">
-                                        <rect key="frame" x="63.000000000000007" y="59.999999999999993" width="78.666666666666686" height="120.33333333333331"/>
+                                        <rect key="frame" x="63" y="59.999999999999993" width="81" height="120.33333333333331"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US dollar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fE-IM-Mz4">
-                                                <rect key="frame" x="0.0" y="0.0" width="78.666666666666671" height="21.666666666666668"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Euro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fE-IM-Mz4">
+                                                <rect key="frame" x="0.0" y="0.0" width="81" height="21.666666666666668"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                                 <color key="textColor" red="0.80784313725490198" green="0.97647058823529409" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Euro" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1R-Ic-7i0">
-                                                <rect key="frame" x="0.0" y="98.666666666666657" width="78.666666666666671" height="21.666666666666671"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US Dollar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V1R-Ic-7i0">
+                                                <rect key="frame" x="0.0" y="98.666666666666657" width="81" height="21.666666666666671"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                                 <color key="textColor" red="0.80784313730000001" green="0.97647058819999999" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>

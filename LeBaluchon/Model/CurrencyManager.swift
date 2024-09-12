@@ -13,7 +13,8 @@ protocol CurrencyManagerDelegate {
 }
 
 struct CurrencyManager {
-    let currencyURL = "https://data.fixer.io/api/latest?access_key=\(currencyApiKey)&base=USD&symbols=EUR"
+    let currencyURL = "https://data.fixer.io/api/latest?access_key=\(currencyApiKey)&base=EUR&symbols=USD"
+
     
     var delegate: CurrencyManagerDelegate?
     
