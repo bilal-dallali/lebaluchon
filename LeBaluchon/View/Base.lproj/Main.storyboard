@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5bv-sf-7N5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5bv-sf-7N5">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
                                 <rect key="frame" x="24" y="112.66666666666669" width="345" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPX-Rs-fEy">
-                                        <rect key="frame" x="0.0" y="1" width="40" height="38.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="0.66666666666666785" width="40" height="38.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Qh0-an-U38"/>
                                             <constraint firstAttribute="width" constant="40" id="Uds-Id-1FP"/>
@@ -756,7 +756,6 @@
                         <color key="tintColor" red="0.96016126871109009" green="0.9777187705039978" blue="0.028575301170349121" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <outlet property="tab" destination="GUd-Oi-QBI" id="Ty4-U6-0G2"/>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="BzT-td-czI"/>
                         <segue destination="m0w-SN-5D8" kind="relationship" relationship="viewControllers" id="xdm-fD-61A"/>
                         <segue destination="E5v-h7-fPT" kind="relationship" relationship="viewControllers" id="0bg-1C-SV4"/>
