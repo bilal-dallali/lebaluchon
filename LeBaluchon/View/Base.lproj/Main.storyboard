@@ -731,6 +731,7 @@
                         <outlet property="inputLanguageTextview" destination="UNM-py-Lbe" id="hUp-yf-xp5"/>
                         <outlet property="originLanguage" destination="MoA-Rb-PFG" id="z2P-cp-V2E"/>
                         <outlet property="resultLanguage" destination="nSU-m0-gNT" id="fjo-2V-KKc"/>
+                        <outlet property="resultTextview" destination="k8s-DB-ySH" id="st2-Ty-cWM"/>
                         <outlet property="selectLanguageView" destination="cAe-G3-aLe" id="bsa-a5-Bxa"/>
                         <outlet property="translateButtonOutlet" destination="p7x-a7-db2" id="Mi5-ff-tgo"/>
                         <outlet property="translateFrom" destination="kbv-CS-s1s" id="506-Os-31H"/>
