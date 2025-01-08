@@ -8,29 +8,99 @@
 import XCTest
 @testable import LeBaluchon
 
-final class LeBaluchonTests: XCTestCase {
+final class WeatherManagerTests: XCTestCase {
 
+    var weatherManager: WeatherManager!
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        weatherManager = WeatherManager()
     }
-
+    
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        weatherManager = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testParseJSONValidData() throws {
+        let json = """
+            {
+                "weather": [{"id": 800, "description": "clear sky"}],
+                "main": {"temp": 22.5},
+                "name": "Paris",
+                "timezone": 3600
+            }
+            """.data(using: .utf8)!
+        
+        let weather = weatherManager.parseJSON(weatherData: json)
+        
+        XCTAssertNotNil(weather, "WeatherModel should not be nil for valid JSON")
+        XCTAssertEqual(weather?.conditionId, 800, "Condition ID does not match")
+        XCTAssertEqual(weather?.townName, "Paris", "Town name does not match")
+        XCTAssertEqual(weather?.temperature, 22.5, "Temperature does not match")
+        XCTAssertEqual(weather?.timezone, 3600, "Timezone does not match")
     }
+}
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+final class CurrencyManagerTests: XCTestCase {
+    var currencyManager: CurrencyManager!
+    
+    override func setUpWithError() throws {
+        currencyManager = CurrencyManager()
+    }
+    
+    override func tearDownWithError() throws {
+        currencyManager = nil
+    }
+    
+    func testParseJSONValidData() throws {
+        let json = """
+    {
+        "rates": {
+            "USD": 1.12
         }
     }
+    """.data(using: .utf8)!
+        
+        let currency = currencyManager.parseJSON(currencyData: json)
+        
+        XCTAssertNotNil(currency, "CurrencyModel should not be nil for valid JSON")
+        XCTAssertEqual(currency?.exchangeRate, 1.12, "Exchange rate does not match")
+    }
+    
+    func testFetchCurrencySuccess() throws {
+        // Arrange
+        let expectation = self.expectation(description: "Currency fetched successfully")
+        let mockDelegate = MockCurrencyManagerDelegate(expectation: expectation)
+        currencyManager.delegate = mockDelegate
+        
+        // Act
+        currencyManager.performRequest(with: "\(currencyURL)")
+        
+        // Wait for the expectation
+        waitForExpectations(timeout: 5)
+        
+        // Assert
+        XCTAssertTrue(mockDelegate.didUpdateCalled, "Delegate method didUpdateCurrency should be called")
+        XCTAssertNil(mockDelegate.error, "No error should occur during success")
+    }
+}
 
+// Mock Delegate
+class MockCurrencyManagerDelegate: CurrencyManagerDelegate {
+    var didUpdateCalled = false
+    var error: Error?
+    var expectation: XCTestExpectation
+    
+    init(expectation: XCTestExpectation) {
+        self.expectation = expectation
+    }
+    
+    func didUpdateCurrency(_ currencyManager: CurrencyManager, currency: CurrencyModel) {
+        didUpdateCalled = true
+        expectation.fulfill()
+    }
+    
+    func didFailWithError(error: Error) {
+        self.error = error
+        expectation.fulfill()
+    }
 }

@@ -31,10 +31,22 @@ struct CurrencyManager {
                     self.delegate?.didFailWithError(error: error!)
                     return
                 }
-                if let safeData = data {
-                    if let currency = self.parseJSON(currencyData: safeData) {
-                        self.delegate?.didUpdateCurrency(self, currency: currency)
-                    }
+//                if let safeData = data {
+//                    if let currency = self.parseJSON(currencyData: safeData) {
+//                        self.delegate?.didUpdateCurrency(self, currency: currency)
+//                    }
+//                }
+                guard let safeData = data else {
+                    let error = NSError(domain: "NoDataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data returned from server."])
+                    self.delegate?.didFailWithError(error: error)
+                    return
+                }
+                
+                if let currency = self.parseJSON(currencyData: safeData) {
+                    self.delegate?.didUpdateCurrency(self, currency: currency)
+                } else {
+                    let error = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON."])
+                    self.delegate?.didFailWithError(error: error)
                 }
             }
             task.resume()
@@ -45,7 +57,12 @@ struct CurrencyManager {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
-            let rate = decodedData.rates["USD"]!
+            //let rate = decodedData.rates["USD"]!
+            guard let rate = decodedData.rates["USD"] else {
+                let error = NSError(domain: "MissingRateError", code: 0, userInfo: [NSLocalizedDescriptionKey: "USD rate is missing in JSON."])
+                delegate?.didFailWithError(error: error)
+                return nil
+            }
             let currency = CurrencyModel(exchangeRate: rate)
             return currency
         } catch {
