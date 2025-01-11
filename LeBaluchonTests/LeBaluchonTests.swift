@@ -40,6 +40,7 @@ final class WeatherManagerTests: XCTestCase {
     }
 }
 
+
 final class CurrencyManagerTests: XCTestCase {
     var currencyManager: CurrencyManager!
     
@@ -73,7 +74,7 @@ final class CurrencyManagerTests: XCTestCase {
         currencyManager.delegate = mockDelegate
         
         // Act
-        currencyManager.performRequest(with: "\(currencyURL)")
+        currencyManager.performRequest(with: "\(currencyManager.currencyURL)")
         
         // Wait for the expectation
         waitForExpectations(timeout: 5)
