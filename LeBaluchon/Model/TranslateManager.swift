@@ -44,6 +44,14 @@ struct TranslateManager {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(TranslateData.self, from: translateData)
+            
+            // Ensure the translations array is not empty
+            guard let firstTranslation = decodedData.data.translations.first else {
+                let error = NSError(domain: "TranslationError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No translations found in JSON."])
+                delegate?.didFailWithError(error: error)
+                return nil
+            }
+            
             let translatedText = decodedData.data.translations[0].translatedText
             let translation = TranslateModel(translatedText: translatedText)
             return translation
