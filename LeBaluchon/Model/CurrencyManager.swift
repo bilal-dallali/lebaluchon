@@ -14,7 +14,6 @@ protocol CurrencyManagerDelegate {
 
 struct CurrencyManager {
     let currencyURL = "https://data.fixer.io/api/latest?access_key=\(currencyApiKey)&base=EUR&symbols=USD"
-
     
     var delegate: CurrencyManagerDelegate?
     
@@ -29,6 +28,7 @@ struct CurrencyManager {
             let task = session.dataTask(with: url) { (data, response, error) in
                 if error != nil {
                     self.delegate?.didFailWithError(error: error!)
+                    print("error with currency")
                     return
                 }
 //                if let safeData = data {
@@ -39,6 +39,7 @@ struct CurrencyManager {
                 guard let safeData = data else {
                     let error = NSError(domain: "NoDataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data returned from server."])
                     self.delegate?.didFailWithError(error: error)
+                    print("error 2")
                     return
                 }
                 
@@ -47,6 +48,8 @@ struct CurrencyManager {
                 } else {
                     let error = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON."])
                     self.delegate?.didFailWithError(error: error)
+                    print("error 3")
+                    // Alert
                 }
             }
             task.resume()

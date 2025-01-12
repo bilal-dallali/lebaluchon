@@ -57,6 +57,8 @@ struct TranslateManager {
             return translation
         } catch {
             delegate?.didFailWithError(error: error)
+            print("error translation: \(error.localizedDescription)")
+            // Alert
             return nil
         }
     }

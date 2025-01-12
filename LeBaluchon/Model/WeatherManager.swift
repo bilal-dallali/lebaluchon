@@ -66,6 +66,8 @@ struct WeatherManager {
             return weather
         } catch {
             print("Error decoding JSON: \(error)")
+            // Alert
+            
             delegate?.didFailWithError(error: error)
             return nil
         }
