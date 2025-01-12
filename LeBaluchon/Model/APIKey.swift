@@ -7,6 +7,6 @@
 
 import Foundation
 
-let weatherApiKey = "07bf46530bf88149822e9ff3fabf4bea"
-let currencyApiKey = "9be330ea6bc0ad1ca77da0c4747cd295"
-let googleTranslateApiKey = "AIzaSyDJa4nQJiKLgeGS4oeVf6gdJg9YH4hP6fg"
+let weatherApiKey = ""
+let currencyApiKey = ""
+let googleTranslateApiKey = ""
