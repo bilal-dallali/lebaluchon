@@ -39,8 +39,3 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(weather?.timezone, 3600, "Timezone does not match")
     }
 }
-
-
-final class CurrencyManagerTests: XCTestCase {
-   
-}
