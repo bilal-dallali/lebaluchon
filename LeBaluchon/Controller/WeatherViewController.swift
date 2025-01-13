@@ -213,6 +213,11 @@ extension WeatherViewController: WeatherManagerDelegate {
     
     func didFailWithError(error: any Error) {
         print(error)
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 

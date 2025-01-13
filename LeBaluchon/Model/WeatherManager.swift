@@ -31,25 +31,28 @@ struct WeatherManager {
     
     func performRequest(with urlString: String) {
         // CREATE A URL
-        if let url = URL(string: urlString) {
-            // CREATE A URLSESSION
-            let session = URLSession(configuration: .default)
-            // GIVE THE SESSION A TASK
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    //print(error!)
-                    self.delegate?.didFailWithError(error: error!)
-                    return
-                }
-                if let safeData = data {
-                    if let weather = self.parseJSON(weatherData: safeData) {
-                        self.delegate?.didUpdateWeather(self, weather: weather)
-                    }
+        guard let url = URL(string: urlString) else {
+            let error = NSError(domain: "InvalidURLError", code: 0, userInfo: [NSLocalizedDescriptionKey: "The URL provided is invalid."])
+            self.delegate?.didFailWithError(error: error)
+            return
+        }
+        
+        // CREATE A URLSESSION
+        let session = URLSession(configuration: .default)
+        // GIVE THE SESSION A TASK
+        let task = session.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                self.delegate?.didFailWithError(error: error!)
+                return
+            }
+            if let safeData = data {
+                if let weather = self.parseJSON(weatherData: safeData) {
+                    self.delegate?.didUpdateWeather(self, weather: weather)
                 }
             }
-            // START THE TASK
-            task.resume()
         }
+        // START THE TASK
+        task.resume()
     }
     
     func parseJSON(weatherData: Data) -> WeatherModel? {
