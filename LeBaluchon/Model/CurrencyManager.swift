@@ -31,11 +31,6 @@ struct CurrencyManager {
                     print("error with currency")
                     return
                 }
-//                if let safeData = data {
-//                    if let currency = self.parseJSON(currencyData: safeData) {
-//                        self.delegate?.didUpdateCurrency(self, currency: currency)
-//                    }
-//                }
                 guard let safeData = data else {
                     let error = NSError(domain: "NoDataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data returned from server."])
                     self.delegate?.didFailWithError(error: error)
