@@ -79,4 +79,8 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func detectLanguage(for text: String) {
+        translateManager.fetchDetectedLanguage(text: text)
+    }
 }

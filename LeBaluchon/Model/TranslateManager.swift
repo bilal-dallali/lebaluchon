@@ -62,4 +62,39 @@ struct TranslateManager {
             return nil
         }
     }
+    
+    func fetchDetectedLanguage(text: String) {
+        let urlString = "\(translateURL)&q=\(text)&target=fr"
+        performLanguageDetectionRequest(with: urlString)
+    }
+    
+    private func performLanguageDetectionRequest(with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    self.delegate?.didFailWithError(error: error!)
+                    return
+                }
+                if let safeData = data {
+                    if let detectedLanguage = self.parseLanguageDetectionJSON(data: safeData) {
+                        print("Detected Language: \(detectedLanguage)")
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    private func parseLanguageDetectionJSON(data: Data) -> String? {
+        let decoder = JSONDecoder()
+        do {
+            let decodedData = try decoder.decode(LanguageDetectionData.self, from: data)
+            let detectedLanguage = decodedData.data.detections.first?.language
+            return detectedLanguage
+        } catch {
+            self.delegate?.didFailWithError(error: error)
+            return nil
+        }
+    }
 }
