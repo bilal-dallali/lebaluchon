@@ -59,7 +59,6 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     }
     
     @IBAction func translateButton(_ sender: Any) {
-        print("Translate")
         if let textToTranslate = inputLanguageTextview.text {
             translateManager.fetchTranslation(text: textToTranslate, sourceLang: "fr", targetLang: "en")
         }
@@ -68,7 +67,6 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         DispatchQueue.main.async {
             self.resultTextview.text = translation.translatedText
-            print("Test90")
         }
     }
     

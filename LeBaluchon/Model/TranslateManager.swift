@@ -78,6 +78,7 @@ struct TranslateManager {
     }
     
     private func performLanguageDetectionRequest(with urlString: String) {
+        print("Test900")
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in

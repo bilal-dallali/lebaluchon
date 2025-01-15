@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5bv-sf-7N5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5bv-sf-7N5">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -731,14 +731,14 @@
                         <outlet property="inputLanguageTextview" destination="UNM-py-Lbe" id="hUp-yf-xp5"/>
                         <outlet property="originLanguage" destination="MoA-Rb-PFG" id="z2P-cp-V2E"/>
                         <outlet property="resultLanguage" destination="nSU-m0-gNT" id="fjo-2V-KKc"/>
-                        <outlet property="resultTextview" destination="k8s-DB-ySH" id="st2-Ty-cWM"/>
+                        <outlet property="resultTextview" destination="k8s-DB-ySH" id="ix8-3d-vPO"/>
                         <outlet property="selectLanguageView" destination="cAe-G3-aLe" id="bsa-a5-Bxa"/>
                         <outlet property="translateButtonOutlet" destination="p7x-a7-db2" id="Mi5-ff-tgo"/>
                         <outlet property="translateFrom" destination="kbv-CS-s1s" id="506-Os-31H"/>
-                        <outlet property="translateFromLanguage" destination="GOB-lt-LEw" id="6uu-9g-b8f"/>
+                        <outlet property="translateFromLanguage" destination="GOB-lt-LEw" id="3WG-ce-67m"/>
                         <outlet property="translateTitle" destination="uFi-fI-l4E" id="bIe-7T-kUl"/>
                         <outlet property="translateTo" destination="ODV-Js-w9w" id="TqT-Qm-SnS"/>
-                        <outlet property="translateToLanguage" destination="YtT-OD-fvQ" id="vrF-IA-D0H"/>
+                        <outlet property="translateToLanguage" destination="YtT-OD-fvQ" id="YBv-aO-BPm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h10-CP-SVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
