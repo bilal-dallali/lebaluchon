@@ -68,6 +68,7 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         DispatchQueue.main.async {
             self.resultTextview.text = translation.translatedText
+            print("Test90")
         }
     }
     

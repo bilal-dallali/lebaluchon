@@ -12,6 +12,15 @@ protocol TranslateManagerDelegate {
     func didFailWithError(error: Error)
 }
 
+
+extension String {
+    func htmlDecoded() -> String {
+        guard let data = self.data(using: .utf8) else { return self }
+        let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        return attributedString?.string ?? self
+    }
+}
+
 struct TranslateManager {
     let translateURL = "https://translation.googleapis.com/language/translate/v2?key=\(googleTranslateApiKey)"
     
@@ -52,7 +61,7 @@ struct TranslateManager {
                 return nil
             }
             
-            let translatedText = decodedData.data.translations[0].translatedText
+            let translatedText = decodedData.data.translations[0].translatedText.htmlDecoded()
             let translation = TranslateModel(translatedText: translatedText)
             return translation
         } catch {
