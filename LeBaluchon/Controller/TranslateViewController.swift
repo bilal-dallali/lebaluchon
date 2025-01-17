@@ -60,7 +60,7 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     
     @IBAction func translateButton(_ sender: Any) {
         if let textToTranslate = inputLanguageTextview.text {
-            translateManager.fetchTranslation(text: textToTranslate, sourceLang: "fr", targetLang: "en")
+            translateManager.fetchTranslation(text: textToTranslate, targetLang: "en")
         }
     }
     

@@ -26,8 +26,9 @@ struct TranslateManager {
     
     var delegate: TranslateManagerDelegate?
     
-    func fetchTranslation(text: String, sourceLang: String, targetLang: String) {
-        let urlString = "\(translateURL)&q=\(text)&source=\(sourceLang)&target=\(targetLang)"
+    func fetchTranslation(text: String, targetLang: String) {
+        let urlString = "\(translateURL)&q=\(text)&target=\(targetLang)"
+        //\(translateURL)&q=\(text)&target=fr
         print("fetch translation")
         performRequest(with: urlString)
     }
@@ -71,8 +72,9 @@ struct TranslateManager {
             // Récupérez le texte traduit
             let translatedText = firstTranslation.translatedText.htmlDecoded()
             
-            // Récupérez la langue détectée (optionnelle)
+            // Récupérez la langue détectée (si disponible)
             let detectedSourceLanguage = firstTranslation.detectedSourceLanguage
+            print("Detected Source Language: \(detectedSourceLanguage ?? "Unknown")")
             
             // Créez et retournez le modèle
             let translation = TranslateModel(translatedText: translatedText, detectedSourceLanguage: detectedSourceLanguage)
