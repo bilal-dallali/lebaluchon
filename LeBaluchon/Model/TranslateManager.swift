@@ -28,6 +28,7 @@ struct TranslateManager {
     
     func fetchTranslation(text: String, sourceLang: String, targetLang: String) {
         let urlString = "\(translateURL)&q=\(text)&source=\(sourceLang)&target=\(targetLang)"
+        print("fetch translation")
         performRequest(with: urlString)
     }
     
@@ -40,8 +41,14 @@ struct TranslateManager {
                     return
                 }
                 if let safeData = data {
+                    if let jsonString = String(data: safeData, encoding: .utf8) {
+                        print("JSON Response: \(jsonString)")
+                    }
                     if let translation = self.parseJSON(translateData: safeData) {
                         self.delegate?.didUpdateTranslation(self, translation: translation)
+                    }
+                    if let detectedLanguage = self.parseJSON(translateData: safeData) {
+                        print("Detected Language: \(detectedLanguage)")
                     }
                 }
             }
@@ -54,20 +61,25 @@ struct TranslateManager {
         do {
             let decodedData = try decoder.decode(TranslateData.self, from: translateData)
             
-            // Ensure the translations array is not empty
+            // Vérifiez que les traductions existent
             guard let firstTranslation = decodedData.data.translations.first else {
                 let error = NSError(domain: "TranslationError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No translations found in JSON."])
                 delegate?.didFailWithError(error: error)
                 return nil
             }
             
-            let translatedText = decodedData.data.translations[0].translatedText.htmlDecoded()
-            let translation = TranslateModel(translatedText: translatedText)
+            // Récupérez le texte traduit
+            let translatedText = firstTranslation.translatedText.htmlDecoded()
+            
+            // Récupérez la langue détectée (optionnelle)
+            let detectedSourceLanguage = firstTranslation.detectedSourceLanguage
+            
+            // Créez et retournez le modèle
+            let translation = TranslateModel(translatedText: translatedText, detectedSourceLanguage: detectedSourceLanguage)
             return translation
         } catch {
             delegate?.didFailWithError(error: error)
-            print("error translation: \(error.localizedDescription)")
-            // Alert
+            print("Error parsing JSON: \(error.localizedDescription)")
             return nil
         }
     }
@@ -87,6 +99,9 @@ struct TranslateManager {
                     return
                 }
                 if let safeData = data {
+                    if let jsonString = String(data: safeData, encoding: .utf8) {
+                        print("JSON Response: \(jsonString)")
+                    }
                     if let detectedLanguage = self.parseLanguageDetectionJSON(data: safeData) {
                         print("Detected Language: \(detectedLanguage)")
                     }

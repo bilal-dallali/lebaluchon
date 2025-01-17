@@ -65,8 +65,12 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     }
     
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
+        print("test did update")
         DispatchQueue.main.async {
             self.resultTextview.text = translation.translatedText
+            if let detectedLanguage = translation.detectedSourceLanguage {
+                self.translateFromLanguage.text = detectedLanguage
+            }
         }
     }
     

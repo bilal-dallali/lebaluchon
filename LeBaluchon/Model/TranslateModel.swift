@@ -9,4 +9,5 @@ import Foundation
 
 struct TranslateModel {
     let translatedText: String
+    let detectedSourceLanguage: String?
 }
