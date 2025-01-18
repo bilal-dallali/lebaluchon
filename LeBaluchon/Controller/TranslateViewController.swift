@@ -66,10 +66,10 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         print("test did update")
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
             self.resultTextview.text = translation.translatedText
             if let detectedLanguage = translation.detectedSourceLanguage {
-                self.translateFromLanguage.text = detectedLanguage
+                self.translateFromLanguage.text = getLanguageName(from: detectedLanguage)
             }
         }
     }
@@ -85,5 +85,10 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     
     func detectLanguage(for text: String) {
         translateManager.fetchDetectedLanguage(text: text)
+    }
+    
+    func getLanguageName(from code: String) -> String {
+        let locale = Locale(identifier: "en") // Définir la langue des noms (ici, anglais)
+        return locale.localizedString(forLanguageCode: code) ?? "Unknown Language"
     }
 }
