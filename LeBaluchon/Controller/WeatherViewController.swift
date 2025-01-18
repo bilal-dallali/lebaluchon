@@ -22,17 +22,6 @@ class WeatherViewController: UIViewController {
     
     @IBOutlet weak var nowDateLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
-    @IBOutlet weak var weekWeatherView: UIView!
-    
-    @IBOutlet weak var forecastStackView: UIStackView!
-    
-    @IBOutlet weak var hourlyForecastOutlet: UIButton!
-    @IBOutlet weak var weeklyForecastOutlet: UIButton!
-    
-    @IBOutlet weak var weatherPrevision1: UIStackView!
-    @IBOutlet weak var weatherPrevision2: UIStackView!
-    @IBOutlet weak var weatherPrevision3: UIStackView!
-    @IBOutlet weak var weatherPrevision4: UIStackView!
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
@@ -62,42 +51,7 @@ class WeatherViewController: UIViewController {
         nowWeatherView.layer.shadowOffset = .init(width: 0, height: 4)
         nowWeatherView.layer.shadowRadius = 4
         
-        // WEEK WEATHER VIEW SHADOW COLOR
-        weekWeatherView.layer.shadowColor = UIColor.black.cgColor
-        weekWeatherView.layer.shadowOpacity = 0.25
-        weekWeatherView.layer.shadowOffset = .init(width: 0, height: 4)
-        weekWeatherView.layer.shadowRadius = 4
-        
-        // FORESTACKVIEW SHADOWCOLOR
-        forecastStackView.layer.shadowColor = UIColor.black.cgColor
-        forecastStackView.layer.shadowOpacity = 0.25
-        forecastStackView.layer.shadowOffset = .init(width: 0, height: 4)
-        forecastStackView.layer.shadowRadius = 4
-        
-        weatherPrevision1.layer.shadowColor = UIColor.black.cgColor
-        weatherPrevision1.layer.shadowOpacity = 0.25
-        weatherPrevision1.layer.shadowOffset = .init(width: 0, height: 4)
-        weatherPrevision1.layer.shadowRadius = 4
-        
-        weatherPrevision2.layer.shadowColor = UIColor.black.cgColor
-        weatherPrevision2.layer.shadowOpacity = 0.25
-        weatherPrevision2.layer.shadowOffset = .init(width: 0, height: 4)
-        weatherPrevision2.layer.shadowRadius = 4
-        
-        weatherPrevision3.layer.shadowColor = UIColor.black.cgColor
-        weatherPrevision3.layer.shadowOpacity = 0.25
-        weatherPrevision3.layer.shadowOffset = .init(width: 0, height: 4)
-        weatherPrevision3.layer.shadowRadius = 4
-        
-        weatherPrevision4.layer.shadowColor = UIColor.black.cgColor
-        weatherPrevision4.layer.shadowOpacity = 0.25
-        weatherPrevision4.layer.shadowOffset = .init(width: 0, height: 4)
-        weatherPrevision4.layer.shadowRadius = 4
-        
-        // SET THE COLOR FOR WEEKLY FORECAST
-        weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
-        
-        // Configuration de la police et de la couleur des labels de la tab bar
+        // Configure font and label color tabbar
         if let tabBar = self.tabBarController?.tabBar {
             let tabBarAppearance = UITabBarItem.appearance()
             let attributesNormal = [
@@ -115,49 +69,26 @@ class WeatherViewController: UIViewController {
             // Optionnel : customiser la couleur de fond de la tab bar
             // tabBar.barTintColor = UIColor.purple
             
-            // Customiser la couleur des icônes de la tab bar lorsqu'elles ne sont pas sélectionnées
+            // Customise the icons color
             tabBar.unselectedItemTintColor = UIColor.init(red: 206/255, green: 249/255, blue: 242/255, alpha: 1)
             
-            // Optionnel : customiser la couleur des icônes de la tab bar
+            // Optional : customise icon color tabbar
             tabBar.tintColor = UIColor.init(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
         }
     }
     
-//    func getLocalDateTimeString(for timezoneOffset: Int) -> String {
-//        let currentDate = Date()
-//        let localTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset))  // Ajoute le décalage du fuseau horaire
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "E, dd MMM yyyy hh:mm a"  // Format pour la date et l'heure
-//        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-//        return dateFormatter.string(from: localTime)
-//    }
-    
     func getLocalDateTimeString(for timezoneOffset: Int) -> String {
         let currentDate = Date()
 
-        // Ajout manuel de la gestion de l'heure d'été : soustraction de 2 heures (7200 secondes)
-        let summerTimeAdjustment: TimeInterval = -2 * 3600  // -2 heures en secondes
+        // Adding mannually summer time : four hours less
+        let summerTimeAdjustment: TimeInterval = -1 * 3600
         let adjustedTime = currentDate.addingTimeInterval(TimeInterval(timezoneOffset) + summerTimeAdjustment)
 
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, dd MMM yyyy   hh:mm a"  // Format 12 heures avec AM/PM
+        dateFormatter.dateFormat = "E, dd MMM yyyy   hh:mm a"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
 
         return dateFormatter.string(from: adjustedTime)
-    }
-    
-    // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
-    @IBAction func hourlyForecast(_ sender: UIButton) {
-        //print("Hour")
-        weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
-        hourlyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
-    }
-    
-    // YOU CLICK ON WEEKLY FORECAST TO DISPLAY THE WEATHER OF THE WEEK
-    @IBAction func weeklyForecast(_ sender: Any) {
-        //print("week")
-        hourlyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
-        weeklyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
     }
     
     @IBAction func locationButton(_ sender: UIButton) {
@@ -166,7 +97,6 @@ class WeatherViewController: UIViewController {
 }
 
 //MARK: - UITextFieldDelegate
-
 extension WeatherViewController: UITextFieldDelegate {
     // SEARCH TOWN PRESSED
     @IBAction func searchTownPressed(_ sender: UIButton) {
@@ -191,7 +121,6 @@ extension WeatherViewController: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         // USE SEARCHFIELD.TEXT TO GET THE WEATHER FOR THIS CITY
-        //print(searchTownTextField.text!)
         if let town = searchTownTextField.text {
             weatherManager.fetchWeather(townName: town)
         }
@@ -228,8 +157,6 @@ extension WeatherViewController: CLLocationManagerDelegate {
             locationManager.stopUpdatingLocation()
             let lat = location.coordinate.latitude
             let lon = location.coordinate.longitude
-            //print(lat)
-            //print(lon)
             weatherManager.fetchWeather(latitude: lat, longitude: lon)
         }
     }

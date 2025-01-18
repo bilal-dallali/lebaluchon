@@ -44,7 +44,6 @@
 		9AD4E6C72C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6C62C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift */; };
 		E1BA11E12D3432E300DDD683 /* CurrencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA11E02D3432E300DDD683 /* CurrencyTests.swift */; };
 		E1BA11E32D34341700DDD683 /* TranslationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA11E22D34341700DDD683 /* TranslationTests.swift */; };
-		E1E26B622D36FF98005246BA /* LanguageDetectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E26B612D36FF98005246BA /* LanguageDetectionData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,7 +105,6 @@
 		9AD4E6C62C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeBaluchonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E1BA11E02D3432E300DDD683 /* CurrencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTests.swift; sourceTree = "<group>"; };
 		E1BA11E22D34341700DDD683 /* TranslationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationTests.swift; sourceTree = "<group>"; };
-		E1E26B612D36FF98005246BA /* LanguageDetectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageDetectionData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +155,6 @@
 				9AB9A9582C93895F00080F6F /* TranslateManager.swift */,
 				9AB9A95A2C93896E00080F6F /* TranslateData.swift */,
 				9AB9A95C2C93897A00080F6F /* TranslateModel.swift */,
-				E1E26B612D36FF98005246BA /* LanguageDetectionData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -394,7 +391,6 @@
 				9AB9A95B2C93896E00080F6F /* TranslateData.swift in Sources */,
 				9AD4E6A82C1CB3B300A7C400 /* WeatherViewController.swift in Sources */,
 				9AD0A1252C877F8000D455F0 /* APIKey.swift in Sources */,
-				E1E26B622D36FF98005246BA /* LanguageDetectionData.swift in Sources */,
 				9A99DE872C2CA19C001743EA /* CurrencyViewController.swift in Sources */,
 				9AD4E6A42C1CB3B300A7C400 /* AppDelegate.swift in Sources */,
 				9A921CF42C6CF58600B784A1 /* WeatherModel.swift in Sources */,

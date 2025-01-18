@@ -24,10 +24,6 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     
     var translateManager = TranslateManager()
     
-    @IBAction func reverseButtonTranslate(_ sender: Any) {
-        print("Reverse languages translate")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
