@@ -38,12 +38,7 @@ class CurrencyViewController: UIViewController, CurrencyManagerDelegate {
         
     }
     
-    @IBAction func reverseButton(_ sender: Any) {
-        print("reverse")
-    }
-    
     @IBAction func convertButton(_ sender: Any) {
-        print("Convert")
         if let amountString = originTextfield.text, let amount = Double(amountString) {
             currencyManager.fetchCurrency()
         }
@@ -59,7 +54,6 @@ class CurrencyViewController: UIViewController, CurrencyManagerDelegate {
     }
     
     func didFailWithError(error: Error) {
-        print(error)
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

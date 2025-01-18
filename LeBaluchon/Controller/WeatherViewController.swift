@@ -101,12 +101,10 @@ extension WeatherViewController: UITextFieldDelegate {
     // SEARCH TOWN PRESSED
     @IBAction func searchTownPressed(_ sender: UIButton) {
         searchTownTextField.endEditing(true)
-        print(searchTownTextField.text!)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         searchTownTextField.endEditing(true)
-        print(searchTownTextField.text!)
         return true
     }
     
@@ -130,7 +128,6 @@ extension WeatherViewController: UITextFieldDelegate {
 
 extension WeatherViewController: WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
-        print("It is", weather.temperature)
         DispatchQueue.main.async {
             self.nowTemperatureLabel.text = "\(weather.temperatureString)°C"
             self.weatherIcon.image = UIImage(systemName: weather.conditionName)
@@ -141,7 +138,6 @@ extension WeatherViewController: WeatherManagerDelegate {
     }
     
     func didFailWithError(error: any Error) {
-        print(error)
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
