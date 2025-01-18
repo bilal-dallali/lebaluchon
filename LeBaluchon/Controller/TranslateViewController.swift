@@ -10,10 +10,7 @@ import UIKit
 class TranslateViewController: UIViewController, TranslateManagerDelegate {
     
     @IBOutlet var translateTitle: UILabel!
-    @IBOutlet var selectLanguageView: UIView!
-    
-    @IBOutlet var originLanguage: UILabel!
-    @IBOutlet var resultLanguage: UILabel!
+
     @IBOutlet var translateFrom: UILabel!
     @IBOutlet var translateFromLanguage: UILabel!
     
@@ -38,8 +35,6 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
         
         // FONTS
         translateTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
-        originLanguage.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
-        resultLanguage.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         translateFrom.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         translateFromLanguage.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         translateTo.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
@@ -47,15 +42,10 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
         inputLanguageTextview.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 16)
         
         // SHADOWS
-        selectLanguageView.layer.shadowColor = UIColor.black.cgColor
-        selectLanguageView.layer.shadowOpacity = 0.25
-        selectLanguageView.layer.shadowOffset = .init(width: 0, height: 4)
-        selectLanguageView.layer.shadowRadius = 4
-        
-//        inputLanguageTextview.layer.shadowColor = UIColor.systemGreen.cgColor
-//        inputLanguageTextview.layer.shadowOpacity = 0.25
-//        inputLanguageTextview.layer.shadowOffset = CGSize(width: 20, height: 20)
-//        inputLanguageTextview.layer.shadowRadius = 40
+        inputLanguageTextview.layer.shadowColor = UIColor.systemGreen.cgColor
+        inputLanguageTextview.layer.shadowOpacity = 0.25
+        inputLanguageTextview.layer.shadowOffset = CGSize(width: 20, height: 20)
+        inputLanguageTextview.layer.shadowRadius = 40
     }
     
     // When you click on the translate button
@@ -83,7 +73,6 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
             self.present(alert, animated: true, completion: nil)
         }
     }
-    
     
     // Get language detected on view
     func getLanguageName(from code: String) -> String {
