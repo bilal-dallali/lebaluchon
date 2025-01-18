@@ -26,13 +26,13 @@ struct TranslateManager {
     
     var delegate: TranslateManagerDelegate?
     
+    // Get translation
     func fetchTranslation(text: String, targetLang: String) {
         let urlString = "\(translateURL)&q=\(text)&target=\(targetLang)"
-        //\(translateURL)&q=\(text)&target=fr
-        print("fetch translation")
         performRequest(with: urlString)
     }
     
+    // DO the right request
     func performRequest(with urlString: String) {
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
@@ -42,14 +42,8 @@ struct TranslateManager {
                     return
                 }
                 if let safeData = data {
-                    if let jsonString = String(data: safeData, encoding: .utf8) {
-                        print("JSON Response: \(jsonString)")
-                    }
                     if let translation = self.parseJSON(translateData: safeData) {
                         self.delegate?.didUpdateTranslation(self, translation: translation)
-                    }
-                    if let detectedLanguage = self.parseJSON(translateData: safeData) {
-                        print("Detected Language: \(detectedLanguage)")
                     }
                 }
             }
@@ -57,71 +51,33 @@ struct TranslateManager {
         }
     }
     
+    
+    // Parse JSON
     func parseJSON(translateData: Data) -> TranslateModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(TranslateData.self, from: translateData)
             
-            // Vérifiez que les traductions existent
+            // Chek if the translation exist
             guard let firstTranslation = decodedData.data.translations.first else {
                 let error = NSError(domain: "TranslationError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No translations found in JSON."])
                 delegate?.didFailWithError(error: error)
                 return nil
             }
             
-            // Récupérez le texte traduit
+            // Get the translated text
             let translatedText = firstTranslation.translatedText.htmlDecoded()
             
-            // Récupérez la langue détectée (si disponible)
+            // Get language if available
             let detectedSourceLanguage = firstTranslation.detectedSourceLanguage
-            print("Detected Source Language: \(detectedSourceLanguage ?? "Unknown")")
             
-            // Créez et retournez le modèle
+            // Create and return model
             let translation = TranslateModel(translatedText: translatedText, detectedSourceLanguage: detectedSourceLanguage)
             return translation
         } catch {
             delegate?.didFailWithError(error: error)
-            print("Error parsing JSON: \(error.localizedDescription)")
             return nil
         }
     }
     
-    func fetchDetectedLanguage(text: String) {
-        let urlString = "\(translateURL)&q=\(text)&target=fr"
-        performLanguageDetectionRequest(with: urlString)
-    }
-    
-    private func performLanguageDetectionRequest(with urlString: String) {
-        print("Test900")
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    self.delegate?.didFailWithError(error: error!)
-                    return
-                }
-                if let safeData = data {
-                    if let jsonString = String(data: safeData, encoding: .utf8) {
-                        print("JSON Response: \(jsonString)")
-                    }
-                    if let detectedLanguage = self.parseLanguageDetectionJSON(data: safeData) {
-                        print("Detected Language: \(detectedLanguage)")
-                    }
-                }
-            }
-            task.resume()
-        }
-    }
-    
-    private func parseLanguageDetectionJSON(data: Data) -> String? {
-        let decoder = JSONDecoder()
-        do {
-            let decodedData = try decoder.decode(LanguageDetectionData.self, from: data)
-            let detectedLanguage = decodedData.data.detections.first?.language
-            return detectedLanguage
-        } catch {
-            self.delegate?.didFailWithError(error: error)
-            return nil
-        }
-    }
 }

@@ -58,14 +58,15 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
 //        inputLanguageTextview.layer.shadowRadius = 40
     }
     
+    // When you click on the translate button
     @IBAction func translateButton(_ sender: Any) {
         if let textToTranslate = inputLanguageTextview.text {
             translateManager.fetchTranslation(text: textToTranslate, targetLang: "en")
         }
     }
     
+    // Update translation
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
-        print("test did update")
         DispatchQueue.main.async { [self] in
             self.resultTextview.text = translation.translatedText
             if let detectedLanguage = translation.detectedSourceLanguage {
@@ -74,8 +75,8 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
         }
     }
     
+    // Error message
     func didFailWithError(error: Error) {
-        print(error)
         DispatchQueue.main.async {
             let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -83,12 +84,10 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
         }
     }
     
-    func detectLanguage(for text: String) {
-        translateManager.fetchDetectedLanguage(text: text)
-    }
     
+    // Get language detected on view
     func getLanguageName(from code: String) -> String {
-        let locale = Locale(identifier: "en") // Définir la langue des noms (ici, anglais)
+        let locale = Locale(identifier: "en")
         return locale.localizedString(forLanguageCode: code) ?? "Unknown Language"
     }
 }

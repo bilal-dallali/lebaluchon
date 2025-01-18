@@ -148,14 +148,14 @@ class WeatherViewController: UIViewController {
     
     // YOU CLICK ON HOURLY FORECAST TO DISPLAY THE WEATHER OF THE DAY
     @IBAction func hourlyForecast(_ sender: UIButton) {
-        print("Hour")
+        //print("Hour")
         weeklyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
         hourlyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
     }
     
     // YOU CLICK ON WEEKLY FORECAST TO DISPLAY THE WEATHER OF THE WEEK
     @IBAction func weeklyForecast(_ sender: Any) {
-        print("week")
+        //print("week")
         hourlyForecastOutlet.backgroundColor = UIColor(red: 28/255, green: 33/255, blue: 47/255, alpha: 1)
         weeklyForecastOutlet.backgroundColor = UIColor(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
     }
