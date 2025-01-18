@@ -175,7 +175,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qn-Lb-IW9">
                                 <rect key="frame" x="24" y="112.66666666666669" width="345" height="240"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="JrE-v3-Ubl">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="JrE-v3-Ubl">
                                         <rect key="frame" x="15" y="49.999999999999986" width="40" height="140"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="french-flag" translatesAutoresizingMaskIntoConstraints="NO" id="JSD-bO-cHk">
@@ -190,17 +190,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cg5-pp-Nmy">
-                                                <rect key="frame" x="0.0" y="60" width="40" height="20"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="33c-eN-6Ld"/>
-                                                    <constraint firstAttribute="width" constant="40" id="s6P-Qk-7TB"/>
-                                                </constraints>
-                                                <buttonConfiguration key="configuration" style="plain" image="reverse"/>
-                                                <connections>
-                                                    <action selector="reverseButton:" destination="m0w-SN-5D8" eventType="touchUpInside" id="ZU9-ej-ncE"/>
-                                                </connections>
-                                            </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="american-flag" translatesAutoresizingMaskIntoConstraints="NO" id="Ra8-gk-RHk">
                                                 <rect key="frame" x="0.0" y="100.00000000000003" width="40" height="40"/>
                                                 <constraints>
@@ -360,7 +349,7 @@
                                 <color key="textColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Comment vas-tu ?" translatesAutoresizingMaskIntoConstraints="NO" id="UNM-py-Lbe">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNM-py-Lbe">
                                 <rect key="frame" x="24" y="147" width="345" height="120"/>
                                 <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -407,7 +396,7 @@
                                 <color key="textColor" red="0.87058818340301514" green="0.87058836221694946" blue="0.87489384412765503" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="How are you ?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="k8s-DB-ySH">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="k8s-DB-ySH">
                                 <rect key="frame" x="24" y="412.66666666666669" width="345" height="120.00000000000006"/>
                                 <color key="backgroundColor" red="0.34001779556274414" green="0.44215267896652222" blue="0.6889461874961853" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -500,7 +489,6 @@
         <image name="french-flag" width="2560" height="1707"/>
         <image name="location.circle.fill" catalog="system" width="128" height="123"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="reverse" width="40" height="20"/>
         <image name="translate" width="38" height="38"/>
         <image name="translate-selected" width="38" height="38"/>
     </resources>
