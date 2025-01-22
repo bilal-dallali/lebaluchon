@@ -23,6 +23,12 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var nowDateLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
     
+    @IBOutlet weak var newYorkWeatherTitle: UILabel!
+    @IBOutlet weak var newYorkWeatherView: UIView!
+    @IBOutlet weak var newYorkTemperatureLabel: UILabel!
+    @IBOutlet weak var newYorkDescriptionLabel: UILabel!
+    @IBOutlet var newYorkTownLabel: UILabel!
+    
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
     
@@ -40,9 +46,13 @@ class WeatherViewController: UIViewController {
         
         // FONTS
         weatherTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
+        newYorkWeatherTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
         nowTemperatureLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 64)
+        newYorkTemperatureLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 64)
         nowDescriptionLabel.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 18)
+        newYorkDescriptionLabel.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 18)
         townLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
+        newYorkTownLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
         nowDateLabel.font = UIFont(name: "PlusJakartaSans-Regular", size: 16)
         
         // TODAY WEATHER VIEW SHADOW COLOR
@@ -50,6 +60,12 @@ class WeatherViewController: UIViewController {
         nowWeatherView.layer.shadowOpacity = 0.25
         nowWeatherView.layer.shadowOffset = .init(width: 0, height: 4)
         nowWeatherView.layer.shadowRadius = 4
+        
+        // NEW YORK WEATHER VIEW SHADOW COLOR
+        newYorkWeatherView.layer.shadowColor = UIColor.black.cgColor
+        newYorkWeatherView.layer.shadowOpacity = 0.25
+        newYorkWeatherView.layer.shadowOffset = .init(width: 0, height: 4)
+        newYorkWeatherView.layer.shadowRadius = 4
         
         // Configure font and label color tabbar
         if let tabBar = self.tabBarController?.tabBar {
