@@ -49,8 +49,8 @@ class WeatherViewController: UIViewController {
         // FONTS
         weatherTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
         newYorkWeatherTitle.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
-        nowTemperatureLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 64)
-        newYorkTemperatureLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 64)
+        nowTemperatureLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 48)
+        newYorkTemperatureLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 48)
         nowDescriptionLabel.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 18)
         newYorkDescriptionLabel.font = UIFont(name: "PlusJakartaSans-SemiBold", size: 18)
         townLabel.font = UIFont(name: "PlusJakartaSans-Bold", size: 28)
