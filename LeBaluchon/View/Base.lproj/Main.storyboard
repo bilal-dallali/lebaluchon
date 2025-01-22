@@ -214,6 +214,7 @@
                         <outlet property="newYorkDescriptionLabel" destination="0j1-Bd-Etg" id="sI4-2P-28G"/>
                         <outlet property="newYorkTemperatureLabel" destination="BQK-sb-hfE" id="JYm-bl-B15"/>
                         <outlet property="newYorkTownLabel" destination="2tf-pm-0jU" id="X3c-hb-SgW"/>
+                        <outlet property="newYorkWeatherIcon" destination="R0o-sW-dw6" id="soq-KA-PH0"/>
                         <outlet property="newYorkWeatherTitle" destination="Wsu-Fi-jWm" id="Y92-zB-qCJ"/>
                         <outlet property="newYorkWeatherView" destination="edr-6l-n4f" id="5CB-ca-jai"/>
                         <outlet property="nowDateLabel" destination="kkQ-aP-ixG" id="MJw-tx-ACl"/>

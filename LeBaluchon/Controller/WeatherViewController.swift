@@ -23,11 +23,13 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var nowDateLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
     
+    // New York layout
     @IBOutlet weak var newYorkWeatherTitle: UILabel!
     @IBOutlet weak var newYorkWeatherView: UIView!
     @IBOutlet weak var newYorkTemperatureLabel: UILabel!
     @IBOutlet weak var newYorkDescriptionLabel: UILabel!
     @IBOutlet var newYorkTownLabel: UILabel!
+    @IBOutlet weak var newYorkWeatherIcon: UIImageView!
     
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
@@ -91,6 +93,8 @@ class WeatherViewController: UIViewController {
             // Optional : customise icon color tabbar
             tabBar.tintColor = UIColor.init(red: 92/255, green: 112/255, blue: 171/255, alpha: 1)
         }
+        
+        weatherManager.fetchNyWeather()
     }
     
     func getLocalDateTimeString(for timezoneOffset: Int) -> String {
@@ -150,6 +154,15 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.nowDescriptionLabel.text = weather.description
             self.townLabel.text = weather.townName
             self.nowDateLabel.text = self.getLocalDateTimeString(for: weather.timezone)
+        }
+    }
+    
+    func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {
+        DispatchQueue.main.async {
+            self.newYorkTemperatureLabel.text = "\(weather.temperatureString)°C"
+            self.newYorkWeatherIcon.image = UIImage(systemName: weather.conditionName)
+            self.newYorkDescriptionLabel.text = weather.description
+            self.newYorkTownLabel.text = weather.townName
         }
     }
     
