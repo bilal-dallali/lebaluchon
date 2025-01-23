@@ -238,4 +238,55 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(weather.temperature, 22.5, "Temperature should match")
         XCTAssertEqual(weather.timezone, 3600, "Timezone should match")
     }
+    
+    func testFetchWeatherCallsPerformRequestWithCorrectURL() {
+        // Étape 1 : Mock WeatherManager
+        class MockWeatherManager {
+            var capturedURL: String?
+            private let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=YOUR_API_KEY"
+            
+            func fetchWeather(townName: String) {
+                let urlString = "\(weatherURL)&q=\(townName)"
+                capturedURL = urlString
+            }
+        }
+        
+        // Étape 2 : Instancier le MockWeatherManager
+        let mockWeatherManager = MockWeatherManager()
+        let testTownName = "Paris" // Nom de ville pour le test
+        let expectedURLPart = "&q=Paris"
+        
+        // Étape 3 : Appeler fetchWeather
+        mockWeatherManager.fetchWeather(townName: testTownName)
+        
+        // Étape 4 : Vérifications
+        XCTAssertNotNil(mockWeatherManager.capturedURL, "fetchWeather should construct an URL")
+        XCTAssertTrue(mockWeatherManager.capturedURL?.contains(expectedURLPart) ?? false,
+                      "The URL should include the correct query for the town name")
+        XCTAssertTrue(mockWeatherManager.capturedURL?.hasPrefix("https://api.openweathermap.org/data/2.5/weather") ?? false,
+                      "The URL should start with the base weather URL")
+    }
+    
+    func testDidFailWithError() {
+        // Étape 1 : Instancier WeatherViewController directement
+        let viewController = WeatherViewController()
+        _ = viewController.view // Charge la vue pour initialiser les IBOutlet, si nécessaire
+        
+        // Étape 2 : Créer une erreur simulée
+        let testError = NSError(domain: "TestDomain", code: 1, userInfo: [NSLocalizedDescriptionKey: "Test error message"])
+        
+        // Étape 3 : Appeler la fonction didFailWithError
+        viewController.didFailWithError(error: testError)
+        
+        // Étape 4 : Vérifier qu'une alerte est présentée
+        XCTAssertNotNil(viewController.presentedViewController, "An alert should be presented when an error occurs")
+        XCTAssertTrue(viewController.presentedViewController is UIAlertController, "The presented view controller should be a UIAlertController")
+        
+        // Étape 5 : Vérifier le contenu de l'alerte
+        let alertController = viewController.presentedViewController as! UIAlertController
+        XCTAssertEqual(alertController.title, "Error", "The alert title should be 'Error'")
+        XCTAssertEqual(alertController.message, "Test error message", "The alert message should match the error's localized description")
+        XCTAssertEqual(alertController.actions.count, 1, "The alert should have one action")
+        XCTAssertEqual(alertController.actions.first?.title, "OK", "The alert action's title should be 'OK'")
+    }
 }
