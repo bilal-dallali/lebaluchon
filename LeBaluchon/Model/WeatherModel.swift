@@ -14,27 +14,29 @@ struct WeatherModel {
     let timezone: Int
     
     var temperatureString: String {
-        return String(format: "%.0f", temperature)
+        return String(format: "%.0f", temperature.rounded(.awayFromZero))
     }
     
     var conditionName: String {
         switch conditionId {
-        case 200...232:
-            return "cloud.bolt.fill"
-        case 300...321:
-            return "cloud.drizzle.fill"
-        case 500...531:
-            return "cloud.rain.fill"
-        case 600...622:
-            return "cloud.snow.fill"
-        case 701...781:
-            return "cloud.fog.fill"
-        case 800:
-            return "sun.max.fill"
-        case 801...804:
-            return "cloud.sun.fill"
-        default:
-            return "cloud.sun.fill"
+            case 200...232:
+                return "cloud.bolt.fill" // Orage
+            case 300...321:
+                return "cloud.drizzle.fill" // Bruine
+            case 500...531:
+                return "cloud.rain.fill" // Pluie
+            case 600...622:
+                return "cloud.snow.fill" // Neige
+            case 701...781:
+                return "smoke.fill" // Brouillard ou conditions spéciales
+            case 800:
+                return "sun.max.fill" // Ciel clair
+            case 801:
+                return "cloud.fill" // Quelques nuages
+            case 802...804:
+                return "cloud.sun.fill" // Nuages partiellement ensoleillés
+            default:
+                return "questionmark.circle" // Par défaut
         }
     }
     
@@ -67,27 +69,29 @@ struct WeatherModelNy {
     let timezone: Int
     
     var temperatureString: String {
-        return String(format: "%.0f", temperature)
+        return String(format: "%.0f", temperature.rounded(.awayFromZero))
     }
     
     var conditionName: String {
         switch conditionId {
             case 200...232:
-                return "cloud.bolt.fill"
+                return "cloud.bolt.fill" // Orage
             case 300...321:
-                return "cloud.drizzle.fill"
+                return "cloud.drizzle.fill" // Bruine
             case 500...531:
-                return "cloud.rain.fill"
+                return "cloud.rain.fill" // Pluie
             case 600...622:
-                return "cloud.snow.fill"
+                return "cloud.snow.fill" // Neige
             case 701...781:
-                return "cloud.fog.fill"
+                return "smoke.fill" // Brouillard ou conditions spéciales
             case 800:
-                return "sun.max.fill"
-            case 801...804:
-                return "cloud.sun.fill"
+                return "sun.max.fill" // Ciel clair
+            case 801:
+                return "cloud.fill" // Quelques nuages
+            case 802...804:
+                return "cloud.sun.fill" // Nuages partiellement ensoleillés
             default:
-                return "cloud.sun.fill"
+                return "questionmark.circle" // Par défaut
         }
     }
     
