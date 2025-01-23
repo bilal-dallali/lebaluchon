@@ -118,4 +118,73 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(weather?.conditionName, "cloud.sun.fill", "Condition name does not match")
     }
     
+    func testPerformRequestWithInvalidURL() {
+        let invalidURL = "invalid_url"
+        let expectation = XCTestExpectation(description: "Should call didFailWithError for invalid URL")
+        
+        class MockDelegate: WeatherManagerDelegate {
+            var didFailWithErrorCalled = false
+            var expectation: XCTestExpectation?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                expectation?.fulfill()
+            }
+        }
+        
+        let mockDelegate = MockDelegate()
+        mockDelegate.expectation = expectation
+        weatherManager.delegate = mockDelegate
+        
+        // Appeler avec une URL invalide
+        weatherManager.performRequest(with: invalidURL)
+        
+        wait(for: [expectation], timeout: 2.0)
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL")
+    }
+    
+    func testPerformRequestWithNetworkError() {
+        class MockURLSession: URLSession {
+            override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+                completionHandler(nil, nil, NSError(domain: "NetworkError", code: -1001, userInfo: nil))
+                return URLSessionDataTask()
+            }
+        }
+        
+        let mockSession = MockURLSession()
+        var weatherManager = WeatherManager(session: mockSession) // Injecter une session personnalisée
+        let expectation = XCTestExpectation(description: "Should call didFailWithError for network error")
+        
+        class MockDelegate: WeatherManagerDelegate {
+            var didFailWithErrorCalled = false
+            var expectation: XCTestExpectation?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                expectation?.fulfill()
+            }
+        }
+        
+        let mockDelegate = MockDelegate()
+        mockDelegate.expectation = expectation
+        weatherManager.delegate = mockDelegate
+        
+        weatherManager.performRequest(with: weatherManager.weatherURL)
+        wait(for: [expectation], timeout: 2.0)
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for network error")
+    }
+    
+    func testWeatherModelTemperatureString() {
+        let weatherModel = WeatherModel(conditionId: 800, townName: "Paris", temperature: 22.5, timezone: 3600)
+        XCTAssertEqual(weatherModel.temperatureString, "22", "TemperatureString should round correctly")
+    }
+    
+    func testWeatherModelConditionName() {
+        let weatherModel = WeatherModel(conditionId: 200, townName: "Paris", temperature: 18.0, timezone: 3600)
+        XCTAssertEqual(weatherModel.conditionName, "cloud.bolt.fill", "ConditionName should match thunderstorm ID")
+    }
 }
