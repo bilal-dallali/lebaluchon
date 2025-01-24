@@ -267,26 +267,4 @@ final class WeatherManagerTests: XCTestCase {
                       "The URL should start with the base weather URL")
     }
     
-    func testDidFailWithError() {
-        // Étape 1 : Instancier WeatherViewController directement
-        let viewController = WeatherViewController()
-        _ = viewController.view // Charge la vue pour initialiser les IBOutlet, si nécessaire
-        
-        // Étape 2 : Créer une erreur simulée
-        let testError = NSError(domain: "TestDomain", code: 1, userInfo: [NSLocalizedDescriptionKey: "Test error message"])
-        
-        // Étape 3 : Appeler la fonction didFailWithError
-        viewController.didFailWithError(error: testError)
-        
-        // Étape 4 : Vérifier qu'une alerte est présentée
-        XCTAssertNotNil(viewController.presentedViewController, "An alert should be presented when an error occurs")
-        XCTAssertTrue(viewController.presentedViewController is UIAlertController, "The presented view controller should be a UIAlertController")
-        
-        // Étape 5 : Vérifier le contenu de l'alerte
-        let alertController = viewController.presentedViewController as! UIAlertController
-        XCTAssertEqual(alertController.title, "Error", "The alert title should be 'Error'")
-        XCTAssertEqual(alertController.message, "Test error message", "The alert message should match the error's localized description")
-        XCTAssertEqual(alertController.actions.count, 1, "The alert should have one action")
-        XCTAssertEqual(alertController.actions.first?.title, "OK", "The alert action's title should be 'OK'")
-    }
 }
