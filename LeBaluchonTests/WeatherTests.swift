@@ -2,7 +2,7 @@
 //  LeBaluchonTests.swift
 //  LeBaluchonTests
 //
-//  Created by Bilal D on 14/06/2024.
+//  Created by Bilal Dallali on 14/06/2024.
 //
 
 import XCTest
@@ -261,10 +261,17 @@ final class WeatherManagerTests: XCTestCase {
         
         // Étape 4 : Vérifications
         XCTAssertNotNil(mockWeatherManager.capturedURL, "fetchWeather should construct an URL")
-        XCTAssertTrue(mockWeatherManager.capturedURL?.contains(expectedURLPart) ?? false,
-                      "The URL should include the correct query for the town name")
-        XCTAssertTrue(mockWeatherManager.capturedURL?.hasPrefix("https://api.openweathermap.org/data/2.5/weather") ?? false,
-                      "The URL should start with the base weather URL")
+        XCTAssertTrue(mockWeatherManager.capturedURL?.contains(expectedURLPart) ?? false, "The URL should include the correct query for the town name")
+        XCTAssertTrue(mockWeatherManager.capturedURL?.hasPrefix("https://api.openweathermap.org/data/2.5/weather") ?? false, "The URL should start with the base weather URL")
+    }
+    
+    func testGetLocalDateTimeString() {
+        let viewController = WeatherViewController()
+        let timezoneOffset = 3600
+        let result = viewController.getLocalDateTimeString(for: timezoneOffset)
+        
+        XCTAssertFalse(result.isEmpty, "The local date-time string should not be empty")
+        XCTAssert(result.contains("202"), "The local date-time string should contain a valid year")
     }
     
 }

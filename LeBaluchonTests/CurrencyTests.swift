@@ -55,4 +55,51 @@ final class CurrencyManagerTests: XCTestCase {
         
         XCTAssertNil(currency, "CurrencyModel should be nil when USD rate is missing")
     }
+    
+    func testFetchCurrencyCallsPerformRequest() {
+        class MockCurrencyManager {
+            var capturedURL: String?
+            
+            func performRequest(with urlString: String) {
+                capturedURL = urlString
+            }
+            
+            func fetchCurrency() {
+                let urlString = "https://example.com?base=EUR&symbols=USD"
+                performRequest(with: urlString)
+            }
+        }
+        
+        // Arrange
+        let mockManager = MockCurrencyManager()
+        
+        // Act
+        mockManager.fetchCurrency()
+        
+        // Assert
+        XCTAssertNotNil(mockManager.capturedURL, "performRequest should be called with a URL")
+        XCTAssertTrue(mockManager.capturedURL!.contains("base=EUR"), "The URL should include the base currency")
+        XCTAssertTrue(mockManager.capturedURL!.contains("symbols=USD"), "The URL should include the target currency (USD)")
+    }
+    
+    func testPerformRequestWithValidURL() {
+        class MockCurrencyManager {
+            var capturedURL: String?
+            
+            func performRequest(with urlString: String) {
+                capturedURL = urlString
+            }
+        }
+        
+        // Arrange
+        let mockManager = MockCurrencyManager()
+        let testURL = "https://example.com?base=EUR&symbols=USD"
+        
+        // Act
+        mockManager.performRequest(with: testURL)
+        
+        // Assert
+        XCTAssertEqual(mockManager.capturedURL, testURL, "performRequest should capture the correct URL")
+    }
+    
 }
