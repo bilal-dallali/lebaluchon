@@ -44,13 +44,15 @@ struct TranslateManager {
                 if let safeData = data {
                     if let translation = self.parseJSON(translateData: safeData) {
                         self.delegate?.didUpdateTranslation(self, translation: translation)
+                    } else {
+                        let parsingError = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON"])
+                        delegate?.didFailWithError(error: parsingError)
                     }
                 }
             }
             task.resume()
         }
     }
-    
     
     // Parse JSON
     func parseJSON(translateData: Data) -> TranslateModel? {
@@ -79,5 +81,7 @@ struct TranslateManager {
             return nil
         }
     }
+    
+    
     
 }
