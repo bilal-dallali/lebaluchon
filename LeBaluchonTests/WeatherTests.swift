@@ -189,49 +189,41 @@ final class WeatherManagerTests: XCTestCase {
     }
     
     func testTemperatureStringRoundingDown() {
-        // Test pour une température qui arrondit toujours vers le haut
         let weather = WeatherModel(conditionId: 800, townName: "Paris", temperature: 22.4, timezone: 3600)
         XCTAssertEqual(weather.temperatureString, "23", "TemperatureString should round up for 22.4 according to the current logic")
     }
     
     func testTemperatureStringRoundingUp() {
-        // Test pour une température qui arrondit vers le haut
         let weather = WeatherModel(conditionId: 800, townName: "Paris", temperature: 22.5, timezone: 3600)
         XCTAssertEqual(weather.temperatureString, "23", "TemperatureString should round up correctly")
     }
     
     func testConditionNameForClearSky() {
-        // Test pour une condition ID 800 (ciel clair)
         let weather = WeatherModel(conditionId: 800, townName: "Paris", temperature: 22.5, timezone: 3600)
         XCTAssertEqual(weather.conditionName, "sun.max.fill", "ConditionName should return sun.max.fill for clear sky")
     }
     
     func testConditionNameForThunderstorm() {
-        // Test pour une condition ID 200 (orage)
         let weather = WeatherModel(conditionId: 200, townName: "Paris", temperature: 22.5, timezone: 3600)
         XCTAssertEqual(weather.conditionName, "cloud.bolt.fill", "ConditionName should return cloud.bolt.fill for thunderstorm")
     }
     
     func testConditionNameForRain() {
-        // Test pour une condition ID 500 (pluie)
         let weather = WeatherModel(conditionId: 500, townName: "Paris", temperature: 22.5, timezone: 3600)
         XCTAssertEqual(weather.conditionName, "cloud.rain.fill", "ConditionName should return cloud.rain.fill for rain")
     }
     
     func testConditionNameForSnow() {
-        // Test pour une condition ID 600 (neige)
         let weather = WeatherModel(conditionId: 600, townName: "Paris", temperature: 22.5, timezone: 3600)
         XCTAssertEqual(weather.conditionName, "cloud.snow.fill", "ConditionName should return cloud.snow.fill for snow")
     }
     
     func testConditionNameForCloudy() {
-        // Test pour une condition ID 801 (quelques nuages)
         let weather = WeatherModel(conditionId: 801, townName: "Paris", temperature: 22.5, timezone: 3600)
         XCTAssertEqual(weather.conditionName, "cloud.fill", "ConditionName should return cloud.fill for cloudy")
     }
     
     func testInitialization() {
-        // Vérification des propriétés du modèle
         let weather = WeatherModel(conditionId: 800, townName: "Paris", temperature: 22.5, timezone: 3600)
         XCTAssertEqual(weather.conditionId, 800, "Condition ID should match")
         XCTAssertEqual(weather.townName, "Paris", "Town name should match")
@@ -240,7 +232,6 @@ final class WeatherManagerTests: XCTestCase {
     }
     
     func testFetchWeatherCallsPerformRequestWithCorrectURL() {
-        // Étape 1 : Mock WeatherManager
         class MockWeatherManager {
             var capturedURL: String?
             private let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=YOUR_API_KEY"
@@ -251,15 +242,12 @@ final class WeatherManagerTests: XCTestCase {
             }
         }
         
-        // Étape 2 : Instancier le MockWeatherManager
         let mockWeatherManager = MockWeatherManager()
-        let testTownName = "Paris" // Nom de ville pour le test
+        let testTownName = "Paris"
         let expectedURLPart = "&q=Paris"
         
-        // Étape 3 : Appeler fetchWeather
         mockWeatherManager.fetchWeather(townName: testTownName)
         
-        // Étape 4 : Vérifications
         XCTAssertNotNil(mockWeatherManager.capturedURL, "fetchWeather should construct an URL")
         XCTAssertTrue(mockWeatherManager.capturedURL?.contains(expectedURLPart) ?? false, "The URL should include the correct query for the town name")
         XCTAssertTrue(mockWeatherManager.capturedURL?.hasPrefix("https://api.openweathermap.org/data/2.5/weather") ?? false, "The URL should start with the base weather URL")

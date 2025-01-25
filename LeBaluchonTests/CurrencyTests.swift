@@ -122,10 +122,10 @@ final class CurrencyManagerTests: XCTestCase {
         manager.delegate = mockDelegate
         
         let validJSON = """
-    {
-        "rates": { "USD": 1.23 }
-    }
-    """.data(using: .utf8)!
+        {
+            "rates": { "USD": 1.23 }
+        }
+        """.data(using: .utf8)!
         
         // Simulez une requête réseau réussie
         mockDelegate.didUpdateCurrency(manager, currency: CurrencyModel(exchangeRate: 1.23))
@@ -170,18 +170,18 @@ final class CurrencyManagerTests: XCTestCase {
         
         // Arrange
         let validJSON = """
-    {
-        "rates": { "USD": 1.23 }
-    }
-    """.data(using: .utf8)!
+        {
+            "rates": { "USD": 1.23 }
+        }
+        """.data(using: .utf8)!
         
         let invalidJSON = """
-    {
-        "invalidKey": {}
-    }
-    """.data(using: .utf8)!
+        {
+            "invalidKey": {}
+        }
+        """.data(using: .utf8)!
         
-        var manager = CurrencyManager() // Utilisez `var` pour rendre modifiable
+        var manager = CurrencyManager()
         let mockSession = MockURLSession()
         let mockDelegate = MockDelegate()
         manager.delegate = mockDelegate
