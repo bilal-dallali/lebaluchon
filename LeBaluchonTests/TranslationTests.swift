@@ -96,7 +96,7 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
     var receivedTranslation: TranslateModel?
     var receivedError: Error?
     
-    func testPerformRequestWithLocalData() {
+    func testPerformRequestWithLocalFile() {
         // Données JSON simulées pour le test
         let mockJSON = """
         {
@@ -111,17 +111,22 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         }
         """.data(using: .utf8)!
         
+        // Créer un fichier temporaire pour stocker les données simulées
+        let tempDirectory = FileManager.default.temporaryDirectory
+        let tempFileURL = tempDirectory.appendingPathComponent("mockResponse.json")
+        try! mockJSON.write(to: tempFileURL)
+        
         // Initialisation de TranslateManager
         var manager = TranslateManager()
         manager.delegate = self
         
-        // Simuler la logique de performRequest avec les données locales
-        if let translation = manager.parseJSON(translateData: mockJSON) {
-            didUpdateTranslation(manager, translation: translation)
-        } else {
-            let parsingError = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON"])
-            didFailWithError(error: parsingError)
-        }
+        // Appeler performRequest avec l'URL locale (chemin du fichier)
+        manager.performRequest(with: tempFileURL.absoluteString)
+        
+        // Attendre que les résultats soient retournés
+        let expectation = self.expectation(description: "Waiting for performRequest completion")
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1) { expectation.fulfill() }
+        waitForExpectations(timeout: 2)
         
         // Vérifications
         XCTAssertNotNil(receivedTranslation, "La traduction devrait être non nulle.")
