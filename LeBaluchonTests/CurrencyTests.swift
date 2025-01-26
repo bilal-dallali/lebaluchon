@@ -354,7 +354,7 @@ class MockURLSession: URLSessionProtocol, @unchecked Sendable {
     func dataTask(
         with url: URL,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
-    ) -> URLSessionDataTask {
+    ) -> URLSessionDataTaskProtocol {
         return MockURLSessionDataTask {
             completionHandler(self.mockData, self.mockResponse, self.mockError)
         }
@@ -365,17 +365,21 @@ protocol URLSessionProtocol {
     func dataTask(
         with url: URL,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
-    ) -> URLSessionDataTask
+    ) -> URLSessionDataTaskProtocol
 }
 
-class MockURLSessionDataTask: URLSessionDataTask, @unchecked Sendable {
+protocol URLSessionDataTaskProtocol {
+    func resume()
+}
+
+class MockURLSessionDataTask: URLSessionDataTaskProtocol, @unchecked Sendable {
     private let completionHandler: () -> Void
     
     init(completionHandler: @escaping () -> Void) {
         self.completionHandler = completionHandler
     }
     
-    override func resume() {
+    func resume() {
         completionHandler()
     }
 }
