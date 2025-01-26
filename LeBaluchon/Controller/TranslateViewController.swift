@@ -46,7 +46,11 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
     
     // When you click on the translate button
     @IBAction func translateButton(_ sender: Any) {
-        if let textToTranslate = inputLanguageTextview.text {
+        if inputLanguageTextview.text == "" {
+            let alert = UIAlertController(title: "Error", message: "Better if you type something", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else if let textToTranslate = inputLanguageTextview.text {
             translateManager.fetchTranslation(text: textToTranslate, targetLang: "en")
         }
     }
