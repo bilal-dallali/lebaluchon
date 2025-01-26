@@ -39,7 +39,7 @@ class CurrencyViewController: UIViewController, CurrencyManagerDelegate {
     }
     
     @IBAction func convertButton(_ sender: Any) {
-        if let amountString = originTextfield.text, let amount = Double(amountString) {
+        if let amountString = originTextfield.text, let _ = Double(amountString) {
             currencyManager.fetchCurrency()
         }
     }
