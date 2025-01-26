@@ -20,23 +20,23 @@ struct WeatherModel {
     var conditionName: String {
         switch conditionId {
             case 200...232:
-                return "cloud.bolt.fill" // Orage
+                return "cloud.bolt.fill"
             case 300...321:
-                return "cloud.drizzle.fill" // Bruine
+                return "cloud.drizzle.fill"
             case 500...531:
-                return "cloud.rain.fill" // Pluie
+                return "cloud.rain.fill"
             case 600...622:
-                return "cloud.snow.fill" // Neige
+                return "cloud.snow.fill"
             case 701...781:
-                return "smoke.fill" // Brouillard ou conditions spéciales
+                return "smoke.fill"
             case 800:
-                return "sun.max.fill" // Ciel clair
+                return "sun.max.fill"
             case 801:
-                return "cloud.fill" // Quelques nuages
+                return "cloud.fill"
             case 802...804:
-                return "cloud.sun.fill" // Nuages partiellement ensoleillés
+                return "cloud.sun.fill"
             default:
-                return "questionmark.circle" // Par défaut
+                return "questionmark.circle"
         }
     }
     
@@ -75,23 +75,23 @@ struct WeatherModelNy {
     var conditionName: String {
         switch conditionId {
             case 200...232:
-                return "cloud.bolt.fill" // Orage
+                return "cloud.bolt.fill"
             case 300...321:
-                return "cloud.drizzle.fill" // Bruine
+                return "cloud.drizzle.fill"
             case 500...531:
-                return "cloud.rain.fill" // Pluie
+                return "cloud.rain.fill"
             case 600...622:
-                return "cloud.snow.fill" // Neige
+                return "cloud.snow.fill"
             case 701...781:
-                return "smoke.fill" // Brouillard ou conditions spéciales
+                return "smoke.fill"
             case 800:
-                return "sun.max.fill" // Ciel clair
+                return "sun.max.fill"
             case 801:
-                return "cloud.fill" // Quelques nuages
+                return "cloud.fill"
             case 802...804:
-                return "cloud.sun.fill" // Nuages partiellement ensoleillés
+                return "cloud.sun.fill"
             default:
-                return "questionmark.circle" // Par défaut
+                return "questionmark.circle"
         }
     }
     

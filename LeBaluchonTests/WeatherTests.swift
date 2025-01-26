@@ -146,7 +146,7 @@ final class WeatherManagerTests: XCTestCase {
     }
     
     func testPerformRequestWithNetworkError() {
-        class MockURLSession: URLSession {
+        class MockURLSession: URLSession, @unchecked Sendable {
             override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
                 completionHandler(nil, nil, NSError(domain: "NetworkError", code: -1001, userInfo: nil))
                 return URLSessionDataTask()

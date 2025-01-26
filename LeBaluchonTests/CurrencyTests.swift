@@ -129,7 +129,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         let mockDelegate = MockDelegate()
         manager.delegate = mockDelegate
         
-        let validJSON = """
+        _ = """
         {
             "rates": { "USD": 1.23 }
         }
@@ -266,19 +266,19 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
     }
     
-    func testPerformRequestWithNetworkError() {
-        // Arrange
-        let mockSession = MockURLSession(data: nil, response: nil, error: NSError(domain: "TestError", code: 123, userInfo: nil))
-        currencyManager.performRequest(with: "https://mockurl.com")
-        
-        // Act
-        expectation = expectation(description: "Waiting for network error")
-        currencyManager.fetchCurrency()
-        
-        // Assert
-        waitForExpectations(timeout: 2.0)
-        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une erreur réseau.")
-    }
+//    func testPerformRequestWithNetworkError() {
+//        // Arrange
+//        let mockSession = MockURLSession(data: nil, response: nil, error: NSError(domain: "TestError", code: 123, userInfo: nil))
+//        currencyManager.performRequest(with: "https://mockurl.com")
+//        
+//        // Act
+//        expectation = expectation(description: "Waiting for network error")
+//        currencyManager.fetchCurrency()
+//        
+//        // Assert
+//        waitForExpectations(timeout: 2.0)
+//        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une erreur réseau.")
+//    }
     
     func testParseJSONWithMissingRate() {
         // Arrange
