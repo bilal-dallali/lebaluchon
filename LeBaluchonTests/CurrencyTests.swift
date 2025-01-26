@@ -340,7 +340,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
     }
 }
 
-class MockURLSession: URLSession, @unchecked Sendable {
+class MockURLSession: URLSessionProtocol, @unchecked Sendable {
     private let mockData: Data?
     private let mockResponse: URLResponse?
     private let mockError: Error?
@@ -351,12 +351,21 @@ class MockURLSession: URLSession, @unchecked Sendable {
         self.mockError = error
     }
     
-    override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        let task = MockURLSessionDataTask {
+    func dataTask(
+        with url: URL,
+        completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) -> URLSessionDataTask {
+        return MockURLSessionDataTask {
             completionHandler(self.mockData, self.mockResponse, self.mockError)
         }
-        return task
     }
+}
+
+protocol URLSessionProtocol {
+    func dataTask(
+        with url: URL,
+        completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) -> URLSessionDataTask
 }
 
 class MockURLSessionDataTask: URLSessionDataTask, @unchecked Sendable {
