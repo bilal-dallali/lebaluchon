@@ -400,7 +400,7 @@
         <!--Translation-->
         <scene sceneID="e0X-9r-ITC">
             <objects>
-                <viewController id="E5v-h7-fPT" customClass="TranslateViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TranslateViewController" id="E5v-h7-fPT" customClass="TranslateViewController" customModule="LeBaluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uDf-lT-iCN">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

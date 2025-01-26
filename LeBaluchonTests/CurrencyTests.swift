@@ -11,6 +11,7 @@ import XCTest
 final class CurrencyManagerTests: XCTestCase {
     var currencyManager: CurrencyManager!
     
+    
     override func setUpWithError() throws {
         currencyManager = CurrencyManager()
     }
@@ -243,5 +244,36 @@ final class CurrencyManagerTests: XCTestCase {
         // Assert - Cas 4
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "The delegate should be called for a parsing error")
         XCTAssertEqual((mockDelegate.receivedError as NSError?)?.domain, "ParseError", "The error should indicate a parsing error")
+    }
+}
+
+class MockURLSession: URLSession {
+    private let mockData: Data?
+    private let mockResponse: URLResponse?
+    private let mockError: Error?
+    
+    init(data: Data?, response: URLResponse?, error: Error?) {
+        self.mockData = data
+        self.mockResponse = response
+        self.mockError = error
+    }
+    
+    override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        let task = MockURLSessionDataTask {
+            completionHandler(self.mockData, self.mockResponse, self.mockError)
+        }
+        return task
+    }
+}
+
+class MockURLSessionDataTask: URLSessionDataTask {
+    private let completionHandler: () -> Void
+    
+    init(completionHandler: @escaping () -> Void) {
+        self.completionHandler = completionHandler
+    }
+    
+    override func resume() {
+        completionHandler()
     }
 }

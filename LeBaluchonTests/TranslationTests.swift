@@ -11,9 +11,30 @@ import XCTest
 final class TranslationTests: XCTestCase, TranslateManagerDelegate {
     
     var translateManager: TranslateManager!
+    var viewController: TranslateViewController!
     
     override func setUpWithError() throws {
         translateManager = TranslateManager()
+        super.setUp()
+        
+        // Charger le ViewController depuis le storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        
+        // Vérifiez que le storyboard est chargé
+        XCTAssertNotNil(storyboard, "Le storyboard Main n'a pas pu être chargé.")
+        
+        viewController = storyboard.instantiateViewController(withIdentifier: "TranslateViewController") as? TranslateViewController
+        
+        // Vérifiez que viewController est instancié
+        XCTAssertNotNil(viewController, "Le contrôleur TranslateViewController n'a pas pu être instancié depuis le storyboard.")
+        
+        // Attacher à une fenêtre
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = viewController
+        window.makeKeyAndVisible()
+        
+        // Forcer le chargement de la vue
+        viewController.loadViewIfNeeded()
     }
     
     override func tearDownWithError() throws {
