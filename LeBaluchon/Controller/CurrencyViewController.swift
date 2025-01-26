@@ -39,7 +39,11 @@ class CurrencyViewController: UIViewController, CurrencyManagerDelegate {
     }
     
     @IBAction func convertButton(_ sender: Any) {
-        if let amountString = originTextfield.text, let _ = Double(amountString) {
+        if originTextfield.text == "" {
+            let alert = UIAlertController(title: "Error", message: "Better if you type something", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else if let amountString = originTextfield.text, let _ = Double(amountString) {
             currencyManager.fetchCurrency()
         }
     }

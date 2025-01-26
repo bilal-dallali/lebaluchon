@@ -123,9 +123,7 @@ extension WeatherViewController: UITextFieldDelegate {
         if searchTownTextField.text != "" {
             searchTownTextField.endEditing(true)
         } else {
-            
             searchTownTextField.placeholder = "Better if you type something"
-            
             let alert = UIAlertController(title: "Error", message: "Better if you type something", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
