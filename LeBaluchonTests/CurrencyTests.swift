@@ -327,7 +327,6 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
     }
     
     // MARK: - CurrencyManagerDelegate
-    
     func didUpdateCurrency(_ currencyManager: CurrencyManager, currency: CurrencyModel) {
         updateCurrencyCalled = true
         expectation.fulfill()
