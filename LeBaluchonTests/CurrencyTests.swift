@@ -8,16 +8,23 @@
 import XCTest
 @testable import LeBaluchon
 
-final class CurrencyManagerTests: XCTestCase {
+final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
     var currencyManager: CurrencyManager!
-    
+    var expectation: XCTestExpectation!
+    var updateCurrencyCalled = false
+    var receivedError: Error!
     
     override func setUpWithError() throws {
+        super.setUp()
         currencyManager = CurrencyManager()
+        currencyManager.delegate = self
+        updateCurrencyCalled = false
+        receivedError = nil
     }
     
     override func tearDownWithError() throws {
         currencyManager = nil
+        super.tearDown()
     }
     
     func testParseJSONValidData() throws {
@@ -244,6 +251,92 @@ final class CurrencyManagerTests: XCTestCase {
         // Assert - Cas 4
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "The delegate should be called for a parsing error")
         XCTAssertEqual((mockDelegate.receivedError as NSError?)?.domain, "ParseError", "The error should indicate a parsing error")
+    }
+    
+    func testFetchCurrencyWithInvalidURL() {
+        // Arrange
+        currencyManager.currencyURL = "invalid-url"
+        
+        // Act
+        expectation = expectation(description: "Waiting for invalid URL error")
+        currencyManager.fetchCurrency()
+        
+        // Assert
+        waitForExpectations(timeout: 2.0)
+        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
+    }
+    
+    func testPerformRequestWithNetworkError() {
+        // Arrange
+        let mockSession = MockURLSession(data: nil, response: nil, error: NSError(domain: "TestError", code: 123, userInfo: nil))
+        currencyManager.performRequest(with: "https://mockurl.com")
+        
+        // Act
+        expectation = expectation(description: "Waiting for network error")
+        currencyManager.fetchCurrency()
+        
+        // Assert
+        waitForExpectations(timeout: 2.0)
+        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une erreur réseau.")
+    }
+    
+    func testParseJSONWithMissingRate() {
+        // Arrange
+        let jsonData = """
+        {
+            "rates": {}
+        }
+        """.data(using: .utf8)!
+        
+        // Act
+        let result = currencyManager.parseJSON(currencyData: jsonData)
+        
+        // Assert
+        XCTAssertNil(result, "Le parsing aurait dû échouer car le taux USD est manquant.")
+        XCTAssertNotNil(receivedError, "Une erreur aurait dû être envoyée pour un taux USD manquant.")
+    }
+    
+    func testParseJSONWithInvalidJSON() {
+        // Arrange
+        let invalidJSONData = "invalid-json".data(using: .utf8)!
+        
+        // Act
+        let result = currencyManager.parseJSON(currencyData: invalidJSONData)
+        
+        // Assert
+        XCTAssertNil(result, "Le parsing aurait dû échouer pour un JSON invalide.")
+        XCTAssertNotNil(receivedError, "Une erreur aurait dû être envoyée pour un JSON invalide.")
+    }
+    
+    func testParseJSONWithValidData() {
+        // Arrange
+        let validJSONData = """
+        {
+            "rates": {
+                "USD": 1.234
+            }
+        }
+        """.data(using: .utf8)!
+        
+        // Act
+        let result = currencyManager.parseJSON(currencyData: validJSONData)
+        
+        // Assert
+        XCTAssertNotNil(result, "Le parsing aurait dû réussir pour un JSON valide.")
+        XCTAssertEqual(result?.exchangeRate, 1.234, "Le taux USD est incorrect.")
+    }
+    
+    // MARK: - CurrencyManagerDelegate
+    
+    func didUpdateCurrency(_ currencyManager: CurrencyManager, currency: CurrencyModel) {
+        updateCurrencyCalled = true
+        expectation.fulfill()
+    }
+    
+    func didFailWithError(error: Error) {
+        print("Erreur capturée dans didFailWithError : \(error.localizedDescription)")
+        receivedError = error
+        expectation?.fulfill()
     }
 }
 
