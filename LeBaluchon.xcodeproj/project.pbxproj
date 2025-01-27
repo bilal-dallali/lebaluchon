@@ -36,9 +36,7 @@
 		9AD4E6A42C1CB3B300A7C400 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A32C1CB3B300A7C400 /* AppDelegate.swift */; };
 		9AD4E6A62C1CB3B300A7C400 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A52C1CB3B300A7C400 /* SceneDelegate.swift */; };
 		9AD4E6A82C1CB3B300A7C400 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A72C1CB3B300A7C400 /* WeatherViewController.swift */; };
-		9AD4E6AB2C1CB3B300A7C400 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6AA2C1CB3B300A7C400 /* Base */; };
 		9AD4E6AD2C1CB3B400A7C400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6AC2C1CB3B400A7C400 /* Assets.xcassets */; };
-		9AD4E6B02C1CB3B400A7C400 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6AF2C1CB3B400A7C400 /* Base */; };
 		9AD4E6BB2C1CB3B400A7C400 /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6BA2C1CB3B400A7C400 /* WeatherTests.swift */; };
 		9AD4E6C52C1CB3B400A7C400 /* LeBaluchonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6C42C1CB3B400A7C400 /* LeBaluchonUITests.swift */; };
 		9AD4E6C72C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6C62C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift */; };
@@ -358,14 +356,12 @@
 				9A85E5FE2C28296900F44A63 /* PlusJakartaSans-Medium.ttf in Resources */,
 				9A85E5F92C28296900F44A63 /* PlusJakartaSans-Regular.ttf in Resources */,
 				9A85E6002C28296900F44A63 /* PlusJakartaSans-MediumItalic.ttf in Resources */,
-				9AD4E6B02C1CB3B400A7C400 /* Base in Resources */,
 				9A85E6062C28296900F44A63 /* PlusJakartaSans-Light.ttf in Resources */,
 				9A85E5FD2C28296900F44A63 /* PlusJakartaSans-ExtraLightItalic.ttf in Resources */,
 				9A85E6052C28296900F44A63 /* PlusJakartaSans-SemiBold.ttf in Resources */,
 				9A85E6042C28296900F44A63 /* PlusJakartaSans-LightItalic.ttf in Resources */,
 				9A85E6012C28296900F44A63 /* PlusJakartaSans-Bold.ttf in Resources */,
 				E1A8E4A22D459CA800D997A2 /* Main.storyboard in Resources */,
-				9AD4E6AB2C1CB3B300A7C400 /* Base in Resources */,
 				9A85E5FF2C28296900F44A63 /* PlusJakartaSans-BoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
