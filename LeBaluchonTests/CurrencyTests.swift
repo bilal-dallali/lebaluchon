@@ -13,17 +13,21 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
     var expectation: XCTestExpectation!
     var updateCurrencyCalled = false
     var receivedError: Error!
+    var receivedCurrency: CurrencyModel?
     
     override func setUpWithError() throws {
         super.setUp()
         currencyManager = CurrencyManager()
         currencyManager.delegate = self
         updateCurrencyCalled = false
+        
         receivedError = nil
     }
     
     override func tearDownWithError() throws {
         currencyManager = nil
+        receivedCurrency = nil
+        receivedError = nil
         super.tearDown()
     }
     
@@ -109,7 +113,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         // Assert
         XCTAssertEqual(mockManager.capturedURL, testURL, "performRequest should capture the correct URL")
     }
-
+    
     
     func testPerformRequestWithValidResponse() {
         class MockDelegate: CurrencyManagerDelegate {
@@ -266,19 +270,19 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
     }
     
-//    func testPerformRequestWithNetworkError() {
-//        // Arrange
-//        let mockSession = MockURLSession(data: nil, response: nil, error: NSError(domain: "TestError", code: 123, userInfo: nil))
-//        currencyManager.performRequest(with: "https://mockurl.com")
-//        
-//        // Act
-//        expectation = expectation(description: "Waiting for network error")
-//        currencyManager.fetchCurrency()
-//        
-//        // Assert
-//        waitForExpectations(timeout: 2.0)
-//        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une erreur réseau.")
-//    }
+    //    func testPerformRequestWithNetworkError() {
+    //        // Arrange
+    //        let mockSession = MockURLSession(data: nil, response: nil, error: NSError(domain: "TestError", code: 123, userInfo: nil))
+    //        currencyManager.performRequest(with: "https://mockurl.com")
+    //
+    //        // Act
+    //        expectation = expectation(description: "Waiting for network error")
+    //        currencyManager.fetchCurrency()
+    //
+    //        // Assert
+    //        waitForExpectations(timeout: 2.0)
+    //        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une erreur réseau.")
+    //    }
     
     func testParseJSONWithMissingRate() {
         // Arrange
@@ -337,12 +341,33 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         receivedError = error
         expectation?.fulfill()
     }
+    
+    // MARK: - Tests pour un JSON malformé
+    
+    func testPerformRequestWithMalformedJSON() {
+        // Arrange
+        let invalidJSON = "{ invalid json }".data(using: .utf8)
+        let mockSession = MockURLSession(data: invalidJSON, response: nil, error: nil)
+        currencyManager = CurrencyManager(session: mockSession)
+        currencyManager.delegate = self
+        
+        // Act
+        currencyManager.performRequest(with: "https://mockurl.com")
+        
+        // Assert
+        XCTAssertNotNil(receivedError, "Une erreur aurait dû être remontée pour un JSON malformé.")
+        XCTAssertEqual(
+            (receivedError as NSError?)?.domain,
+            "ParseError",
+            "Le domaine d'erreur devrait être 'ParseError'."
+        )
+    }
 }
 
-class MockURLSession: URLSessionProtocol, @unchecked Sendable {
-    private let mockData: Data?
-    private let mockResponse: URLResponse?
-    private let mockError: Error?
+class MockURLSession: SessionProtocol {
+    var mockData: Data?
+    var mockResponse: URLResponse?
+    var mockError: Error?
     
     init(data: Data?, response: URLResponse?, error: Error?) {
         self.mockData = data
@@ -353,7 +378,7 @@ class MockURLSession: URLSessionProtocol, @unchecked Sendable {
     func dataTask(
         with url: URL,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
-    ) -> URLSessionDataTaskProtocol {
+    ) -> URLSessionDataTask {
         return MockURLSessionDataTask {
             completionHandler(self.mockData, self.mockResponse, self.mockError)
         }
@@ -371,23 +396,23 @@ protocol URLSessionDataTaskProtocol {
     func resume()
 }
 
-class MockURLSessionDataTask: URLSessionDataTaskProtocol, @unchecked Sendable {
+class MockURLSessionDataTask: URLSessionDataTask, @unchecked Sendable {
     private let completionHandler: () -> Void
     
     init(completionHandler: @escaping () -> Void) {
         self.completionHandler = completionHandler
     }
     
-    func resume() {
+    override func resume() {
         completionHandler()
     }
 }
 
-protocol SessionProtocol {
-    func dataTask(
-        with url: URL,
-        completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void
-    ) -> URLSessionDataTask
-}
-
-extension URLSession: SessionProtocol {}
+//protocol SessionProtocol {
+//    func dataTask(
+//        with url: URL,
+//        completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void
+//    ) -> URLSessionDataTask
+//}
+//
+//extension URLSession: SessionProtocol {}
