@@ -391,6 +391,41 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
             XCTFail("L'erreur reçue n'est pas du type NSError.")
         }
     }
+    
+    func testDidUpdateCurrency() {
+        // Arrange
+        class MockDelegate: CurrencyManagerDelegate {
+            var didUpdateCurrencyCalled = false
+            var receivedCurrency: CurrencyModel?
+            
+            func didUpdateCurrency(_ currencyManager: CurrencyManager, currency: CurrencyModel) {
+                didUpdateCurrencyCalled = true
+                receivedCurrency = currency
+            }
+            
+            func didFailWithError(error: Error) {
+                XCTFail("didFailWithError ne devrait pas être appelé.")
+            }
+        }
+        
+        let mockDelegate = MockDelegate()
+        let mockSession = MockURLSession(data: """
+    {
+        "rates": {
+            "USD": 1.23
+        }
+    }
+    """.data(using: .utf8), response: nil, error: nil)
+        var manager = CurrencyManager(session: mockSession)
+        manager.delegate = mockDelegate
+        
+        // Act
+        manager.fetchCurrency()
+        
+        // Assert
+        XCTAssertTrue(mockDelegate.didUpdateCurrencyCalled, "didUpdateCurrency devrait être appelé.")
+        XCTAssertEqual(mockDelegate.receivedCurrency?.exchangeRate, 1.23, "Le taux de change USD est incorrect.")
+    }
 }
 
 class MockURLSession: SessionProtocol {
