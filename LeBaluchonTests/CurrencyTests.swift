@@ -362,6 +362,35 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
             "Le domaine d'erreur devrait être 'ParseError'."
         )
     }
+    
+    func testPerformRequestWithInvalidURL() {
+        // Arrange
+        let invalidURL = "invalid_url" 
+        let mockSession = MockURLSession(data: nil, response: nil, error: nil)
+        currencyManager = CurrencyManager(session: mockSession)
+        currencyManager.delegate = self
+        
+        // Act
+        currencyManager.performRequest(with: invalidURL)
+        
+        // Assert
+        XCTAssertNotNil(receivedError, "Une erreur aurait dû être remontée pour une URL invalide.")
+        
+        if let nsError = receivedError as NSError? {
+            XCTAssertEqual(
+                nsError.domain,
+                "NoDataError",
+                "Le domaine d'erreur devrait être 'InvalidURLError'."
+            )
+            XCTAssertEqual(
+                nsError.localizedDescription,
+                "No data returned from server.",
+                "Le message d'erreur devrait indiquer que l'URL est invalide."
+            )
+        } else {
+            XCTFail("L'erreur reçue n'est pas du type NSError.")
+        }
+    }
 }
 
 class MockURLSession: SessionProtocol {
