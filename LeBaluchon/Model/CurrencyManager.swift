@@ -13,9 +13,13 @@ protocol CurrencyManagerDelegate {
 }
 
 struct CurrencyManager {
+    private let session: SessionProtocol
     var currencyURL = "https://data.fixer.io/api/latest?access_key=\(currencyApiKey)&base=EUR&symbols=USD"
-    
     var delegate: CurrencyManagerDelegate?
+    
+    init(session: SessionProtocol = URLSession.shared) {
+        self.session = session
+    }
     
     func fetchCurrency() {
         let urlString = currencyURL
@@ -23,45 +27,56 @@ struct CurrencyManager {
     }
     
     func performRequest(with urlString: String) {
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    self.delegate?.didFailWithError(error: error!)
-                    return
-                }
-                guard let safeData = data else {
-                    let error = NSError(domain: "NoDataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data returned from server."])
-                    self.delegate?.didFailWithError(error: error)
-                    return
-                }
-                
-                if let currency = self.parseJSON(currencyData: safeData) {
-                    self.delegate?.didUpdateCurrency(self, currency: currency)
-                } else {
-                    let error = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON."])
-                    self.delegate?.didFailWithError(error: error)
-                }
-            }
-            task.resume()
+        guard let url = URL(string: urlString) else {
+            let error = NSError(domain: "InvalidURLError", code: 0, userInfo: [NSLocalizedDescriptionKey: "The URL is invalid."])
+            delegate?.didFailWithError(error: error)
+            return
         }
+        
+        let task = session.dataTask(with: url) { data, response, error in
+            if let error = error {
+                self.delegate?.didFailWithError(error: error)
+                return
+            }
+            
+            guard let safeData = data else {
+                let error = NSError(domain: "NoDataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data returned from server."])
+                self.delegate?.didFailWithError(error: error)
+                return
+            }
+            
+            if let currency = self.parseJSON(currencyData: safeData) {
+                self.delegate?.didUpdateCurrency(self, currency: currency)
+            } else {
+                let error = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON."])
+                self.delegate?.didFailWithError(error: error)
+            }
+        }
+        task.resume()
     }
     
     func parseJSON(currencyData: Data) -> CurrencyModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(CurrencyData.self, from: currencyData)
-            //let rate = decodedData.rates["USD"]!
             guard let rate = decodedData.rates["USD"] else {
                 let error = NSError(domain: "MissingRateError", code: 0, userInfo: [NSLocalizedDescriptionKey: "USD rate is missing in JSON."])
                 delegate?.didFailWithError(error: error)
                 return nil
             }
-            let currency = CurrencyModel(exchangeRate: rate)
-            return currency
+            return CurrencyModel(exchangeRate: rate)
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
         }
     }
 }
+
+protocol SessionProtocol {
+    func dataTask(
+        with url: URL,
+        completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void
+    ) -> URLSessionDataTask
+}
+
+extension URLSession: SessionProtocol {}

@@ -22,66 +22,66 @@ extension String {
 }
 
 struct TranslateManager {
+    private let session: SessionProtocol
     let translateURL = "https://translation.googleapis.com/language/translate/v2?key=\(googleTranslateApiKey)"
-    
     var delegate: TranslateManagerDelegate?
     
-    // Get translation
+    init(session: SessionProtocol = URLSession.shared) {
+        self.session = session
+    }
+    
     func fetchTranslation(text: String, targetLang: String) {
         let urlString = "\(translateURL)&q=\(text)&target=\(targetLang)"
         performRequest(with: urlString)
     }
     
-    // DO the right request
     func performRequest(with urlString: String) {
-        if let url = URL(string: urlString) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    self.delegate?.didFailWithError(error: error!)
-                    return
-                }
-                if let safeData = data {
-                    if let translation = self.parseJSON(translateData: safeData) {
-                        self.delegate?.didUpdateTranslation(self, translation: translation)
-                    } else {
-                        let parsingError = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON"])
-                        delegate?.didFailWithError(error: parsingError)
-                    }
-                }
-            }
-            task.resume()
+        guard let url = URL(string: urlString) else {
+            let error = NSError(domain: "InvalidURLError", code: 0, userInfo: [NSLocalizedDescriptionKey: "The URL is invalid."])
+            delegate?.didFailWithError(error: error)
+            return
         }
+        
+        let task = session.dataTask(with: url) { data, response, error in
+            if let error = error {
+                self.delegate?.didFailWithError(error: error)
+                return
+            }
+            
+            guard let safeData = data else {
+                let error = NSError(domain: "NoDataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data returned from server."])
+                self.delegate?.didFailWithError(error: error)
+                return
+            }
+            
+            if let translation = self.parseJSON(translateData: safeData) {
+                self.delegate?.didUpdateTranslation(self, translation: translation)
+            } else {
+                let parsingError = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON."])
+                delegate?.didFailWithError(error: parsingError)
+            }
+        }
+        task.resume()
     }
     
-    // Parse JSON
     func parseJSON(translateData: Data) -> TranslateModel? {
         let decoder = JSONDecoder()
         do {
             let decodedData = try decoder.decode(TranslateData.self, from: translateData)
             
-            // Chek if the translation exist
             guard let firstTranslation = decodedData.data.translations.first else {
                 let error = NSError(domain: "TranslationError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No translations found in JSON."])
                 delegate?.didFailWithError(error: error)
                 return nil
             }
             
-            // Get the translated text
             let translatedText = firstTranslation.translatedText.htmlDecoded()
-            
-            // Get language if available
             let detectedSourceLanguage = firstTranslation.detectedSourceLanguage
             
-            // Create and return model
-            let translation = TranslateModel(translatedText: translatedText, detectedSourceLanguage: detectedSourceLanguage)
-            return translation
+            return TranslateModel(translatedText: translatedText, detectedSourceLanguage: detectedSourceLanguage)
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
         }
     }
-    
-    
-    
 }
