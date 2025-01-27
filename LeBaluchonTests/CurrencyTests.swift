@@ -363,9 +363,9 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         )
     }
     
-    func testPerformRequestWithInvalidURL() {
+    func testPerformRequestWithNoData() {
         // Arrange
-        let invalidURL = "invalid_url" 
+        let invalidURL = "no_data"
         let mockSession = MockURLSession(data: nil, response: nil, error: nil)
         currencyManager = CurrencyManager(session: mockSession)
         currencyManager.delegate = self
@@ -374,19 +374,54 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         currencyManager.performRequest(with: invalidURL)
         
         // Assert
-        XCTAssertNotNil(receivedError, "Une erreur aurait dû être remontée pour une URL invalide.")
+        XCTAssertNotNil(receivedError, "Une erreur aurait dû être remontée pour des données manquantes")
         
         if let nsError = receivedError as NSError? {
             XCTAssertEqual(
                 nsError.domain,
                 "NoDataError",
-                "Le domaine d'erreur devrait être 'InvalidURLError'."
+                "Le domaine d'erreur devrait être 'NoDataError'."
             )
             XCTAssertEqual(
                 nsError.localizedDescription,
                 "No data returned from server.",
-                "Le message d'erreur devrait indiquer que l'URL est invalide."
+                "Le message d'erreur devrait indiquer que les données sont manquantes"
             )
+        } else {
+            XCTFail("L'erreur reçue n'est pas du type NSError.")
+        }
+    }
+    
+    func testPerformRequestWithInvalidURL() {
+        // Arrange
+        let invalidURL = ""
+        class MockDelegate: CurrencyManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: Error?
+            
+            func didUpdateCurrency(_ currencyManager: CurrencyManager, currency: CurrencyModel) {
+                XCTFail("didUpdateCurrency ne devrait pas être appelé.")
+            }
+            
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error
+            }
+        }
+        
+        let mockDelegate = MockDelegate()
+        let mockSession = MockURLSession(data: nil, response: nil, error: nil)
+        var manager = CurrencyManager(session: mockSession)
+        manager.delegate = mockDelegate
+        
+        // Act
+        manager.performRequest(with: invalidURL)
+        
+        // Assert
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "didFailWithError devrait être appelé pour une URL invalide.")
+        if let nsError = mockDelegate.receivedError as NSError? {
+            XCTAssertEqual(nsError.domain, "InvalidURLError", "Le domaine de l'erreur devrait être 'InvalidURLError'.")
+            XCTAssertEqual(nsError.localizedDescription, "The URL is invalid.", "Le message d'erreur devrait indiquer que l'URL est invalide.")
         } else {
             XCTFail("L'erreur reçue n'est pas du type NSError.")
         }
