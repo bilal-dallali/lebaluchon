@@ -506,12 +506,3 @@ class MockURLSessionDataTask: URLSessionDataTask, @unchecked Sendable {
         completionHandler()
     }
 }
-
-//protocol SessionProtocol {
-//    func dataTask(
-//        with url: URL,
-//        completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void
-//    ) -> URLSessionDataTask
-//}
-//
-//extension URLSession: SessionProtocol {}

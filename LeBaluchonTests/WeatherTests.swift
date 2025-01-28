@@ -231,27 +231,27 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(weather.timezone, 3600, "Timezone should match")
     }
     
-    func testFetchWeatherCallsPerformRequestWithCorrectURL() {
-        class MockWeatherManager {
-            var capturedURL: String?
-            private let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=YOUR_API_KEY"
-            
-            func fetchWeather(townName: String) {
-                let urlString = "\(weatherURL)&q=\(townName)"
-                capturedURL = urlString
-            }
-        }
-        
-        let mockWeatherManager = MockWeatherManager()
-        let testTownName = "Paris"
-        let expectedURLPart = "&q=Paris"
-        
-        mockWeatherManager.fetchWeather(townName: testTownName)
-        
-        XCTAssertNotNil(mockWeatherManager.capturedURL, "fetchWeather should construct an URL")
-        XCTAssertTrue(mockWeatherManager.capturedURL?.contains(expectedURLPart) ?? false, "The URL should include the correct query for the town name")
-        XCTAssertTrue(mockWeatherManager.capturedURL?.hasPrefix("https://api.openweathermap.org/data/2.5/weather") ?? false, "The URL should start with the base weather URL")
-    }
+//    func testFetchWeatherCallsPerformRequestWithCorrectURL() {
+//        class MockWeatherManager {
+//            var capturedURL: String?
+//            private let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=YOUR_API_KEY"
+//            
+//            func fetchWeather(townName: String) {
+//                let urlString = "\(weatherURL)&q=\(townName)"
+//                capturedURL = urlString
+//            }
+//        }
+//        
+//        let mockWeatherManager = MockWeatherManager()
+//        let testTownName = "Paris"
+//        let expectedURLPart = "&q=Paris"
+//        
+//        mockWeatherManager.fetchWeather(townName: testTownName)
+//        
+//        XCTAssertNotNil(mockWeatherManager.capturedURL, "fetchWeather should construct an URL")
+//        XCTAssertTrue(mockWeatherManager.capturedURL?.contains(expectedURLPart) ?? false, "The URL should include the correct query for the town name")
+//        XCTAssertTrue(mockWeatherManager.capturedURL?.hasPrefix("https://api.openweathermap.org/data/2.5/weather") ?? false, "The URL should start with the base weather URL")
+//    }
     
     func testGetLocalDateTimeString() {
         let viewController = WeatherViewController()
@@ -260,6 +260,43 @@ final class WeatherManagerTests: XCTestCase {
         
         XCTAssertFalse(result.isEmpty, "The local date-time string should not be empty")
         XCTAssert(result.contains("202"), "The local date-time string should contain a valid year")
+    }
+    
+    func testFetchWeatherCallsPerformRequestWithCorrectURL() {
+        
+        // Arrange
+        struct MockWeatherManager {
+            let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=\(weatherApiKey)&units=metric"
+            var capturedURL: String?
+            mutating func performRequest(with urlString: String) {
+                capturedURL = urlString
+            }
+            
+            mutating func fetchWeather(townName: String) -> String {
+                let urlString = "\(weatherURL)&q=\(townName)"
+                performRequest(with: urlString) // Capture l'URL ici
+                return urlString
+            }
+        }
+        
+        var mockManager = MockWeatherManager()
+        let testTownName = "Paris"
+        let expectedBaseURL = "https://api.openweathermap.org/data/2.5/weather?appid="
+        let expectedQuery = "&q=Paris"
+        
+        // Act
+        mockManager.fetchWeather(townName: testTownName)
+        
+        // Assert
+        XCTAssertNotNil(mockManager.capturedURL, "fetchWeather should construct an URL.")
+        XCTAssertTrue(
+            mockManager.capturedURL?.hasPrefix(expectedBaseURL) ?? false,
+            "The URL should start with the base weather URL."
+        )
+        XCTAssertTrue(
+            mockManager.capturedURL?.contains(expectedQuery) ?? false,
+            "The URL should include the correct query for the town name."
+        )
     }
     
 }

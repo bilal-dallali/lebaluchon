@@ -87,7 +87,7 @@ struct CurrencyManager {
 protocol SessionProtocol {
     func dataTask(
         with url: URL,
-        completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
+        completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void
     ) -> URLSessionDataTask
 }
 
