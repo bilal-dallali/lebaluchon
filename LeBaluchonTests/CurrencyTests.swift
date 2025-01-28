@@ -266,6 +266,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         currencyManager.fetchCurrency()
         
         // Assert
+        // Parfois probleme
         waitForExpectations(timeout: 1.0)
         XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
     }

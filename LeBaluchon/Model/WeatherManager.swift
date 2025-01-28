@@ -35,35 +35,6 @@ struct WeatherManager {
         performRequest(with: urlString)
     }
     
-//    func performRequest(with urlString: String) {
-//        guard let url = URL(string: urlString) else {
-//            let error = NSError(domain: "InvalidURLError", code: 0, userInfo: [NSLocalizedDescriptionKey: "The URL provided is invalid."])
-//            delegate?.didFailWithError(error: error)
-//            return
-//        }
-//        
-//        let task = session.dataTask(with: url) { (data, response, error) in
-//            if error != nil {
-//                self.delegate?.didFailWithError(error: error!)
-//                return
-//            }
-//            
-//            guard let safeData = data else {
-//                let error = NSError(domain: "NoDataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data returned from server."])
-//                self.delegate?.didFailWithError(error: error)
-//                return
-//            }
-//            
-//            if let weather = self.parseJSON(weatherData: safeData) {
-//                self.delegate?.didUpdateWeather(self, weather: weather)
-//            } else {
-//                let error = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON."])
-//                self.delegate?.didFailWithError(error: error)
-//            }
-//        }
-//        
-//        task.resume()
-//    }
     func performRequest(with urlString: String) {
         guard let url = URL(string: urlString), url.scheme != nil, url.host != nil else {
             let error = NSError(domain: "InvalidURLError", code: 0, userInfo: [NSLocalizedDescriptionKey: "The URL provided is invalid."])
@@ -106,10 +77,10 @@ struct WeatherManager {
         let session = URLSession(configuration: .default)
         // GIVE THE SESSION A TASK
         let task = session.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                self.delegate?.didFailWithError(error: error!)
-                return
-            }
+//            if error != nil {
+//                self.delegate?.didFailWithError(error: error!)
+//                return
+//            }
             if let safeData = data {
                 if let weather = self.parseNyJSON(weatherData: safeData) {
                     self.delegate?.didUpdateNyWeather(self, weather: weather)

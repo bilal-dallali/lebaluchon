@@ -511,4 +511,37 @@ final class WeatherManagerTests: XCTestCase {
         )
     }
     
+    func testParseNyJSONCallsDidFailWithErrorOnInvalidJSON() {
+        // Arrange
+        class MockDelegate: WeatherManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+            }
+        }
+        
+        let mockDelegate = MockDelegate()
+        var weatherManager = WeatherManager()
+        weatherManager.delegate = mockDelegate
+        
+        let invalidJSON = "{ invalid json }".data(using: .utf8)
+        
+        // Act
+        let result = weatherManager.parseNyJSON(weatherData: invalidJSON!)
+        
+        // Assert
+        XCTAssertNil(result, "parseNyJSON should return nil for invalid JSON.")
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "didFailWithError should be called for invalid JSON.")
+        XCTAssertNotNil(mockDelegate.receivedError, "An error should be passed to didFailWithError.")
+        XCTAssertEqual(
+            mockDelegate.receivedError?.domain,
+            NSCocoaErrorDomain,
+            "The error domain should be NSCocoaErrorDomain for JSON decoding errors."
+        )
+    }
 }
