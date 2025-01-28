@@ -386,4 +386,41 @@ final class WeatherManagerTests: XCTestCase {
         )
     }
     
+    func testPerformNyRequestWithInvalidURL() {
+        // Arrange
+        class MockDelegate: WeatherManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+            }
+        }
+        
+        let mockDelegate = MockDelegate()
+        var weatherManager = WeatherManager()
+        weatherManager.delegate = mockDelegate
+        
+        let invalidURL = "" // URL invalide
+        
+        // Act
+        weatherManager.performNyRequest(with: invalidURL)
+        
+        // Assert
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for an invalid URL.")
+        XCTAssertNotNil(mockDelegate.receivedError, "An error should be passed to the delegate.")
+        XCTAssertEqual(
+            mockDelegate.receivedError?.domain,
+            "InvalidURLError",
+            "The error domain should be 'InvalidURLError'."
+        )
+        XCTAssertEqual(
+            mockDelegate.receivedError?.localizedDescription,
+            "The URL provided is invalid.",
+            "The error description should indicate the URL is invalid."
+        )
+    }
 }
