@@ -266,7 +266,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         currencyManager.fetchCurrency()
         
         // Assert
-        waitForExpectations(timeout: 2.0)
+        waitForExpectations(timeout: 1.0)
         XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
     }
     
@@ -421,7 +421,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "didFailWithError devrait être appelé pour une URL invalide.")
         if let nsError = mockDelegate.receivedError as NSError? {
             XCTAssertEqual(nsError.domain, "InvalidURLError", "Le domaine de l'erreur devrait être 'InvalidURLError'.")
-            XCTAssertEqual(nsError.localizedDescription, "The URL is invalid.", "Le message d'erreur devrait indiquer que l'URL est invalide.")
+            XCTAssertEqual(nsError.localizedDescription, "The URL provided is invalid.", "Le message d'erreur devrait indiquer que l'URL est invalide.")
         } else {
             XCTFail("L'erreur reçue n'est pas du type NSError.")
         }

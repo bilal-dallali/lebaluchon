@@ -118,31 +118,118 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(weather?.conditionName, "cloud.fill", "Condition name should match the current logic")
     }
     
+//    func testPerformRequestWithInvalidURL() {
+//        let invalidURL = "invalid_url"
+//        let expectation = XCTestExpectation(description: "Should call didFailWithError for invalid URL")
+//        
+//        class MockDelegate: WeatherManagerDelegate {
+//            var didFailWithErrorCalled = false
+//            var expectation: XCTestExpectation?
+//            
+//            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+//            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+//            func didFailWithError(error: Error) {
+//                didFailWithErrorCalled = true
+//                expectation?.fulfill()
+//            }
+//        }
+//        
+//        let mockDelegate = MockDelegate()
+//        mockDelegate.expectation = expectation
+//        weatherManager.delegate = mockDelegate
+//        
+//        // Appeler avec une URL invalide
+//        weatherManager.performRequest(with: invalidURL)
+//        
+//        wait(for: [expectation], timeout: 2.0)
+//        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL")
+//    }
+    
     func testPerformRequestWithInvalidURL() {
-        let invalidURL = "invalid_url"
-        let expectation = XCTestExpectation(description: "Should call didFailWithError for invalid URL")
-        
         class MockDelegate: WeatherManagerDelegate {
             var didFailWithErrorCalled = false
-            var expectation: XCTestExpectation?
+            var receivedError: NSError?
             
             func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
             func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
             func didFailWithError(error: Error) {
                 didFailWithErrorCalled = true
-                expectation?.fulfill()
+                receivedError = error as NSError
             }
         }
         
+        let invalidURL = "invalid_url"
         let mockDelegate = MockDelegate()
-        mockDelegate.expectation = expectation
-        weatherManager.delegate = mockDelegate
+        var manager = WeatherManager()
+        manager.delegate = mockDelegate
         
-        // Appeler avec une URL invalide
-        weatherManager.performRequest(with: invalidURL)
+        manager.performRequest(with: invalidURL)
         
-        wait(for: [expectation], timeout: 2.0)
-        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL")
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "InvalidURLError", "Error domain should be 'InvalidURLError'.")
+    }
+    
+    func testPerformRequestWithNoData() {
+        class MockSession: SessionProtocol {
+            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+                completionHandler(nil, nil, nil)
+                return URLSessionDataTask()
+            }
+        }
+        
+        class MockDelegate: WeatherManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+            }
+        }
+        
+        let mockSession = MockSession()
+        let mockDelegate = MockDelegate()
+        var manager = WeatherManager(session: mockSession)
+        manager.delegate = mockDelegate
+        
+        manager.performRequest(with: manager.weatherURL)
+        
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for missing data.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "NoDataError", "Error domain should be 'NoDataError'.")
+    }
+    
+    func testPerformRequestWithMalformedJSON() {
+        class MockSession: SessionProtocol {
+            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+                let invalidJSON = "{ invalid json }".data(using: .utf8)
+                completionHandler(invalidJSON, nil, nil)
+                return URLSessionDataTask()
+            }
+        }
+        
+        class MockDelegate: WeatherManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+            }
+        }
+        
+        let mockSession = MockSession()
+        let mockDelegate = MockDelegate()
+        var manager = WeatherManager(session: mockSession)
+        manager.delegate = mockDelegate
+        
+        manager.performRequest(with: manager.weatherURL)
+        
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for malformed JSON.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "ParseError", "Error domain should be 'ParseError'.")
     }
     
     func testPerformRequestWithNetworkError() {

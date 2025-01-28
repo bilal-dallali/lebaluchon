@@ -27,28 +27,20 @@ struct CurrencyManager {
     }
     
     func performRequest(with urlString: String) {
-        guard let url = URL(string: urlString), !urlString.isEmpty else {
-            let error = NSError(
-                domain: "InvalidURLError",
-                code: 0,
-                userInfo: [NSLocalizedDescriptionKey: "The URL is invalid."]
-            )
+        guard let url = URL(string: urlString) else {
+            let error = NSError(domain: "InvalidURLError", code: 0, userInfo: [NSLocalizedDescriptionKey: "The URL provided is invalid."])
             delegate?.didFailWithError(error: error)
             return
         }
         
-        let task = session.dataTask(with: url) { data, response, error in
-            if let error = error {
-                self.delegate?.didFailWithError(error: error)
+        let task = session.dataTask(with: url) { (data, response, error) in
+            if error != nil {
+                self.delegate?.didFailWithError(error: error!)
                 return
             }
             
             guard let safeData = data else {
-                let error = NSError(
-                    domain: "NoDataError",
-                    code: 0,
-                    userInfo: [NSLocalizedDescriptionKey: "No data returned from server."]
-                )
+                let error = NSError(domain: "NoDataError", code: 0, userInfo: [NSLocalizedDescriptionKey: "No data returned from server."])
                 self.delegate?.didFailWithError(error: error)
                 return
             }
@@ -56,11 +48,7 @@ struct CurrencyManager {
             if let currency = self.parseJSON(currencyData: safeData) {
                 self.delegate?.didUpdateCurrency(self, currency: currency)
             } else {
-                let error = NSError(
-                    domain: "ParseError",
-                    code: 0,
-                    userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON."]
-                )
+                let error = NSError(domain: "ParseError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Failed to parse JSON."])
                 self.delegate?.didFailWithError(error: error)
             }
         }
