@@ -544,4 +544,50 @@ final class WeatherManagerTests: XCTestCase {
             "The error domain should be NSCocoaErrorDomain for JSON decoding errors."
         )
     }
+    
+    func testPerformRequestCallsDidUpdateWeatherWithValidData() {
+        // Arrange
+        class MockDelegate: WeatherManagerDelegate {
+            var didUpdateWeatherCalled = false
+            var receivedWeather: WeatherModel?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+                didUpdateWeatherCalled = true
+                receivedWeather = weather
+            }
+            
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {}
+        }
+        
+        class MockSession: SessionProtocol {
+            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+                let validJSON = """
+            {
+                "weather": [{"id": 800, "description": "clear sky"}],
+                "main": {"temp": 25.0},
+                "name": "Paris",
+                "timezone": 3600
+            }
+            """.data(using: .utf8)
+                completionHandler(validJSON, nil, nil)
+                return URLSessionDataTask()
+            }
+        }
+        
+        let mockSession = MockSession()
+        let mockDelegate = MockDelegate()
+        var weatherManager = WeatherManager(session: mockSession)
+        weatherManager.delegate = mockDelegate
+        
+        // Act
+        weatherManager.performRequest(with: "https://mockurl.com")
+        
+        // Assert
+        XCTAssertTrue(mockDelegate.didUpdateWeatherCalled, "didUpdateWeather should be called for valid JSON.")
+        XCTAssertNotNil(mockDelegate.receivedWeather, "WeatherModel should not be nil for valid JSON.")
+        XCTAssertEqual(mockDelegate.receivedWeather?.townName, "Paris", "The town name should match the JSON data.")
+        XCTAssertEqual(mockDelegate.receivedWeather?.temperature, 25.0, "The temperature should match the JSON data.")
+        XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 3600, "The timezone should match the JSON data.")
+    }
 }
