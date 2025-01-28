@@ -9,7 +9,7 @@ import XCTest
 @testable import LeBaluchon
 
 final class WeatherManagerTests: XCTestCase {
-
+    
     var weatherManager: WeatherManager!
     
     override func setUpWithError() throws {
@@ -118,32 +118,32 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(weather?.conditionName, "cloud.fill", "Condition name should match the current logic")
     }
     
-//    func testPerformRequestWithInvalidURL() {
-//        let invalidURL = "invalid_url"
-//        let expectation = XCTestExpectation(description: "Should call didFailWithError for invalid URL")
-//        
-//        class MockDelegate: WeatherManagerDelegate {
-//            var didFailWithErrorCalled = false
-//            var expectation: XCTestExpectation?
-//            
-//            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
-//            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
-//            func didFailWithError(error: Error) {
-//                didFailWithErrorCalled = true
-//                expectation?.fulfill()
-//            }
-//        }
-//        
-//        let mockDelegate = MockDelegate()
-//        mockDelegate.expectation = expectation
-//        weatherManager.delegate = mockDelegate
-//        
-//        // Appeler avec une URL invalide
-//        weatherManager.performRequest(with: invalidURL)
-//        
-//        wait(for: [expectation], timeout: 2.0)
-//        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL")
-//    }
+    //    func testPerformRequestWithInvalidURL() {
+    //        let invalidURL = "invalid_url"
+    //        let expectation = XCTestExpectation(description: "Should call didFailWithError for invalid URL")
+    //
+    //        class MockDelegate: WeatherManagerDelegate {
+    //            var didFailWithErrorCalled = false
+    //            var expectation: XCTestExpectation?
+    //
+    //            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+    //            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+    //            func didFailWithError(error: Error) {
+    //                didFailWithErrorCalled = true
+    //                expectation?.fulfill()
+    //            }
+    //        }
+    //
+    //        let mockDelegate = MockDelegate()
+    //        mockDelegate.expectation = expectation
+    //        weatherManager.delegate = mockDelegate
+    //
+    //        // Appeler avec une URL invalide
+    //        weatherManager.performRequest(with: invalidURL)
+    //
+    //        wait(for: [expectation], timeout: 2.0)
+    //        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL")
+    //    }
     
     func testPerformRequestWithInvalidURL() {
         class MockDelegate: WeatherManagerDelegate {
@@ -318,27 +318,27 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(weather.timezone, 3600, "Timezone should match")
     }
     
-//    func testFetchWeatherCallsPerformRequestWithCorrectURL() {
-//        class MockWeatherManager {
-//            var capturedURL: String?
-//            private let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=YOUR_API_KEY"
-//            
-//            func fetchWeather(townName: String) {
-//                let urlString = "\(weatherURL)&q=\(townName)"
-//                capturedURL = urlString
-//            }
-//        }
-//        
-//        let mockWeatherManager = MockWeatherManager()
-//        let testTownName = "Paris"
-//        let expectedURLPart = "&q=Paris"
-//        
-//        mockWeatherManager.fetchWeather(townName: testTownName)
-//        
-//        XCTAssertNotNil(mockWeatherManager.capturedURL, "fetchWeather should construct an URL")
-//        XCTAssertTrue(mockWeatherManager.capturedURL?.contains(expectedURLPart) ?? false, "The URL should include the correct query for the town name")
-//        XCTAssertTrue(mockWeatherManager.capturedURL?.hasPrefix("https://api.openweathermap.org/data/2.5/weather") ?? false, "The URL should start with the base weather URL")
-//    }
+    //    func testFetchWeatherCallsPerformRequestWithCorrectURL() {
+    //        class MockWeatherManager {
+    //            var capturedURL: String?
+    //            private let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=YOUR_API_KEY"
+    //
+    //            func fetchWeather(townName: String) {
+    //                let urlString = "\(weatherURL)&q=\(townName)"
+    //                capturedURL = urlString
+    //            }
+    //        }
+    //
+    //        let mockWeatherManager = MockWeatherManager()
+    //        let testTownName = "Paris"
+    //        let expectedURLPart = "&q=Paris"
+    //
+    //        mockWeatherManager.fetchWeather(townName: testTownName)
+    //
+    //        XCTAssertNotNil(mockWeatherManager.capturedURL, "fetchWeather should construct an URL")
+    //        XCTAssertTrue(mockWeatherManager.capturedURL?.contains(expectedURLPart) ?? false, "The URL should include the correct query for the town name")
+    //        XCTAssertTrue(mockWeatherManager.capturedURL?.hasPrefix("https://api.openweathermap.org/data/2.5/weather") ?? false, "The URL should start with the base weather URL")
+    //    }
     
     func testGetLocalDateTimeString() {
         let viewController = WeatherViewController()
@@ -423,4 +423,92 @@ final class WeatherManagerTests: XCTestCase {
             "The error description should indicate the URL is invalid."
         )
     }
+    
+//    func testDidFailWithErrorDisplaysAlert() {
+//        // Arrange
+//        let window = UIWindow()
+//        let viewController = WeatherViewController()
+//        window.rootViewController = viewController
+//        window.makeKeyAndVisible()
+//        
+//        let error = NSError(domain: "TestErrorDomain", code: 0, userInfo: [NSLocalizedDescriptionKey: "Test error message"])
+//        
+//        // Mock alert tracking
+//        var presentedAlert: UIAlertController?
+//        let expectation = XCTestExpectation(description: "Waiting for alert to be presented")
+//        
+//        class MockWeatherViewController: WeatherViewController {
+//            var alertHandler: ((UIAlertController) -> Void)?
+//            
+//            override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+//                if let alert = viewControllerToPresent as? UIAlertController {
+//                    alertHandler?(alert)
+//                    completion?()
+//                }
+//            }
+//        }
+//        
+//        let mockViewController = MockWeatherViewController()
+//        mockViewController.alertHandler = { alert in
+//            presentedAlert = alert
+//            expectation.fulfill()
+//        }
+//        
+//        // Act
+//        mockViewController.didFailWithError(error: error)
+//        
+//        // Wait for the alert to be presented
+//        wait(for: [expectation], timeout: 1.0)
+//        
+//        // Assert
+//        XCTAssertNotNil(presentedAlert, "An alert should be presented for the error.")
+//        XCTAssertEqual(
+//            presentedAlert?.message,
+//            "Test error message",
+//            "The alert message should match the error description."
+//        )
+//        XCTAssertEqual(
+//            presentedAlert?.title,
+//            "Error",
+//            "The alert title should be 'Error'."
+//        )
+//    }
+    
+    func testDidFailWithErrorForWeatherManager() {
+        // Arrange
+        class MockDelegate: WeatherManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: Error?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error
+            }
+        }
+        
+        let mockDelegate = MockDelegate()
+        var weatherManager = WeatherManager()
+        weatherManager.delegate = mockDelegate
+        
+        let testError = NSError(
+            domain: "TestErrorDomain",
+            code: 0,
+            userInfo: [NSLocalizedDescriptionKey: "Test error message"]
+        )
+        
+        // Act
+        weatherManager.delegate?.didFailWithError(error: testError)
+        
+        // Assert
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "didFailWithError should be called when an error occurs.")
+        XCTAssertNotNil(mockDelegate.receivedError, "An error should be passed to the delegate.")
+        XCTAssertEqual(
+            (mockDelegate.receivedError as NSError?)?.localizedDescription,
+            "Test error message",
+            "The error message should match the test error message."
+        )
+    }
+    
 }

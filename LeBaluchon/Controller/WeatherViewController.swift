@@ -179,9 +179,13 @@ extension WeatherViewController: WeatherManagerDelegate {
         }
     }
     
-    func didFailWithError(error: any Error) {
+    func didFailWithError(error: Error) {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+            let alert = UIAlertController(
+                title: "Error",
+                message: error.localizedDescription,
+                preferredStyle: .alert
+            )
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
