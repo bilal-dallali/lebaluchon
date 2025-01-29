@@ -247,6 +247,63 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "No data returned from server.", "Error message should indicate no data received.")
     }
     
+    func testPerformRequestWithMalformedJSON() {
+        let expectation = XCTestExpectation(description: "Should call didFailWithError for malformed JSON")
+        
+        // Mock du délégué
+        class MockDelegate: TranslateManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            let expectation: XCTestExpectation
+            
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
+            }
+            
+            func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {}
+            
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+                expectation.fulfill()
+            }
+        }
+        
+        // JSON malformé pour forcer une erreur de parsing
+        let invalidJSON = "{ invalid json }".data(using: .utf8)
+        
+        // Mock de la session qui retourne un JSON malformé
+        class SessionMockWithMalformedJSON: SessionProtocol {
+            let mockJSON: Data?
+            
+            init(mockJSON: Data?) {
+                self.mockJSON = mockJSON
+            }
+            
+            func perform(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+                completionHandler(self.mockJSON, nil, nil) // Retourne un JSON invalide
+            }
+        }
+        
+        // Configuration
+        let mockSession = SessionMockWithMalformedJSON(mockJSON: invalidJSON)
+        let mockDelegate = MockDelegate(expectation: expectation)
+        
+        var translateManager = TranslateManager(session: mockSession)
+        translateManager.delegate = mockDelegate
+        
+        // Act - Exécution de la requête
+        translateManager.performRequest(with: "https://mockurl.com")
+        
+        // Attente de la réponse simulée
+        wait(for: [expectation], timeout: 1.0)
+        
+        // Assert - Vérification des erreurs
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for malformed JSON.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "ParseError", "Error domain should be 'ParseError'.")
+        XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Failed to parse JSON.", "Error message should indicate JSON parsing failure.")
+    }
+    
     // Méthodes du délégué pour capturer les résultats
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         receivedTranslation = translation
