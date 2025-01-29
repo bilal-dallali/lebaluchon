@@ -38,6 +38,7 @@
 		9AD4E6A82C1CB3B300A7C400 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A72C1CB3B300A7C400 /* WeatherViewController.swift */; };
 		9AD4E6AD2C1CB3B400A7C400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6AC2C1CB3B400A7C400 /* Assets.xcassets */; };
 		9AD4E6BB2C1CB3B400A7C400 /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6BA2C1CB3B400A7C400 /* WeatherTests.swift */; };
+		E19C94E82D4A6A6B00A265BB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = E19C94E72D4A6A6200A265BB /* .gitignore */; };
 		E1A8E4A22D459CA800D997A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A92C1CB3B300A7C400 /* Main.storyboard */; };
 		E1A8E4A32D459CA800D997A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A92C1CB3B300A7C400 /* Main.storyboard */; };
 		E1BA11E12D3432E300DDD683 /* CurrencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA11E02D3432E300DDD683 /* CurrencyTests.swift */; };
@@ -99,6 +100,7 @@
 		9AD4E6B62C1CB3B400A7C400 /* LeBaluchonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD4E6BA2C1CB3B400A7C400 /* WeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTests.swift; sourceTree = "<group>"; };
 		9AD4E6C02C1CB3B400A7C400 /* LeBaluchonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E19C94E72D4A6A6200A265BB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		E1BA11E02D3432E300DDD683 /* CurrencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTests.swift; sourceTree = "<group>"; };
 		E1BA11E22D34341700DDD683 /* TranslationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,6 +180,7 @@
 		9AD4E6A22C1CB3B300A7C400 /* LeBaluchon */ = {
 			isa = PBXGroup;
 			children = (
+				E19C94E72D4A6A6200A265BB /* .gitignore */,
 				9AD4E6A32C1CB3B300A7C400 /* AppDelegate.swift */,
 				9AD4E6A52C1CB3B300A7C400 /* SceneDelegate.swift */,
 				9A6AF3B92C3747EA00D3F8EF /* Model */,
@@ -345,6 +348,7 @@
 				9A85E6022C28296900F44A63 /* PlusJakartaSans-Italic.ttf in Resources */,
 				9A85E5FB2C28296900F44A63 /* PlusJakartaSans-ExtraBold.ttf in Resources */,
 				9A85E5FA2C28296900F44A63 /* PlusJakartaSans-SemiBoldItalic.ttf in Resources */,
+				E19C94E82D4A6A6B00A265BB /* .gitignore in Resources */,
 				9A85E5FC2C28296900F44A63 /* PlusJakartaSans-ExtraLight.ttf in Resources */,
 				9AD4E6AD2C1CB3B400A7C400 /* Assets.xcassets in Resources */,
 				9A85E5FE2C28296900F44A63 /* PlusJakartaSans-Medium.ttf in Resources */,
