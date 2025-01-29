@@ -202,36 +202,80 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(mockDelegate.receivedError?.domain, "NoDataError", "Error domain should be 'NoDataError'.")
     }
     
+//    func testPerformRequestWithMalformedJSON() {
+//        //        class MockSession: SessionProtocol {
+//        //            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+//        //                let invalidJSON = "{ invalid json }".data(using: .utf8)
+//        //                completionHandler(invalidJSON, nil, nil)
+//        //                return URLSessionDataTask()
+//        //            }
+//        //        }
+//        
+//        class MockDelegate: WeatherManagerDelegate {
+//            var didFailWithErrorCalled = false
+//            var receivedError: NSError?
+//            
+//            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
+//            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+//            func didFailWithError(error: Error) {
+//                didFailWithErrorCalled = true
+//                receivedError = error as NSError
+//            }
+//        }
+//        
+//        let mockSession = SessionMock()
+//        let mockDelegate = MockDelegate()
+//        var manager = WeatherManager(session: mockSession)
+//        manager.delegate = mockDelegate
+//        
+//        manager.performRequest(with: manager.weatherURL)
+//        
+//        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for malformed JSON.")
+//        XCTAssertEqual(mockDelegate.receivedError?.domain, "NoDataError", "Error domain should be 'ParseError'.")
+//    }
     func testPerformRequestWithMalformedJSON() {
-        //        class MockSession: SessionProtocol {
-        //            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        //                let invalidJSON = "{ invalid json }".data(using: .utf8)
-        //                completionHandler(invalidJSON, nil, nil)
-        //                return URLSessionDataTask()
-        //            }
-        //        }
+        let expectation = XCTestExpectation(description: "Should call didFailWithError for malformed JSON")
         
+        // Mock du délégué
         class MockDelegate: WeatherManagerDelegate {
             var didFailWithErrorCalled = false
             var receivedError: NSError?
+            let expectation: XCTestExpectation
+            
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
+            }
             
             func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
             func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            
             func didFailWithError(error: Error) {
                 didFailWithErrorCalled = true
                 receivedError = error as NSError
+                expectation.fulfill()
             }
         }
         
-        let mockSession = SessionMock()
-        let mockDelegate = MockDelegate()
-        var manager = WeatherManager(session: mockSession)
-        manager.delegate = mockDelegate
+        // JSON malformé pour déclencher ParseError
+        let invalidJSON = "{ invalid json }".data(using: .utf8)
         
-        manager.performRequest(with: manager.weatherURL)
+        // Utilisation de SessionMock avec le JSON malformé
+        let mockSession = SessionMock(data: invalidJSON)
+        let mockDelegate = MockDelegate(expectation: expectation)
         
+        var weatherManager = WeatherManager(session: mockSession)
+        weatherManager.delegate = mockDelegate
+        
+        // Act - Exécution de la requête
+        weatherManager.performRequest(with: weatherManager.weatherURL)
+        
+        // Attente de la réponse simulée
+        wait(for: [expectation], timeout: 1.0)
+        
+        // Assert - Vérification des erreurs
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for malformed JSON.")
-        XCTAssertEqual(mockDelegate.receivedError?.domain, "NoDataError", "Error domain should be 'ParseError'.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "ParseError", "Error domain should be 'ParseError'.")
+        XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Failed to parse JSON.", "Error message should indicate parsing failure.")
     }
     
     func testPerformRequestWithNetworkError() {
