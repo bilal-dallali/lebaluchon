@@ -304,6 +304,63 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Failed to parse JSON.", "Error message should indicate JSON parsing failure.")
     }
     
+    func testPerformRequestWithNetworkError() {
+        let expectation = XCTestExpectation(description: "Should call didFailWithError for network error")
+        
+        // Mock du délégué
+        class MockDelegate: TranslateManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            let expectation: XCTestExpectation
+            
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
+            }
+            
+            func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {}
+            
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+                expectation.fulfill()
+            }
+        }
+        
+        // Erreur réseau simulée
+        let networkError = NSError(domain: "NetworkError", code: -1001, userInfo: [NSLocalizedDescriptionKey: "Network request failed."])
+        
+        // Mock de la session qui retourne une erreur réseau
+        class SessionMockWithError: SessionProtocol {
+            let simulatedError: NSError
+            
+            init(error: NSError) {
+                self.simulatedError = error
+            }
+            
+            func perform(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+                completionHandler(nil, nil, simulatedError)
+            }
+        }
+        
+        // Configuration du test
+        let mockSession = SessionMockWithError(error: networkError)
+        let mockDelegate = MockDelegate(expectation: expectation)
+        
+        var translateManager = TranslateManager(session: mockSession)
+        translateManager.delegate = mockDelegate
+        
+        // Act - Exécution de la requête
+        translateManager.performRequest(with: "https://mockurl.com")
+        
+        // Attente de la réponse simulée
+        wait(for: [expectation], timeout: 1.0)
+        
+        // Assert - Vérification des erreurs
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for network error.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "NetworkError", "Error domain should be 'NetworkError'.")
+        XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Network request failed.", "Error message should indicate network failure.")
+    }
+    
     // Méthodes du délégué pour capturer les résultats
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         receivedTranslation = translation
