@@ -361,6 +361,54 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Network request failed.", "Error message should indicate network failure.")
     }
     
+    func testFetchTranslationCallsPerformRequestWithCorrectURL() {
+        let expectation = XCTestExpectation(description: "Translation request should be made")
+        
+        class MockDelegate: TranslateManagerDelegate {
+            var didUpdateTranslationCalled = false
+            var receivedTranslation: TranslateModel?
+            let expectation: XCTestExpectation
+            
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
+            }
+            
+            func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
+                didUpdateTranslationCalled = true
+                receivedTranslation = translation
+                expectation.fulfill()
+            }
+            
+            func didFailWithError(error: Error) {
+                XCTFail("didFailWithError should not be called in this test.")
+            }
+        }
+        
+        let mockJSON = """
+    {
+        "data": {
+            "translations": [
+                { "translatedText": "Bonjour", "detectedSourceLanguage": "en" }
+            ]
+        }
+    }
+    """.data(using: .utf8)
+        
+        let mockSession = SessionMock(data: mockJSON)
+        let mockDelegate = MockDelegate(expectation: expectation)
+        
+        var translateManager = TranslateManager(session: mockSession)
+        translateManager.delegate = mockDelegate
+        
+        translateManager.fetchTranslation(text: "Hello", targetLang: "fr")
+        
+        wait(for: [expectation], timeout: 1.0)
+        
+        XCTAssertTrue(mockDelegate.didUpdateTranslationCalled, "The delegate's didUpdateTranslation method should be called.")
+        XCTAssertEqual(mockDelegate.receivedTranslation?.translatedText, "Bonjour", "The translated text should match the mocked response.")
+        XCTAssertEqual(mockDelegate.receivedTranslation?.detectedSourceLanguage, "en", "The detected language should match the mocked response.")
+    }
+    
     // Méthodes du délégué pour capturer les résultats
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         receivedTranslation = translation
