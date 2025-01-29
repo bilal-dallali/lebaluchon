@@ -18,10 +18,6 @@ class SessionMock: SessionProtocol {
     func perform(url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void) {
         completionHandler(data, HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil), nil)
     }
-    
-
-    
-    
 }
 
 final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
@@ -289,19 +285,73 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
     }
     
-    //    func testPerformRequestWithNetworkError() {
-    //        // Arrange
-    //        let mockSession = MockURLSession(data: nil, response: nil, error: NSError(domain: "TestError", code: 123, userInfo: nil))
-    //        currencyManager.performRequest(with: "https://mockurl.com")
-    //
-    //        // Act
-    //        expectation = expectation(description: "Waiting for network error")
-    //        currencyManager.fetchCurrency()
-    //
-    //        // Assert
-    //        waitForExpectations(timeout: 2.0)
-    //        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une erreur réseau.")
-    //    }
+//        func testPerformRequestWithNetworkError() {
+//            // Arrange
+//            let mockSession = MockURLSession(data: nil, response: nil, error: NSError(domain: "TestError", code: 123, userInfo: nil))
+//            currencyManager.performRequest(with: "https://mockurl.com")
+//    
+//            // Act
+//            expectation = expectation(description: "Waiting for network error")
+//            currencyManager.fetchCurrency()
+//    
+//            // Assert
+//            waitForExpectations(timeout: 2.0)
+//            XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une erreur réseau.")
+//        }
+    func testPerformRequestWithNetworkError() {
+        let expectation = XCTestExpectation(description: "Should call didFailWithError for network error")
+        
+        // Mock du délégué
+        class MockDelegate: CurrencyManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            let expectation: XCTestExpectation
+            
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
+            }
+            
+            func didUpdateCurrency(_ currencyManager: CurrencyManager, currency: CurrencyModel) {}
+            
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+                expectation.fulfill()
+            }
+        }
+        
+        // Mock de la session qui retourne une erreur
+        class SessionMockWithError: SessionProtocol {
+            let simulatedError: NSError
+            
+            init(error: NSError) {
+                self.simulatedError = error
+            }
+            
+            func perform(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+                completionHandler(nil, nil, simulatedError)
+            }
+        }
+        
+        // Initialisation avec une erreur réseau simulée
+        let networkError = NSError(domain: "NetworkError", code: -1001, userInfo: [NSLocalizedDescriptionKey: "Network request failed."])
+        let mockSession = SessionMockWithError(error: networkError)
+        let mockDelegate = MockDelegate(expectation: expectation)
+        
+        var currencyManager = CurrencyManager(session: mockSession)
+        currencyManager.delegate = mockDelegate
+        
+        // Act - Exécution de la requête
+        currencyManager.performRequest(with: currencyManager.currencyURL)
+        
+        // Attente de la réponse simulée
+        wait(for: [expectation], timeout: 1.0)
+        
+        // Assert - Vérification des erreurs
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for network error.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "NetworkError", "Error domain should be 'NetworkError'.")
+        XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Network request failed.", "Error message should indicate network failure.")
+    }
     
     func testParseJSONWithMissingRate() {
         // Arrange
