@@ -156,6 +156,50 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         XCTAssertEqual(receivedTranslation?.detectedSourceLanguage, "fr", "La langue détectée est incorrecte.")
     }
     
+    func testPerformRequestWithInvalidURL() {
+        let expectation = XCTestExpectation(description: "Should call didFailWithError for invalid URL")
+        
+        // Mock du délégué
+        class MockDelegate: TranslateManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            let expectation: XCTestExpectation
+            
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
+            }
+            
+            func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {}
+            
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+                expectation.fulfill()
+            }
+        }
+        
+        // Utilisation d'un URL **totalement invalide** (ex : une chaîne vide)
+        let invalidURL = ""
+        
+        // SessionMock pour éviter un appel réseau réel
+        let mockSession = SessionMock()
+        let mockDelegate = MockDelegate(expectation: expectation)
+        
+        var translateManager = TranslateManager(session: mockSession)
+        translateManager.delegate = mockDelegate
+        
+        // Act - Exécution de la requête avec un URL invalide
+        translateManager.performRequest(with: invalidURL)
+        
+        // Attente de la réponse simulée
+        wait(for: [expectation], timeout: 1.0)
+        
+        // Assert - Vérification des erreurs
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "InvalidURLError", "Error domain should be 'InvalidURLError'.")
+        XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "The URL is invalid.", "Error message should indicate invalid URL.")
+    }
+    
     // Méthodes du délégué pour capturer les résultats
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         receivedTranslation = translation
