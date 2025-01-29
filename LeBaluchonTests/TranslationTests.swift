@@ -200,6 +200,53 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "The URL is invalid.", "Error message should indicate invalid URL.")
     }
     
+    func testPerformRequestWithNoData() {
+        let expectation = XCTestExpectation(description: "Should call didFailWithError when no data is received")
+        
+        // Mock du délégué
+        class MockDelegate: TranslateManagerDelegate {
+            var didFailWithErrorCalled = false
+            var receivedError: NSError?
+            let expectation: XCTestExpectation
+            
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
+            }
+            
+            func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {}
+            
+            func didFailWithError(error: Error) {
+                didFailWithErrorCalled = true
+                receivedError = error as NSError
+                expectation.fulfill()
+            }
+        }
+        
+        // Utilisation de `SessionMock` qui renvoie `nil` pour `data`
+        class SessionMockNoData: SessionProtocol {
+            func perform(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+                completionHandler(nil, nil, nil) // Simule une réponse sans données ni erreur
+            }
+        }
+        
+        let mockSession = SessionMockNoData()
+        let mockDelegate = MockDelegate(expectation: expectation)
+        
+        var translateManager = TranslateManager(session: mockSession)
+        translateManager.delegate = mockDelegate
+        
+        // Act - Exécution de la requête
+        translateManager.performRequest(with: "https://mockurl.com") // Peu importe l'URL, on simule l'absence de données
+        
+        // Attente de la réponse simulée
+        wait(for: [expectation], timeout: 1.0)
+        
+        // Assert - Vérification des erreurs
+        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError when no data is received.")
+        XCTAssertEqual(mockDelegate.receivedError?.domain, "NoDataError", "Error domain should be 'NoDataError'.")
+        XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "No data returned from server.", "Error message should indicate no data received.")
+    }
+    
     // Méthodes du délégué pour capturer les résultats
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         receivedTranslation = translation
