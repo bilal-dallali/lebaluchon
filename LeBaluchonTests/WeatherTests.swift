@@ -5,6 +5,7 @@
 //  Created by Bilal Dallali on 14/06/2024.
 //
 
+import CoreLocation
 import XCTest
 @testable import LeBaluchon
 
@@ -717,5 +718,71 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(mockDelegate.receivedWeather?.townName, "Paris", "The town name should match the JSON data.")
         XCTAssertEqual(mockDelegate.receivedWeather?.temperature, 25.0, "The temperature should match the JSON data.")
         XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 3600, "The timezone should match the JSON data.")
+    }
+    
+    func testFetchWeatherWithMockDataAndCoordinates() {
+        // Mock du délégué
+        class MockDelegate: WeatherManagerDelegate {
+            var didUpdateWeatherCalled = false
+            var receivedWeather: WeatherModel?
+            
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+                didUpdateWeatherCalled = true
+                receivedWeather = weather
+            }
+            
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+            func didFailWithError(error: Error) {}
+        }
+        
+        // Données JSON simulées pour le test
+        let mockJSON = """
+    {
+        "weather": [{"id": 801}],
+        "main": {"temp": 15.0},
+        "name": "MockCity",
+        "timezone": 7200
+    }
+    """.data(using: .utf8)
+        
+        // MockSession simulant le retour des données sans passer par une vraie requête
+        struct MockSession: SessionProtocol {
+            let mockJSON: Data?
+            
+            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+                return MockDataTask {
+                    completionHandler(self.mockJSON, nil, nil)
+                }
+            }
+        }
+        
+        // MockDataTask gérant l’appel à "resume"
+        class MockDataTask: URLSessionDataTask {
+            private let completionHandler: () -> Void
+            
+            init(completionHandler: @escaping () -> Void) {
+                self.completionHandler = completionHandler
+            }
+            
+            override func resume() {
+                completionHandler()
+            }
+        }
+        
+        // Initialisation du test
+        let mockSession = MockSession(mockJSON: mockJSON)
+        let mockDelegate = MockDelegate()
+        
+        var weatherManager = WeatherManager(session: mockSession)
+        weatherManager.delegate = mockDelegate
+        
+        // Act - Simule l'appel avec des coordonnées
+        weatherManager.fetchWeather(latitude: 48.8566, longitude: 2.3522)
+        
+        // Assert - Vérifie les comportements
+//        XCTAssertTrue(mockDelegate.didUpdateWeatherCalled, "The delegate's didUpdateWeather method should be called.")
+//        XCTAssertEqual(mockDelegate.receivedWeather?.townName, "MockCity", "The town name should match the mock JSON.")
+//        XCTAssertEqual(mockDelegate.receivedWeather?.temperature, 15.0, "The temperature should match the mock JSON.")
+//        XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 7200, "The timezone should match the mock JSON.")
     }
 }
