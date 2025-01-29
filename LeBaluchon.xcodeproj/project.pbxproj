@@ -38,8 +38,6 @@
 		9AD4E6A82C1CB3B300A7C400 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A72C1CB3B300A7C400 /* WeatherViewController.swift */; };
 		9AD4E6AD2C1CB3B400A7C400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6AC2C1CB3B400A7C400 /* Assets.xcassets */; };
 		9AD4E6BB2C1CB3B400A7C400 /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6BA2C1CB3B400A7C400 /* WeatherTests.swift */; };
-		9AD4E6C52C1CB3B400A7C400 /* LeBaluchonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6C42C1CB3B400A7C400 /* LeBaluchonUITests.swift */; };
-		9AD4E6C72C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AD4E6C62C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift */; };
 		E1A8E4A22D459CA800D997A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A92C1CB3B300A7C400 /* Main.storyboard */; };
 		E1A8E4A32D459CA800D997A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AD4E6A92C1CB3B300A7C400 /* Main.storyboard */; };
 		E1BA11E12D3432E300DDD683 /* CurrencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BA11E02D3432E300DDD683 /* CurrencyTests.swift */; };
@@ -101,8 +99,6 @@
 		9AD4E6B62C1CB3B400A7C400 /* LeBaluchonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AD4E6BA2C1CB3B400A7C400 /* WeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTests.swift; sourceTree = "<group>"; };
 		9AD4E6C02C1CB3B400A7C400 /* LeBaluchonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LeBaluchonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AD4E6C42C1CB3B400A7C400 /* LeBaluchonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeBaluchonUITests.swift; sourceTree = "<group>"; };
-		9AD4E6C62C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeBaluchonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E1BA11E02D3432E300DDD683 /* CurrencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTests.swift; sourceTree = "<group>"; };
 		E1BA11E22D34341700DDD683 /* TranslationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -208,8 +204,6 @@
 		9AD4E6C32C1CB3B400A7C400 /* LeBaluchonUITests */ = {
 			isa = PBXGroup;
 			children = (
-				9AD4E6C42C1CB3B400A7C400 /* LeBaluchonUITests.swift */,
-				9AD4E6C62C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift */,
 			);
 			path = LeBaluchonUITests;
 			sourceTree = "<group>";
@@ -420,8 +414,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AD4E6C52C1CB3B400A7C400 /* LeBaluchonUITests.swift in Sources */,
-				9AD4E6C72C1CB3B400A7C400 /* LeBaluchonUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

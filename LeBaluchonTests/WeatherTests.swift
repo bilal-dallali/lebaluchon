@@ -508,10 +508,10 @@ final class WeatherManagerTests: XCTestCase {
         weatherManager.fetchWeather(townName: "Paris")
         
         // Assert
-//        XCTAssertTrue(mockDelegate.didUpdateWeatherCalled, "The delegate's didUpdateWeather method should be called.")
-//        XCTAssertEqual(mockDelegate.receivedWeather?.townName, "Paris", "The town name should match the mocked JSON.")
-//        XCTAssertEqual(mockDelegate.receivedWeather?.temperature, 25.0, "The temperature should match the mocked JSON.")
-//        XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 3600, "The timezone should match the mocked JSON.")
+        XCTAssertTrue(mockDelegate.didUpdateWeatherCalled, "The delegate's didUpdateWeather method should be called.")
+        XCTAssertEqual(mockDelegate.receivedWeather?.townName, "Paris", "The town name should match the mocked JSON.")
+        XCTAssertEqual(mockDelegate.receivedWeather?.temperature, 25.0, "The temperature should match the mocked JSON.")
+        XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 3600, "The timezone should match the mocked JSON.")
     }
 
     
@@ -720,43 +720,131 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 3600, "The timezone should match the JSON data.")
     }
     
+//    func testFetchWeatherWithMockDataAndCoordinates() {
+//        // Mock du délégué
+//        class MockDelegate: WeatherManagerDelegate {
+//            var didUpdateWeatherCalled = false
+//            var receivedWeather: WeatherModel?
+//            
+//            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+//                didUpdateWeatherCalled = true
+//                receivedWeather = weather
+//            }
+//            
+//            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
+//            func didFailWithError(error: Error) {}
+//        }
+//        
+//        // Données JSON simulées pour le test
+//        let mockJSON = """
+//    {
+//        "weather": [{"id": 801}],
+//        "main": {"temp": 15.0},
+//        "name": "MockCity",
+//        "timezone": 7200
+//    }
+//    """.data(using: .utf8)
+//        
+//        // MockSession simulant le retour des données sans passer par une vraie requête
+//        struct MockSession: SessionProtocol {
+//            let mockJSON: Data?
+//            
+//            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+//                return MockDataTask {
+//                    completionHandler(self.mockJSON, nil, nil)
+//                }
+//            }
+//        }
+//        
+//        // MockDataTask gérant l’appel à "resume"
+//        class MockDataTask: URLSessionDataTask {
+//            private let completionHandler: () -> Void
+//            
+//            init(completionHandler: @escaping () -> Void) {
+//                self.completionHandler = completionHandler
+//            }
+//            
+//            override func resume() {
+//                completionHandler()
+//            }
+//        }
+//        
+//        // Initialisation du test
+//        let mockSession = MockSession(mockJSON: mockJSON)
+//        let mockDelegate = MockDelegate()
+//        
+//        var weatherManager = WeatherManager(session: mockSession)
+//        weatherManager.delegate = mockDelegate
+//        
+//        // Act - Simule l'appel avec des coordonnées
+//        weatherManager.fetchWeather(latitude: 48.8566, longitude: 2.3522)
+//        
+//        // Assert - Vérifie les comportements
+//        XCTAssertTrue(mockDelegate.didUpdateWeatherCalled, "The delegate's didUpdateWeather method should be called.")
+//        XCTAssertEqual(mockDelegate.receivedWeather?.townName, "MockCity", "The town name should match the mock JSON.")
+//        XCTAssertEqual(mockDelegate.receivedWeather?.temperature, 15.0, "The temperature should match the mock JSON.")
+//        XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 7200, "The timezone should match the mock JSON.")
+//    }
+    
     func testFetchWeatherWithMockDataAndCoordinates() {
-        // Mock du délégué
+        let expectation = XCTestExpectation(description: "Weather data fetched")
+        
         class MockDelegate: WeatherManagerDelegate {
             var didUpdateWeatherCalled = false
             var receivedWeather: WeatherModel?
+            let expectation: XCTestExpectation
             
-            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
-                didUpdateWeatherCalled = true
-                receivedWeather = weather
+            init(expectation: XCTestExpectation) {
+                self.expectation = expectation
             }
             
-            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
-            func didFailWithError(error: Error) {}
+            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+                print("📍 Delegate method called with weather: \(weather)")
+                didUpdateWeatherCalled = true
+                receivedWeather = weather
+                expectation.fulfill()
+            }
+            
+            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {
+                print("❌ Wrong delegate method called: didUpdateNyWeather")
+            }
+            
+            func didFailWithError(error: Error) {
+                print("❌ Error received in delegate: \(error)")
+                expectation.fulfill()  // Important d'aussi fulfill en cas d'erreur
+            }
         }
         
-        // Données JSON simulées pour le test
+        // Ajout de plus de champs dans le JSON mock pour être sûr
         let mockJSON = """
     {
-        "weather": [{"id": 801}],
-        "main": {"temp": 15.0},
+        "weather": [{"id": 801, "main": "Clouds", "description": "few clouds"}],
+        "main": {
+            "temp": 15.0,
+            "feels_like": 14.5,
+            "temp_min": 14.0,
+            "temp_max": 16.0,
+            "pressure": 1015,
+            "humidity": 76
+        },
         "name": "MockCity",
-        "timezone": 7200
+        "timezone": 7200,
+        "cod": 200
     }
     """.data(using: .utf8)
         
-        // MockSession simulant le retour des données sans passer par une vraie requête
         struct MockSession: SessionProtocol {
             let mockJSON: Data?
             
             func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+                print("📍 MockSession creating data task")
                 return MockDataTask {
+                    print("📍 MockSession executing completion handler")
                     completionHandler(self.mockJSON, nil, nil)
                 }
             }
         }
         
-        // MockDataTask gérant l’appel à "resume"
         class MockDataTask: URLSessionDataTask {
             private let completionHandler: () -> Void
             
@@ -765,24 +853,32 @@ final class WeatherManagerTests: XCTestCase {
             }
             
             override func resume() {
+                print("📍 MockDataTask resume called")
                 completionHandler()
             }
         }
         
-        // Initialisation du test
         let mockSession = MockSession(mockJSON: mockJSON)
-        let mockDelegate = MockDelegate()
+        let mockDelegate = MockDelegate(expectation: expectation)
         
         var weatherManager = WeatherManager(session: mockSession)
         weatherManager.delegate = mockDelegate
         
-        // Act - Simule l'appel avec des coordonnées
+        print("📍 Starting test")
         weatherManager.fetchWeather(latitude: 48.8566, longitude: 2.3522)
         
-        // Assert - Vérifie les comportements
-//        XCTAssertTrue(mockDelegate.didUpdateWeatherCalled, "The delegate's didUpdateWeather method should be called.")
-//        XCTAssertEqual(mockDelegate.receivedWeather?.townName, "MockCity", "The town name should match the mock JSON.")
-//        XCTAssertEqual(mockDelegate.receivedWeather?.temperature, 15.0, "The temperature should match the mock JSON.")
-//        XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 7200, "The timezone should match the mock JSON.")
+        // Augmenter le timeout si nécessaire
+        wait(for: [expectation], timeout: 2.0)
+        
+        // Ajouter des messages d'erreur plus descriptifs
+        XCTAssertTrue(mockDelegate.didUpdateWeatherCalled, "didUpdateWeather was not called")
+        if let receivedWeather = mockDelegate.receivedWeather {
+            print("📍 Received weather: \(receivedWeather)")
+        } else {
+            print("❌ No weather received")
+        }
+        XCTAssertEqual(mockDelegate.receivedWeather?.townName, "MockCity", "Town name mismatch")
+        XCTAssertEqual(mockDelegate.receivedWeather?.temperature, 15.0, "Temperature mismatch")
+        XCTAssertEqual(mockDelegate.receivedWeather?.timezone, 7200, "Timezone mismatch")
     }
 }
