@@ -8,16 +8,33 @@
 import XCTest
 @testable import LeBaluchon
 
+class SessionMock: SessionProtocol {
+    init(data: Data? = nil) {
+        self.data = data
+    }
+    var data: Data?
+    //var response: URLResponse?
+    
+    func perform(url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void) {
+        completionHandler(data, HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil), nil)
+    }
+    
+
+    
+    
+}
+
 final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
     var currencyManager: CurrencyManager!
     var expectation: XCTestExpectation!
     var updateCurrencyCalled = false
     var receivedError: Error!
     var receivedCurrency: CurrencyModel?
+    var sessionMock = SessionMock()
     
     override func setUpWithError() throws {
         super.setUp()
-        currencyManager = CurrencyManager()
+        currencyManager = CurrencyManager(session: sessionMock)
         currencyManager.delegate = self
         updateCurrencyCalled = false
         
@@ -32,6 +49,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
     }
     
     func testParseJSONValidData() throws {
+        //sessionMock.data =
         let json = """
         {
             "rates": {"USD": 1.12}
@@ -257,19 +275,19 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         XCTAssertEqual((mockDelegate.receivedError as NSError?)?.domain, "ParseError", "The error should indicate a parsing error")
     }
     
-//    func testFetchCurrencyWithInvalidURL() {
-//        // Arrange
-//        currencyManager.currencyURL = "invalid-url"
-//        
-//        // Act
-//        expectation = expectation(description: "Waiting for invalid URL error")
-//        currencyManager.fetchCurrency()
-//        
-//        // Assert
-//        // Parfois probleme
-//        waitForExpectations(timeout: 1.0)
-//        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
-//    }
+    func testFetchCurrencyWithInvalidURL() {
+        // Arrange
+        currencyManager.currencyURL = "invalid-url"
+        
+        // Act
+        expectation = expectation(description: "Waiting for invalid URL error")
+        currencyManager.fetchCurrency()
+        
+        // Assert
+        // Parfois probleme
+        waitForExpectations(timeout: 1.0)
+        XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
+    }
     
     //    func testPerformRequestWithNetworkError() {
     //        // Arrange
@@ -445,13 +463,16 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         }
         
         let mockDelegate = MockDelegate()
-        let mockSession = MockURLSession(data: """
+        let mockSession = SessionMock()
+        
+            let data = """
     {
         "rates": {
             "USD": 1.23
         }
     }
-    """.data(using: .utf8), response: nil, error: nil)
+    """.data(using: .utf8)
+        mockSession.data = data
         var manager = CurrencyManager(session: mockSession)
         manager.delegate = mockDelegate
         
@@ -465,6 +486,10 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
 }
 
 class MockURLSession: SessionProtocol {
+    func perform(url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void) {
+        self.dataTask(with: url, completionHandler: completionHandler).resume()
+    }
+    
     var mockData: Data?
     var mockResponse: URLResponse?
     var mockError: Error?

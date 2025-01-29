@@ -33,7 +33,7 @@ struct CurrencyManager {
             return
         }
         
-        let task = session.dataTask(with: url) { (data, response, error) in
+        session.perform(url: url) { (data, response, error) in
             if error != nil {
                 self.delegate?.didFailWithError(error: error!)
                 return
@@ -52,7 +52,6 @@ struct CurrencyManager {
                 self.delegate?.didFailWithError(error: error)
             }
         }
-        task.resume()
     }
     
     func parseJSON(currencyData: Data) -> CurrencyModel? {
@@ -73,10 +72,22 @@ struct CurrencyManager {
 }
 
 protocol SessionProtocol {
-    func dataTask(
-        with url: URL,
-        completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void
-    ) -> URLSessionDataTask
+//    func dataTask(
+//        with url: URL,
+//        completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void
+//    ) -> URLSessionDataTask
+    
+    
+    func perform(url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, Error?) -> Void)
+        
+    
 }
 
-extension URLSession: SessionProtocol {}
+extension URLSession: SessionProtocol {
+    func perform(url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void) {
+        self.dataTask(with: url) { data, response, error in
+        completionHandler(data, response, error)
+                
+        }.resume()
+    }
+}

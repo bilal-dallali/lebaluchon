@@ -42,7 +42,7 @@ struct WeatherManager {
             return
         }
         
-        let task = session.dataTask(with: url) { (data, response, error) in
+        session.perform(url: url) { (data, response, error) in
             if let error = error {
                 self.delegate?.didFailWithError(error: error)
                 return
@@ -62,7 +62,7 @@ struct WeatherManager {
             }
         }
         
-        task.resume()
+//        task.resume()
     }
     
     func performNyRequest(with urlString: String) {

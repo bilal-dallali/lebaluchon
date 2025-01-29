@@ -137,8 +137,9 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         let tempFileURL = tempDirectory.appendingPathComponent("mockResponse.json")
         try! mockJSON.write(to: tempFileURL)
         
+        
         // Initialisation de TranslateManager
-        var manager = TranslateManager()
+        var manager = TranslateManager(session: SessionMock(data: mockJSON))
         manager.delegate = self
         
         // Appeler performRequest avec l'URL locale (chemin du fichier)
