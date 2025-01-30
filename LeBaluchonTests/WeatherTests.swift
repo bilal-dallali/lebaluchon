@@ -248,15 +248,20 @@ final class WeatherManagerTests: XCTestCase {
     }
     
     func testPerformRequestWithNetworkError() {
-        class MockURLSession: URLSession, @unchecked Sendable {
-            override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+        class MockURLSession: SessionProtocol {
+            func perform(url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void) {
                 completionHandler(nil, nil, NSError(domain: "NetworkError", code: -1001, userInfo: nil))
-                return URLSessionDataTask()
+            }
+            
+            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+                return MockURLSessionDataTask {
+                    completionHandler(nil, nil, NSError(domain: "NetworkError", code: -1001, userInfo: nil))
+                }
             }
         }
         
         let mockSession = MockURLSession()
-        var weatherManager = WeatherManager(session: mockSession) // Injecter une session personnalisée
+        var weatherManager = WeatherManager(session: mockSession)
         let expectation = XCTestExpectation(description: "Should call didFailWithError for network error")
         
         class MockDelegate: WeatherManagerDelegate {
@@ -717,8 +722,8 @@ final class WeatherManagerTests: XCTestCase {
         )
         
         
-                let encoder = JSONEncoder()
-                let mockJSON = try! encoder.encode(mockWeatherData)
+        let encoder = JSONEncoder()
+        let mockJSON = try! encoder.encode(mockWeatherData)
         
         let mockSession = SessionMock(data: mockJSON)
         let mockDelegate = MockDelegate(expectation: expectation)
