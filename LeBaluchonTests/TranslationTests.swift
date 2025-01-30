@@ -17,23 +17,18 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         translateManager = TranslateManager()
         super.setUp()
         
-        // Charger le ViewController depuis le storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
         
-        // Vérifiez que le storyboard est chargé
         XCTAssertNotNil(storyboard, "Le storyboard Main n'a pas pu être chargé.")
         
         viewController = storyboard.instantiateViewController(withIdentifier: "TranslateViewController") as? TranslateViewController
         
-        // Vérifiez que viewController est instancié
         XCTAssertNotNil(viewController, "Le contrôleur TranslateViewController n'a pas pu être instancié depuis le storyboard.")
         
-        // Attacher à une fenêtre
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = viewController
         window.makeKeyAndVisible()
         
-        // Forcer le chargement de la vue
         viewController.loadViewIfNeeded()
     }
     
@@ -132,25 +127,24 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         }
         """.data(using: .utf8)!
         
-        // Créer un fichier temporaire pour stocker les données simulées
         let tempDirectory = FileManager.default.temporaryDirectory
         let tempFileURL = tempDirectory.appendingPathComponent("mockResponse.json")
         try! mockJSON.write(to: tempFileURL)
         
         
-        // Initialisation de TranslateManager
+        // Init translatemanager
         var manager = TranslateManager(session: SessionMock(data: mockJSON))
         manager.delegate = self
         
-        // Appeler performRequest avec l'URL locale (chemin du fichier)
+        // Call performrequest with localurl
         manager.performRequest(with: tempFileURL.absoluteString)
         
-        // Attendre que les résultats soient retournés
+        // wait for result return
         let expectation = self.expectation(description: "Waiting for performRequest completion")
         DispatchQueue.global().asyncAfter(deadline: .now() + 1) { expectation.fulfill() }
         waitForExpectations(timeout: 2)
         
-        // Vérifications
+        // Check
         XCTAssertNotNil(receivedTranslation, "La traduction devrait être non nulle.")
         XCTAssertEqual(receivedTranslation?.translatedText, "Hello", "Le texte traduit est incorrect.")
         XCTAssertEqual(receivedTranslation?.detectedSourceLanguage, "fr", "La langue détectée est incorrecte.")
@@ -159,7 +153,7 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
     func testPerformRequestWithInvalidURL() {
         let expectation = XCTestExpectation(description: "Should call didFailWithError for invalid URL")
         
-        // Mock du délégué
+        // Mock delegate
         class MockDelegate: TranslateManagerDelegate {
             var didFailWithErrorCalled = false
             var receivedError: NSError?
@@ -178,23 +172,23 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
             }
         }
         
-        // Utilisation d'un URL **totalement invalide** (ex : une chaîne vide)
+        // Use URL invalid
         let invalidURL = ""
         
-        // SessionMock pour éviter un appel réseau réel
+        // Sessionmock to avoid network call
         let mockSession = SessionMock()
         let mockDelegate = MockDelegate(expectation: expectation)
         
         var translateManager = TranslateManager(session: mockSession)
         translateManager.delegate = mockDelegate
         
-        // Act - Exécution de la requête avec un URL invalide
+        // Act execute request with invalid URL
         translateManager.performRequest(with: invalidURL)
         
-        // Attente de la réponse simulée
+        // Wait for simulated response
         wait(for: [expectation], timeout: 1.0)
         
-        // Assert - Vérification des erreurs
+        // Assert - checking errors
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL.")
         XCTAssertEqual(mockDelegate.receivedError?.domain, "InvalidURLError", "Error domain should be 'InvalidURLError'.")
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "The URL is invalid.", "Error message should indicate invalid URL.")
@@ -203,7 +197,7 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
     func testPerformRequestWithNoData() {
         let expectation = XCTestExpectation(description: "Should call didFailWithError when no data is received")
         
-        // Mock du délégué
+        // Mock delegate
         class MockDelegate: TranslateManagerDelegate {
             var didFailWithErrorCalled = false
             var receivedError: NSError?
@@ -222,10 +216,10 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
             }
         }
         
-        // Utilisation de `SessionMock` qui renvoie `nil` pour `data`
+        // Using SessionMock to send nil for data
         class SessionMockNoData: SessionProtocol {
             func perform(url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
-                completionHandler(nil, nil, nil) // Simule une réponse sans données ni erreur
+                completionHandler(nil, nil, nil)
             }
         }
         
@@ -235,13 +229,13 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         var translateManager = TranslateManager(session: mockSession)
         translateManager.delegate = mockDelegate
         
-        // Act - Exécution de la requête
-        translateManager.performRequest(with: "https://mockurl.com") // Peu importe l'URL, on simule l'absence de données
+        // Act - Execute request
+        translateManager.performRequest(with: "https://mockurl.com")
         
-        // Attente de la réponse simulée
+        // Wait for simulated response
         wait(for: [expectation], timeout: 1.0)
         
-        // Assert - Vérification des erreurs
+        // Assert - Checking errors
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError when no data is received.")
         XCTAssertEqual(mockDelegate.receivedError?.domain, "NoDataError", "Error domain should be 'NoDataError'.")
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "No data returned from server.", "Error message should indicate no data received.")
@@ -250,7 +244,7 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
     func testPerformRequestWithMalformedJSON() {
         let expectation = XCTestExpectation(description: "Should call didFailWithError for malformed JSON")
         
-        // Mock du délégué
+        // Mock delegate
         class MockDelegate: TranslateManagerDelegate {
             var didFailWithErrorCalled = false
             var receivedError: NSError?
@@ -269,10 +263,10 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
             }
         }
         
-        // JSON malformé pour forcer une erreur de parsing
+        // Malformed JSON for parsing errors
         let invalidJSON = "{ invalid json }".data(using: .utf8)
         
-        // Mock de la session qui retourne un JSON malformé
+        // Session mock for malformed JSON
         class SessionMockWithMalformedJSON: SessionProtocol {
             let mockJSON: Data?
             
@@ -292,13 +286,13 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         var translateManager = TranslateManager(session: mockSession)
         translateManager.delegate = mockDelegate
         
-        // Act - Exécution de la requête
+        // Act - Execute request
         translateManager.performRequest(with: "https://mockurl.com")
         
-        // Attente de la réponse simulée
+        // Wait for simulated response
         wait(for: [expectation], timeout: 1.0)
         
-        // Assert - Vérification des erreurs
+        // Assert - Checking
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for malformed JSON.")
         XCTAssertEqual(mockDelegate.receivedError?.domain, "ParseError", "Error domain should be 'ParseError'.")
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Failed to parse JSON.", "Error message should indicate JSON parsing failure.")
@@ -307,7 +301,7 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
     func testPerformRequestWithNetworkError() {
         let expectation = XCTestExpectation(description: "Should call didFailWithError for network error")
         
-        // Mock du délégué
+        // Mock delegate
         class MockDelegate: TranslateManagerDelegate {
             var didFailWithErrorCalled = false
             var receivedError: NSError?
@@ -326,10 +320,10 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
             }
         }
         
-        // Erreur réseau simulée
+        // Error simulated network
         let networkError = NSError(domain: "NetworkError", code: -1001, userInfo: [NSLocalizedDescriptionKey: "Network request failed."])
         
-        // Mock de la session qui retourne une erreur réseau
+        // Mock session for network error
         class SessionMockWithError: SessionProtocol {
             let simulatedError: NSError
             
@@ -342,20 +336,20 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
             }
         }
         
-        // Configuration du test
+        // Configurate test
         let mockSession = SessionMockWithError(error: networkError)
         let mockDelegate = MockDelegate(expectation: expectation)
         
         var translateManager = TranslateManager(session: mockSession)
         translateManager.delegate = mockDelegate
         
-        // Act - Exécution de la requête
+        // Act - Execute request
         translateManager.performRequest(with: "https://mockurl.com")
         
-        // Attente de la réponse simulée
+        // Wait for simulated response
         wait(for: [expectation], timeout: 1.0)
         
-        // Assert - Vérification des erreurs
+        // Assert - Check errors
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for network error.")
         XCTAssertEqual(mockDelegate.receivedError?.domain, "NetworkError", "Error domain should be 'NetworkError'.")
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Network request failed.", "Error message should indicate network failure.")
@@ -409,7 +403,7 @@ final class TranslationTests: XCTestCase, TranslateManagerDelegate {
         XCTAssertEqual(mockDelegate.receivedTranslation?.detectedSourceLanguage, "en", "The detected language should match the mocked response.")
     }
     
-    // Méthodes du délégué pour capturer les résultats
+    // Delegate method to check results
     func didUpdateTranslation(_ translateManager: TranslateManager, translation: TranslateModel) {
         receivedTranslation = translation
     }

@@ -142,7 +142,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
             func didFailWithError(error: Error) {}
         }
         
-        // Déclarez `manager` comme une variable modifiable
+        // Declare manager as a modifiable variable
         var manager = CurrencyManager()
         let mockDelegate = MockDelegate()
         manager.delegate = mockDelegate
@@ -153,27 +153,39 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         }
         """.data(using: .utf8)!
         
-        // Simulez une requête réseau réussie
+        // Simulate success networking
         mockDelegate.didUpdateCurrency(manager, currency: CurrencyModel(exchangeRate: 1.23))
         
-        // Vérifiez les résultats
+        // Check results
         XCTAssertTrue(mockDelegate.didUpdateCurrencyCalled, "Delegate should be called for a successful response")
         XCTAssertEqual(mockDelegate.receivedCurrency?.exchangeRate, 1.23, "Exchange rate should match the JSON data")
     }
     
     func testPerformRequest() {
-        class MockURLSession: URLSession, @unchecked Sendable {
+        class MockURLSession: SessionProtocol {
             var completionHandler: ((Data?, URLResponse?, Error?) -> Void)?
             
-            override func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+            func perform(url: URL, completionHandler: @escaping @Sendable (Data?, URLResponse?, (any Error)?) -> Void) {
                 self.completionHandler = completionHandler
-                return MockURLSessionDataTask()
+            }
+            
+            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+                self.completionHandler = completionHandler
+                return MockURLSessionDataTask {
+                    // Simulate immediate execution
+                }
             }
         }
         
-        class MockURLSessionDataTask: URLSessionDataTask, @unchecked Sendable {
-            override func resume() {
-                // Simule l'exécution immédiate
+        class MockURLSessionDataTask: URLSessionDataTaskProtocol {
+            private let completionHandler: () -> Void
+            
+            init(completionHandler: @escaping () -> Void) {
+                self.completionHandler = completionHandler
+            }
+            
+            func resume() {
+                completionHandler()
             }
         }
         
@@ -212,7 +224,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         let mockDelegate = MockDelegate()
         manager.delegate = mockDelegate
         
-        // Injection indirecte (au lieu de modifier `URLSession.shared`)
+        // Indirect injection
         func mockPerformRequest(with urlString: String) {
             if let url = URL(string: urlString) {
                 let task = mockSession.dataTask(with: url) { data, response, error in
@@ -237,15 +249,15 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
             }
         }
         
-        // Act - Cas 1 : Réponse JSON valide
+        // Act - Valid json response
         mockPerformRequest(with: manager.currencyURL)
         mockSession.completionHandler?(validJSON, nil, nil)
         
-        // Assert - Cas 1
+        // Assert - case 1
         XCTAssertTrue(mockDelegate.didUpdateCurrencyCalled, "The delegate should be called for a successful response")
         XCTAssertEqual(mockDelegate.receivedCurrency?.exchangeRate, 1.23, "The exchange rate should match the JSON data")
         
-        // Act - Cas 2 : Erreur réseau
+        // Act - Cas 2 : network error
         let networkError = NSError(domain: "NetworkError", code: -1, userInfo: nil)
         mockPerformRequest(with: manager.currencyURL)
         mockSession.completionHandler?(nil, nil, networkError)
@@ -254,7 +266,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "The delegate should be called for a network error")
         XCTAssertEqual((mockDelegate.receivedError as NSError?)?.domain, "NetworkError", "The error should match the simulated network error")
         
-        // Act - Cas 3 : Données manquantes
+        // Act - Cas 3 : missing datas
         mockPerformRequest(with: manager.currencyURL)
         mockSession.completionHandler?(nil, nil, nil)
         
@@ -262,7 +274,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "The delegate should be called when no data is returned")
         XCTAssertEqual((mockDelegate.receivedError as NSError?)?.domain, "NoDataError", "The error should indicate no data returned")
         
-        // Act - Cas 4 : Erreur de parsing JSON
+        // Act - Cas 4 : error parsing json
         mockPerformRequest(with: manager.currencyURL)
         mockSession.completionHandler?(invalidJSON, nil, nil)
         
@@ -288,7 +300,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
     func testPerformRequestWithNetworkError() {
         let expectation = XCTestExpectation(description: "Should call didFailWithError for network error")
         
-        // Mock du délégué
+        // Mock delegate
         class MockDelegate: CurrencyManagerDelegate {
             var didFailWithErrorCalled = false
             var receivedError: NSError?
@@ -307,7 +319,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
             }
         }
         
-        // Mock de la session qui retourne une erreur
+        // Session mock return error
         class SessionMockWithError: SessionProtocol {
             let simulatedError: NSError
             
@@ -320,7 +332,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
             }
         }
         
-        // Initialisation avec une erreur réseau simulée
+        // Init simulated network error
         let networkError = NSError(domain: "NetworkError", code: -1001, userInfo: [NSLocalizedDescriptionKey: "Network request failed."])
         let mockSession = SessionMockWithError(error: networkError)
         let mockDelegate = MockDelegate(expectation: expectation)
@@ -328,13 +340,13 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         var currencyManager = CurrencyManager(session: mockSession)
         currencyManager.delegate = mockDelegate
         
-        // Act - Exécution de la requête
+        // Act - request execution
         currencyManager.performRequest(with: currencyManager.currencyURL)
         
-        // Attente de la réponse simulée
+        // Wait for simulated response
         wait(for: [expectation], timeout: 1.0)
         
-        // Assert - Vérification des erreurs
+        // Assert - Checking errors
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for network error.")
         XCTAssertEqual(mockDelegate.receivedError?.domain, "NetworkError", "Error domain should be 'NetworkError'.")
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Network request failed.", "Error message should indicate network failure.")
@@ -502,7 +514,7 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         let mockDelegate = MockDelegate()
         let mockSession = SessionMock()
         
-            let data = """
+        let data = """
     {
         "rates": {
             "USD": 1.23
@@ -563,7 +575,6 @@ class MockURLSessionDataTask: URLSessionDataTaskProtocol {
     
     init(completionHandler: @escaping () -> Void) {
         self.completionHandler = completionHandler
-        
     }
     
     func resume() {

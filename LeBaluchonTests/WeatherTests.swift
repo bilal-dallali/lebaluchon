@@ -119,33 +119,6 @@ final class WeatherManagerTests: XCTestCase {
         XCTAssertEqual(weather?.conditionName, "cloud.fill", "Condition name should match the current logic")
     }
     
-    //    func testPerformRequestWithInvalidURL() {
-    //        let invalidURL = "invalid_url"
-    //        let expectation = XCTestExpectation(description: "Should call didFailWithError for invalid URL")
-    //
-    //        class MockDelegate: WeatherManagerDelegate {
-    //            var didFailWithErrorCalled = false
-    //            var expectation: XCTestExpectation?
-    //
-    //            func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {}
-    //            func didUpdateNyWeather(_ weatherManager: WeatherManager, weather: WeatherModelNy) {}
-    //            func didFailWithError(error: Error) {
-    //                didFailWithErrorCalled = true
-    //                expectation?.fulfill()
-    //            }
-    //        }
-    //
-    //        let mockDelegate = MockDelegate()
-    //        mockDelegate.expectation = expectation
-    //        weatherManager.delegate = mockDelegate
-    //
-    //        // Appeler avec une URL invalide
-    //        weatherManager.performRequest(with: invalidURL)
-    //
-    //        wait(for: [expectation], timeout: 2.0)
-    //        XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for invalid URL")
-    //    }
-    
     func testPerformRequestWithInvalidURL() {
         class MockDelegate: WeatherManagerDelegate {
             var didFailWithErrorCalled = false
@@ -171,14 +144,6 @@ final class WeatherManagerTests: XCTestCase {
     }
     
     func testPerformRequestWithNoData() {
-        //        class MockSession: SessionProtocol {
-        //            func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        //                completionHandler(nil, nil, nil)
-        //                return URLSessionDataTask()
-        //            }
-        //        }
-        
-        
         class MockDelegate: WeatherManagerDelegate {
             var didFailWithErrorCalled = false
             var receivedError: NSError?
@@ -205,7 +170,7 @@ final class WeatherManagerTests: XCTestCase {
     func testPerformRequestWithMalformedJSON() {
         let expectation = XCTestExpectation(description: "Should call didFailWithError for malformed JSON")
         
-        // Mock du délégué
+        // Delegate mock
         class MockDelegate: WeatherManagerDelegate {
             var didFailWithErrorCalled = false
             var receivedError: NSError?
@@ -225,23 +190,23 @@ final class WeatherManagerTests: XCTestCase {
             }
         }
         
-        // JSON malformé pour déclencher ParseError
+        // Malformed json to use parseerror
         let invalidJSON = "{ invalid json }".data(using: .utf8)
         
-        // Utilisation de SessionMock avec le JSON malformé
+        // Using sessionmock with malformed JSON
         let mockSession = SessionMock(data: invalidJSON)
         let mockDelegate = MockDelegate(expectation: expectation)
         
         var weatherManager = WeatherManager(session: mockSession)
         weatherManager.delegate = mockDelegate
         
-        // Act - Exécution de la requête
+        // Act - Execute request
         weatherManager.performRequest(with: weatherManager.weatherURL)
         
-        // Attente de la réponse simulée
+        // Wait for simulated response
         wait(for: [expectation], timeout: 1.0)
         
-        // Assert - Vérification des erreurs
+        // Assert - CHecking errors
         XCTAssertTrue(mockDelegate.didFailWithErrorCalled, "Should call didFailWithError for malformed JSON.")
         XCTAssertEqual(mockDelegate.receivedError?.domain, "ParseError", "Error domain should be 'ParseError'.")
         XCTAssertEqual(mockDelegate.receivedError?.localizedDescription, "Failed to parse JSON.", "Error message should indicate parsing failure.")
@@ -436,7 +401,7 @@ final class WeatherManagerTests: XCTestCase {
         
         wait(for: [expectation], timeout: 1.0)
         
-        // Assertions avec plus de détails en cas d'échec
+        // Assert with more details for failure
         XCTAssertTrue(mockDelegate.didUpdateWeatherCalled, "The delegate's didUpdateWeather method was not called")
         
         if let receivedWeather = mockDelegate.receivedWeather {
@@ -469,7 +434,7 @@ final class WeatherManagerTests: XCTestCase {
         var weatherManager = WeatherManager()
         weatherManager.delegate = mockDelegate
         
-        let invalidURL = "" // URL invalide
+        let invalidURL = ""
         
         // Act
         weatherManager.performNyRequest(with: invalidURL)
@@ -625,11 +590,10 @@ final class WeatherManagerTests: XCTestCase {
             
             func didFailWithError(error: Error) {
                 print("❌ Error received in delegate: \(error)")
-                expectation.fulfill()  // Important d'aussi fulfill en cas d'erreur
+                expectation.fulfill()
             }
         }
         
-        // Ajout de plus de champs dans le JSON mock pour être sûr
         let mockJSON = """
     {
         "weather": [{"id": 801, "main": "Clouds", "description": "few clouds"}],
@@ -713,7 +677,7 @@ final class WeatherManagerTests: XCTestCase {
             }
         }
         
-        // Création d'un objet Swift et encodage en JSON pour s'assurer de la structure
+        // Creating swift object et encode JSON
         let mockWeatherData = MockWeatherData(
             weather: [MockWeatherData.Weather(id: 802)],
             main: MockWeatherData.Main(temp: 18.0),
@@ -731,12 +695,12 @@ final class WeatherManagerTests: XCTestCase {
         var weatherManager = WeatherManager(session: mockSession)
         weatherManager.delegate = mockDelegate
         
-        // Créer directement un WeatherModelNy avec les données du mock
+        // Create WeatherModelNy with mockdatas
         let weatherNy = WeatherModelNy(conditionId: mockWeatherData.weather[0].id, townName: mockWeatherData.name,
                                        temperature: mockWeatherData.main.temp,
                                        timezone: mockWeatherData.timezone)
         
-        // Appeler directement le delegate avec les données mockées
+        // Call for direct delegate with mockeddata
         mockDelegate.didUpdateNyWeather(weatherManager, weather: weatherNy)
         
         wait(for: [expectation], timeout: 1.0)
