@@ -80,3 +80,11 @@ class TranslateViewController: UIViewController, TranslateManagerDelegate {
         return locale.localizedString(forLanguageCode: code) ?? "Unknown Language"
     }
 }
+
+extension String {
+    func htmlDecoded() -> String {
+        guard let data = self.data(using: .utf8) else { return self }
+        let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        return attributedString?.string ?? self
+    }
+}

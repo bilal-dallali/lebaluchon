@@ -285,19 +285,6 @@ final class CurrencyManagerTests: XCTestCase, CurrencyManagerDelegate {
         XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une URL invalide.")
     }
     
-//        func testPerformRequestWithNetworkError() {
-//            // Arrange
-//            let mockSession = MockURLSession(data: nil, response: nil, error: NSError(domain: "TestError", code: 123, userInfo: nil))
-//            currencyManager.performRequest(with: "https://mockurl.com")
-//    
-//            // Act
-//            expectation = expectation(description: "Waiting for network error")
-//            currencyManager.fetchCurrency()
-//    
-//            // Assert
-//            waitForExpectations(timeout: 2.0)
-//            XCTAssertNotNil(receivedError, "Une erreur aurait dû être reçue pour une erreur réseau.")
-//        }
     func testPerformRequestWithNetworkError() {
         let expectation = XCTestExpectation(description: "Should call didFailWithError for network error")
         
@@ -553,7 +540,7 @@ class MockURLSession: SessionProtocol {
     func dataTask(
         with url: URL,
         completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
-    ) -> URLSessionDataTask {
+    ) -> URLSessionDataTaskProtocol {
         return MockURLSessionDataTask {
             completionHandler(self.mockData, self.mockResponse, self.mockError)
         }
@@ -571,14 +558,15 @@ protocol URLSessionDataTaskProtocol {
     func resume()
 }
 
-class MockURLSessionDataTask: URLSessionDataTask, @unchecked Sendable {
+class MockURLSessionDataTask: URLSessionDataTaskProtocol {
     private let completionHandler: () -> Void
     
     init(completionHandler: @escaping () -> Void) {
         self.completionHandler = completionHandler
+        
     }
     
-    override func resume() {
+    func resume() {
         completionHandler()
     }
 }

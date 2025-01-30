@@ -61,8 +61,6 @@ struct WeatherManager {
                 self.delegate?.didFailWithError(error: error)
             }
         }
-        
-//        task.resume()
     }
     
     func performNyRequest(with urlString: String) {
@@ -77,10 +75,6 @@ struct WeatherManager {
         let session = URLSession(configuration: .default)
         // GIVE THE SESSION A TASK
         let task = session.dataTask(with: url) { (data, response, error) in
-//            if error != nil {
-//                self.delegate?.didFailWithError(error: error!)
-//                return
-//            }
             if let safeData = data {
                 if let weather = self.parseNyJSON(weatherData: safeData) {
                     self.delegate?.didUpdateNyWeather(self, weather: weather)
